@@ -51,7 +51,7 @@ defaults:
 author:
   name: "Halidu Abdulai"
   avatar: "/assets/images/bio-photo.jpg" 
-  bio: "Doctoral Researcher at Åbo Akademi University. <br> AI-based analysis of multi-modal data for diagnosing neurodegenerative diseases."
+  bio: "Doctoral Researcher at Åbo Akademi University. <br> AI & Machine Learning Engineer on the Horizon Europe NAP4DIVE project."
   location: "Turku, Finland"
   links:
     - label: "Email"
