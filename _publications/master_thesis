@@ -2,7 +2,7 @@
 title: "Employing Large Language Models for Systematic Extraction of Nanoparticle Designs from Scientific Literature"
 collection: publications
 category: manuscripts
-permalink: 'https://www.doria.fi/handle/10024/192924' # /publication/master_thesis
+permalink: /publication/master_thesis
 excerpt: 'Use of LLMs to extract nanoparticle design information from peer-reviewed scientific articles'
 date: 2025-07-25
 venue: 'doria achieves'
