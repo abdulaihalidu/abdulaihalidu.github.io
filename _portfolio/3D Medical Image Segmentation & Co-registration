@@ -1,5 +1,5 @@
 ---
-title: "_portfolio/3D Medical Image Segmentation & Co-registration"
+title: "3D Medical Image Segmentation & Co-registration"
 excerpt: "3D seeded region growing algorithm for semi-automatic tumor segmentation and a manual rigid co-registration system using landmark-based optimization. <br/><img src='/images/semi_auto_seg.png'>"
 collection: portfolio
 ---
