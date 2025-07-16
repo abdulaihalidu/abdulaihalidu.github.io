@@ -1,7 +1,8 @@
 ---
-title: "Classical Crowd Counting Pipeline"
+title: "_portfolio/3D Medical Image Segmentation & Co-registration"
 excerpt: "3D seeded region growing algorithm for semi-automatic tumor segmentation and a manual rigid co-registration system using landmark-based optimization. <br/><img src='/images/semi_auto_seg.png'>"
 collection: portfolio
 ---
 
 Developed a medical image processing pipeline for processing abdominal CT scans. The pipeline includes a 3D seeded region growing algorithm for semi-automatic tumor segmentation and a manual rigid co-registration system using landmark-based optimization.
+<p>Check the full implementation on <a href="https://github.com/abdulaihalidu/Medical-Image-Processing">GitHub</a></p>
