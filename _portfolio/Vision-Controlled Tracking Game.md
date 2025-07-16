@@ -5,3 +5,4 @@ collection: portfolio
 ---
 
 An interactive shape-matching game that uses a particle filter for visual object tracking. The user controls an in-game object by moving a red-colored object in front of a webcam. The core of the project is a robust visual tracking algorithm that can handle noisy measurements and temporary occlusions.
+<p>Check the full implementation on <a href="https://github.com/abdulaihalidu/visual-object-tracking-game">GitHub</a></p>
