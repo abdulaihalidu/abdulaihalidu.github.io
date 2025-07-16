@@ -113,8 +113,7 @@ _2024–2025 (Prof. Sebastien Lafond)_
 ## Skills
 
 - **Programming**: Python, C, C++, Java, JavaScript, MATLAB  
-- **Machine Learning**: PyTorch, TensorFlow, Keras, OpenCV, Scikit-Learn, Hugging Face, OpenAI APIs, MLFlow  
-- **Frameworks & Tools**: Flask, FastAPI, Django, MySQL, MongoDB, Firebase, Git, Docker, AWS, GCP, OpenMP/MPI  
+- **Machine/Deep Learning**: PyTorch, TensorFlow, Keras, OpenCV, Scikit-Learn, Hugging Face, OpenAI APIs, MLFlow, OpenMP/MPI   
 - **Languages**: English (Native/Bilingual), Turkish (C1), Spanish (B1), French (A1)
 
 ---
