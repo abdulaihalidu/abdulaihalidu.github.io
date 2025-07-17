@@ -76,9 +76,10 @@ _Machine Learning Research Intern | Jul 2022 – Sep 2022_
 
 **Huawei Technologies Oy**, Helsinki, Finland  
 _Data Analytics Intern | Jun 2024 – Sep 2024_  
-- Designed an ML-enabled dashboard (Plotly Dash) to improve data workflows by 30%.  
-- Led participant recruitment and ensured ethical data acquisition for wearable tech studies.  
-- Applied DS and ML methodologies to develop strength-training algorithms for wearable technologies.
+- Designed ML-enabled dashboard (Plotly Dash) to streamline data workflows (+30% efficiency)
+- Led participant recruitment and ensured ethical data acquisition for wearable tech studies
+- Collaborated with multidisciplinary teams to implement strength-training algorithms, applying DS and ML methodologies to enhance the development of wearable technologies
+
 
 ---
 
@@ -108,13 +109,13 @@ _2024–2025 (Prof. Sebastien Lafond)_
 
 ## Leadership
 
-- **Erasmus Mundus Association (EMA) – Programme Representative (EDISS)**  
-  _May 2024 – Present_  
-  - Represents EDISS within EMA. Coordinates activities and reports on programme initiatives.
-
 - **EMA – Country Representative (Ghana)**  
   _Jul 2025 – Present_  
   - Leads and coordinates Erasmus Mundus activities in Ghana. Liaises with Ghanaian students and EMA.
+
+- **Erasmus Mundus Association (EMA) – Programme Representative (EDISS)**  
+  _May 2024 – Present_  
+  - Represents EDISS within EMA. Coordinates activities and reports on programme initiatives.
 
 - **African Students in Trabzon Association (ASTRA) – Vice President**  
   _Nov 2021 – Nov 2022_  
