@@ -109,7 +109,7 @@ _2024–2025 (Prof. Sebastien Lafond)_
 
 ## Leadership
 
-- **EMA – Country Representative (Ghana)**  
+- **Erasmus Mundus Association (EMA) – Country Representative (Ghana)**  
   _Jul 2025 – Present_  
   - Leads and coordinates Erasmus Mundus activities in Ghana. Liaises with Ghanaian students and EMA.
 
