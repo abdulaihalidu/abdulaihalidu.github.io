@@ -7,6 +7,7 @@ redirect_from:
   - /resume
 redirect_to: /files/Halidu_Abdulai_CV.pdf
 ---
+{% include base_path %} 
 
 <!doctype html>
 <html>
