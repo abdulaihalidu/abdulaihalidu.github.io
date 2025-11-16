@@ -20,14 +20,14 @@ main:
   - title: "Portfolio"
     url: /portfolio/
         
-  - title: "Blog Posts"
-    url: /year-archive/
+  #- title: "Blog Post"
+  # url: /year-archive/
     
   - title: "CV"
-    url: https://github.com/abdulaihalidu/abdulaihalidu.github.io/blob/master/files/Halidu_Abdulai_CV.pdf
+    url: /cv/
     
   # - title: "CV"
   #   url: /cv-json/
     
-  - title: "Guide"
-    url: /markdown/
+  # - title: "Guide"
+  #   url: /markdown/
