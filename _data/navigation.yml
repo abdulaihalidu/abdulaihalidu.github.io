@@ -24,7 +24,7 @@ main:
     url: /year-archive/
     
   - title: "CV"
-    url: /cv/
+    url: https://github.com/abdulaihalidu/abdulaihalidu.github.io/blob/master/files/Halidu_Abdulai_CV.pdf
     
   # - title: "CV"
   #   url: /cv-json/
