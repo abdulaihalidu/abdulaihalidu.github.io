@@ -25,4 +25,5 @@ As a young person who has been working my way up over the years, I've learned a 
 - If it is to be done **for you**, then it must be done **by you**. No one is more capable of doing something for you than you are for yourself.
 - There will always seem to be better options elsewhere, but if you focus on where you are and what you have, you can make the options you already have even better.
 - You can get what you want if you want it enough, but always question whether it's worth what you're sacrificing in order to get it.
+- People don’t care about potential; in a results-obsessed world, even the least capable person with proof will usually be chosen over the most gifted person with only promise.
 
