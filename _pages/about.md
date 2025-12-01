@@ -22,7 +22,7 @@ My research interests lie in machine learning, computer vision, and natural lang
 
 As a young person who has been working my way up over the years, I've learned a few principles in life that I find worth sharing:
 
-- If something must be done *for* you, it must be done *by* you. No one is more capable of doing something for you than you are for yourself.
+- If it is to be done **for you**, then it must be done **by you**. No one is more capable of doing something for you than you are for yourself.
 - There will always seem to be better options elsewhere, but if you focus on where you are and what you have, you can make the options you already have even better.
 - You can get what you want if you want it enough, but always question whether it's worth what you're sacrificing in order to get it.
 
