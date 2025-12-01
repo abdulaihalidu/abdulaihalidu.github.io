@@ -18,7 +18,7 @@ My research interests lie in machine learning, computer vision, and natural lang
 
 --- 
 
-## Favorite quotes
+## Miscellaneous
 
 As a young person who has been working my way up over the years, I've learned a few principles in life that I find worth sharing:
 
