@@ -22,7 +22,7 @@ repository               : "abdulaihalidu.github.io"
 #               Additional customization can be done by editing /_includes/author-profile.html
 author:
   # Biographic information
-  avatar           : "halid.jpeg"
+  avatar           : "Halid.jpg"
   name             : "Halidu (Khalid)"
   pronouns         : "He/Him"  
   bio              : "Building AI systems that truly 'understand' what they 'see', and communicate scientific knowledge in a natural language"
