@@ -19,9 +19,9 @@ Before the PhD, I completed the Erasmus Mundus Joint Master’s programme ([EDIS
 
 More broadly, I work across **machine learning, computer vision, and natural language processing**, with a steady interest in **reliable and inclusive AI**. I’m especially drawn to **multimodal** problems—systems that combine vision, language, and structured data—and to building methods that still behave well when languages, cultures, or real-world conditions shift. A big part of what motivates me is impact: creating models that are **interpretable**, **robust**, and suited for **high-stakes settings** like healthcare—where performance isn’t enough unless the reasoning is transparent and the outputs are dependable.
 
-- ⚡ Fun fact: Me, without Soccer (Football), is like an ice cream cone without the ice cream — just a sad, empty crunch!
-- 
-  
+## Fun fact
+⚡ Me, without soccer (football), is like an ice cream cone without the ice cream — just a sad, empty crunch!
+
 --- 
 
 ## <span class="red-heading">News</span>
@@ -29,7 +29,6 @@ More broadly, I work across **machine learning, computer vision, and natural lan
 - **2026-01:** Began serving as a teaching assistant for *IT00CD79-3007 Machine Learning (2026)* at Åbo Akademi University.
 - **2025-12:** Officially graduated from the Erasmus Mundus Joint Master’s programme (EDISS) and received an **Award for Outstanding Master’s Studies** at Åbo Akademi University.
 - **2025-08:** Joined Åbo Akademi University as a doctoral researcher and began my PhD work on predicting nanoparticle transport across the blood–brain barrier (BBB).
-- 
 
 ---
 
