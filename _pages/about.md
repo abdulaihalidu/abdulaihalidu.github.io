@@ -22,7 +22,7 @@ More broadly, I work across **machine learning, computer vision, and natural lan
 - ⚡ Fun fact: Me, without Soccer (Football), is like an ice cream cone without the ice cream — just a sad, empty crunch!
 --- 
 
-<h2 style="color: red; margin-top: 1.2em;">News</h2>
+<h2 class="news-title">News</h2>
 
 - **2026-01-20** — Began serving as a teaching assistant for *IT00CD79-3007 Machine Learning (2026)* at Åbo Akademi University.
 - **2025-12-03** — Officially graduated from the Erasmus Mundus Joint Master’s programme (EDISS) and received an **Award for Outstanding Master’s Studies** at Åbo Akademi University.
