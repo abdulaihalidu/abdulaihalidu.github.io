@@ -24,9 +24,9 @@ More broadly, I work across **machine learning, computer vision, and natural lan
 
 ## <span class="red-heading">News</span>
 
-- **2026-01-20** — Began serving as a teaching assistant for *IT00CD79-3007 Machine Learning (2026)* at Åbo Akademi University.
-- **2025-12-03** — Officially graduated from the Erasmus Mundus Joint Master’s programme (EDISS) and received an **Award for Outstanding Master’s Studies** at Åbo Akademi University.
-- **2025-08-01** — Joined Åbo Akademi University as a doctoral researcher and began my PhD work on predicting nanoparticle transport across the blood–brain barrier (BBB).
+- **2026-01:** Began serving as a teaching assistant for *IT00CD79-3007 Machine Learning (2026)* at Åbo Akademi University.
+- **2025-12:** Officially graduated from the Erasmus Mundus Joint Master’s programme (EDISS) and received an **Award for Outstanding Master’s Studies** at Åbo Akademi University.
+- **2025-08:** Joined Åbo Akademi University as a doctoral researcher and began my PhD work on predicting nanoparticle transport across the blood–brain barrier (BBB).
 ---
 
 ## Miscellaneous
