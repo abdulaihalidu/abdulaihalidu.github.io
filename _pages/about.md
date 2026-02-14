@@ -11,7 +11,7 @@ redirect_from:
 
 **PhD Researcher @ Åbo Akademi University** · **AI for Healthcare** · **ML / NLP / CV**
 
-I’m a doctoral researcher at Åbo Akademi University, supervised by [Prof. Sebastien Lafond](https://research.abo.fi/sv/persons/sebastien-lafond/). My work sits at the intersection of machine learning and drug delivery: I build predictive models that estimate whether **nanoparticles can cross the blood–brain barrier (BBB)**. The goal is practical—help researchers **screen and prioritize** large numbers of nanoparticle designs and focus lab time on the candidates most likely to work. This research is part of the EU Horizon project [NAP4DIVE](https://nap4dive.eu/).
+I’m a doctoral researcher at Åbo Akademi University, supervised by [Prof. Sebastien Lafond](https://research.abo.fi/sv/persons/sebastien-lafond/) and [Hergys Rexha](https://research.abo.fi/sv/persons/hergys-rexha/). My work sits at the intersection of machine learning and drug delivery: I build predictive models that estimate whether **nanoparticles can cross the blood–brain barrier (BBB)**. The goal is practical—help researchers **screen and prioritize** large numbers of nanoparticle designs and focus lab time on the candidates most likely to work. This research is part of the EU Horizon project [NAP4DIVE](https://nap4dive.eu/).
 
 Before the PhD, I completed the Erasmus Mundus Joint Master’s programme ([EDISS](https://www.master-ediss.eu/)), earning:
 - an **MSc in Computer Engineering** from Åbo Akademi University (Finland), and  
