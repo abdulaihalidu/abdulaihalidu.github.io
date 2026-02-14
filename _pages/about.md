@@ -11,9 +11,11 @@ redirect_from:
 
 **PhD Researcher @ Åbo Akademi University** · **AI for Healthcare** · **ML / NLP / CV**
 
-I’m a doctoral researcher at Åbo Akademi University, supervised by [Prof. Sebastien Lafond](https://research.abo.fi/sv/persons/sebastien-lafond/) and [Hergys Rexha](https://research.abo.fi/sv/persons/hergys-rexha/). My work sits at the intersection of machine learning and drug delivery: I build predictive models that estimate whether **nanoparticles can cross the blood–brain barrier (BBB)**. The goal is to help researchers **screen and prioritize** large numbers of nanoparticle designs and focus lab time on the candidates most likely to work. This research is part of the EU Horizon project [NAP4DIVE](https://nap4dive.eu/).
+I’m a doctoral researcher at Åbo Akademi University, supervised by 
+<a href="https://research.abo.fi/sv/persons/sebastien-lafond/" target="_blank" rel="noopener noreferrer">Prof. Sebastien Lafond</a> 
+and <a href="https://research.abo.fi/sv/persons/hergys-rexha/" target="_blank" rel="noopener noreferrer">Hergys Rexha</a>. My work sits at the intersection of machine learning and drug delivery: I build predictive models that estimate whether **nanoparticles can cross the blood–brain barrier (BBB)**. The goal is to help researchers **screen and prioritize** large numbers of nanoparticle designs and focus lab time on the candidates most likely to work. This research is part of the EU Horizon project <a href="https://nap4dive.eu/" target="_blank" rel="noopener noreferrer">NAP4DIVE</a>.
 
-Before the PhD, I completed the Erasmus Mundus Joint Master’s programme ([EDISS](https://www.master-ediss.eu/)), earning:
+Before the PhD, I completed the Erasmus Mundus Joint Master’s programme (<a href="https://www.master-ediss.eu/" target="_blank" rel="noopener noreferrer">EDISS</a>), earning:
 - an **MSc in Computer Engineering** from Åbo Akademi University (Finland), and  
 - an **MSc in Intelligent Systems**, specialized in **Computer Vision and Data Science**, from the University of the Balearic Islands (Spain).
 
