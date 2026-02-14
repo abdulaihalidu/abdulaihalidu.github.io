@@ -13,13 +13,13 @@ redirect_from:
 
 I’m a doctoral researcher at Åbo Akademi University, supervised by 
 <a href="https://research.abo.fi/sv/persons/sebastien-lafond/" target="_blank" rel="noopener noreferrer">Prof. Sebastien Lafond</a> 
-and <a href="https://research.abo.fi/sv/persons/hergys-rexha/" target="_blank" rel="noopener noreferrer">Hergys Rexha</a>. My work sits at the intersection of machine learning and drug delivery: I build predictive models that estimate whether **nanoparticles can cross the blood–brain barrier (BBB)**. The goal is to help researchers **screen and prioritize** large numbers of nanoparticle designs and focus lab time on the candidates most likely to work. This research is part of the EU Horizon project <a href="https://nap4dive.eu/" target="_blank" rel="noopener noreferrer">NAP4DIVE</a>.
+and <a href="https://research.abo.fi/sv/persons/hergys-rexha/" target="_blank" rel="noopener noreferrer">Hergys Rexha</a>. My work sits at the intersection of machine learning and drug delivery: I build predictive models that estimate whether **nanoparticles can cross the blood–brain barrier (BBB)**. The goal is to help researchers screen and prioritize large numbers of nanoparticle designs and focus lab time on the candidates most likely to work. This research is part of the EU Horizon project <a href="https://nap4dive.eu/" target="_blank" rel="noopener noreferrer">NAP4DIVE</a>.
 
 Before the PhD, I completed the Erasmus Mundus Joint Master’s programme (<a href="https://www.master-ediss.eu/" target="_blank" rel="noopener noreferrer">EDISS</a>), earning:
-- an **MSc in Computer Engineering** from Åbo Akademi University (Finland), and  
-- an **MSc in Intelligent Systems**, specialized in **Computer Vision and Data Science**, from the University of the Balearic Islands (Spain).
+- an MSc in Computer Engineering from Åbo Akademi University (Finland), and  
+- an MSc in Intelligent Systems, specialized in Computer Vision and Data Science, from the University of the Balearic Islands (Spain).
 
-More broadly, I work across **machine learning, computer vision, and natural language processing**, with a steady interest in **reliable and inclusive AI**. I’m especially drawn to **multimodal** problems—systems that combine vision, language, and structured data—and to building methods that still behave well when languages, cultures, or real-world conditions shift. A big part of what motivates me is impact: creating models that are **interpretable**, **robust**, and suited for **high-stakes settings** like healthcare—where performance isn’t enough unless the reasoning is transparent and the outputs are dependable.
+More broadly, I work across machine learning, computer vision, and natural language processing, with a steady interest in reliable and inclusive AI. I’m especially drawn to multimodal problems—systems that combine vision, language, and structured data—and to building methods that still behave well when languages, cultures, or real-world conditions shift. A big part of what motivates me is impact: creating models that are interpretable, robust, and suited for high-stakes settings like healthcare—where performance isn’t enough unless the reasoning is transparent and the outputs are dependable.
 
 ## Fun fact
 ⚡ Me, without soccer (football), is like an ice cream cone without the ice cream — just a sad, empty crunch!
@@ -29,7 +29,7 @@ More broadly, I work across **machine learning, computer vision, and natural lan
 ## <span class="red-heading">News</span>
 
 - **2026-01:** Began serving as a teaching assistant for *IT00CD79-3007 Machine Learning (2026)* at Åbo Akademi University.
-- **2025-12:** Officially graduated from the Erasmus Mundus Joint Master’s programme (EDISS) and received an **Award for Outstanding Master’s Studies** at Åbo Akademi University.
+- **2025-12:** Officially graduated from the Erasmus Mundus Joint Master’s programme (EDISS) and received an Award for Outstanding Master’s Studies at Åbo Akademi University.
 - **2025-08:** Joined Åbo Akademi University as a doctoral researcher and began my PhD work on predicting nanoparticle transport across the blood–brain barrier (BBB).
 
 ---
