@@ -19,7 +19,7 @@ Before the PhD, I completed the Erasmus Mundus Joint Master’s programme (<a hr
 - an MSc in Computer Engineering from Åbo Akademi University (Finland), and  
 - an MSc in Intelligent Systems, specialized in Computer Vision and Data Science, from the University of the Balearic Islands (Spain).
 
-I completed my BSc in Computer Engineering at Karadeniz Technical University (Turkey) under the Türkiye Scholarships (Turkiye Burslari) program, graduating as the top student in the department.
+I completed my BSc in Computer Engineering at Karadeniz Technical University (Türkiye) under the Türkiye Scholarships (Türkiye Burslari) program, graduating as the top student in the department.
 
 More broadly, I work across machine learning, computer vision, and natural language processing, with a steady interest in reliable and inclusive AI. I’m especially drawn to multimodal problems—systems that combine vision, language, and structured data—and to building methods that still behave well when languages, cultures, or real-world conditions shift. A big part of what motivates me is impact: creating models that are interpretable, robust, and suited for high-stakes settings like healthcare—where performance isn’t enough unless the reasoning is transparent and the outputs are dependable.
 
