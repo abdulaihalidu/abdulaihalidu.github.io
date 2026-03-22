@@ -3,10 +3,10 @@ title: "Zero-shot evidence-grounded extraction of blood-brain barrier nanopartic
 collection: publications
 category: manuscripts
 permalink: /publication/llm_np_data_extractor
-excerpt: 'Use of LLMs to extract nanoparticle design information from peer-reviewed scientific articles'
+excerpt: 'We introduces an open, two-stage LLM system that automatically extracts and verifies blood-brain barrier nanoparticle data from research articles, outperforming Claude Sonnet 4 and GPT5.2, and enabling scalable dataset creation for AI-driven materials design.'
 date: 2026-03-18
-venue: 'IOP Publications Ltd'
-slidesurl: 'http://abdulaihalidu.github.io/files/thesis_presentation.pdf'
-paperurl: 'https://www.doria.fi/handle/10024/192924'
-# citation: 'Abdulai, H. et al (2026). &quot;Paper Title Number 2.&quot; <i>Machine learning: science and technology</i>. 1(2).'
+venue: 'Machine Learning: Science and Technology'
+slidesurl: ''
+paperurl: 'https://iopscience.iop.org/article/10.1088/2632-2153/ae5442/pdf'
+#citation: 'H, Abdulai et al (2026). &quot;Paper Title Number 2.&quot; <i>Machine learning: science and technology</i>. 1(2).'
 ---
