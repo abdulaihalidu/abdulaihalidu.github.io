@@ -3,7 +3,7 @@ title: "Zero-shot evidence-grounded extraction of blood-brain barrier nanopartic
 collection: publications
 category: manuscripts
 permalink: /publication/llm_np_data_extractor
-excerpt: 'We introduces an open, two-stage LLM system that automatically extracts and verifies blood-brain barrier nanoparticle data from research articles, outperforming Claude Sonnet 4 and GPT5.2, and enabling scalable dataset creation for AI-driven materials design.'
+excerpt: 'We introduce an open, two-stage LLM system that automatically extracts and verifies blood-brain barrier nanoparticle data from research articles, outperforming Claude Sonnet 4 and GPT5.2, and enabling scalable dataset creation for AI-driven materials design.'
 date: 2026-03-18
 venue: 'Machine Learning: Science and Technology'
 slidesurl: ''
