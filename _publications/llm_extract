@@ -1,0 +1,12 @@
+---
+title: "Zero-shot evidence-grounded extraction of blood-brain barrier nanoparticle design parameters with open-weight language models"
+collection: publications
+category: manuscripts
+permalink: /publication/llm_np_data_extractor
+excerpt: 'Use of LLMs to extract nanoparticle design information from peer-reviewed scientific articles'
+date: 2026-03-18
+venue: 'IOP Publications Ltd'
+slidesurl: 'http://abdulaihalidu.github.io/files/thesis_presentation.pdf'
+paperurl: 'https://www.doria.fi/handle/10024/192924'
+# citation: 'Abdulai, H. et al (2026). &quot;Paper Title Number 2.&quot; <i>Machine learning: science and technology</i>. 1(2).'
+---
