@@ -36,6 +36,11 @@ More broadly, I work across machine learning, computer vision, and natural langu
 
 ---
 
+## Publications
+For a complete and up-to-date list of my publications, please see my [Google Scholar profile](https://scholar.google.com/citations?user=mF1xLTkAAAAJ).
+
+---
+
 ## Miscellaneous
 
 As a young person who has been working my way up over the years, I've learned a few principles in life that I find worth sharing:
