@@ -30,6 +30,7 @@ More broadly, I work across machine learning, computer vision, and natural langu
 
 ## <span class="red-heading">News</span>
 
+- **2026-05:** Received the Extraordinary Master’s Degree Award in Intelligent Systems at Universitat de les Illes Balears, along with a poster award for my master’s thesis in the Engineering and Architecture branch ((read about it here)[https://www.uib.cat/w/la-setmana-del-postgrau-de-la-uib-conclou-amb-el-lliurament-dels-premis-extraordinaris-de-master]). 
 - **2026-01:** Began serving as a teaching assistant for *IT00CD79-3007 Machine Learning (2026)* at Åbo Akademi University.
 - **2025-12:** Officially graduated from the Erasmus Mundus Joint Master’s programme (EDISS) and received an Award for Outstanding Master’s Studies at Åbo Akademi University.
 - **2025-08:** Joined Åbo Akademi University as a doctoral researcher and began my PhD work on predicting nanoparticle transport across the blood–brain barrier (BBB).
