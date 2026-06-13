@@ -28,8 +28,9 @@ More broadly, I work across machine learning, computer vision, and natural langu
 
 --- 
 
-## <span class="red-heading">News</span>
+## <span class="red-heading">News</span> 
 
+- **2026-06-18:** Our team won the Exponential Discovery for Life Sciences Hackathon organized by AMD Silo AI, Orion Pharma & CSC.
 - **2026-05:** Received the Extraordinary Master’s Degree Award in Intelligent Systems at Universitat de les Illes Balears, along with a poster award for my master’s thesis in the Engineering and Architecture branch (<a href="https://www.uib.cat/w/la-setmana-del-postgrau-de-la-uib-conclou-amb-el-lliurament-dels-premis-extraordinaris-de-master" target="_blank" rel="noopener noreferrer">Read about it here</a>). 
 - **2026-01:** Began serving as a teaching assistant for *IT00CD79-3007 Machine Learning (2026)* at Åbo Akademi University.
 - **2025-12:** Officially graduated from the Erasmus Mundus Joint Master’s programme (EDISS) and received an Award for Outstanding Master’s Studies at Åbo Akademi University.
