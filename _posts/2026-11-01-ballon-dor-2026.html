@@ -1,0 +1,1496 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<style>:root{color-scheme:light}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>The Ballot Room</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">
+<style>
+/* Layout: a single reading column at 72ch, widened to full-bleed for charts and
+   the ballot explorer. Identity: France Football red as the page accent, reserved
+   for chrome and never used in a chart; the chart palette carries the three
+   contenders and is validated for both surfaces. */
+:root{
+  --bg:#f6f7f9; --surface:#ffffff; --surface-2:#eef1f5; --sunk:#f9fafb;
+  --ink:#0d1117; --ink-2:#4a5260; --ink-3:#848d9c;
+  --rule:#e1e6ec; --rule-2:#cfd6df;
+  --accent:#c8102e; --accent-ink:#c8102e; --accent-wash:#fdeef0;
+  --kane:#2a78d6; --mbappe:#eb6834; --yamal:#1baf7a;
+  --rodri:#eda100; --messi:#e87ba4; --kvara:#008300; --other:#b4b2ab;
+  --seq-1:#cde2fb; --seq-2:#9ec5f4; --seq-3:#6da7ec; --seq-4:#3987e5;
+  --seq-5:#2a78d6; --seq-6:#1c5cab; --seq-7:#104281;
+  --shadow:0 1px 2px rgba(13,17,23,.04),0 8px 28px rgba(13,17,23,.06);
+  --display:'Archivo',"Helvetica Neue",Helvetica,Arial,sans-serif;
+  --body:'Source Serif 4',Georgia,'Times New Roman',serif;
+  --mono:'IBM Plex Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
+  --maxw:1180px; --col:72ch;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  color-scheme:dark;
+  --bg:#0d1117; --surface:#161b22; --surface-2:#1d242e; --sunk:#11161d;
+  --ink:#eef1f6; --ink-2:#aeb6c4; --ink-3:#737d8d;
+  --rule:#262d38; --rule-2:#333c49;
+  --accent:#ff5470; --accent-ink:#ff7489; --accent-wash:#2a1419;
+  --kane:#3987e5; --mbappe:#d95926; --yamal:#199e70;
+  --rodri:#c98500; --messi:#d55181; --kvara:#008300; --other:#8a8f98;
+  --seq-1:#15314f; --seq-2:#184f95; --seq-3:#1c5cab; --seq-4:#256abf;
+  --seq-5:#3987e5; --seq-6:#6da7ec; --seq-7:#9ec5f4;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 28px rgba(0,0,0,.34);
+}}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --bg:#0d1117; --surface:#161b22; --surface-2:#1d242e; --sunk:#11161d;
+  --ink:#eef1f6; --ink-2:#aeb6c4; --ink-3:#737d8d;
+  --rule:#262d38; --rule-2:#333c49;
+  --accent:#ff5470; --accent-ink:#ff7489; --accent-wash:#2a1419;
+  --kane:#3987e5; --mbappe:#d95926; --yamal:#199e70;
+  --rodri:#c98500; --messi:#d55181; --kvara:#008300; --other:#8a8f98;
+  --seq-1:#15314f; --seq-2:#184f95; --seq-3:#1c5cab; --seq-4:#256abf;
+  --seq-5:#3987e5; --seq-6:#6da7ec; --seq-7:#9ec5f4;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 28px rgba(0,0,0,.34);
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);
+     font-size:17px;line-height:1.62;-webkit-font-smoothing:antialiased;margin:0}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);
+     z-index:40;background:var(--bg)}
+.wrap{max-width:var(--maxw);margin:0 auto;
+     padding-left:max(16px,env(safe-area-inset-left,0px));
+     padding-right:max(16px,env(safe-area-inset-right,0px))}
+.col{max-width:var(--col)}
+h1,h2,h3,h4{font-family:var(--display);font-weight:700;line-height:1.12;
+     text-wrap:balance;margin:0;letter-spacing:-.016em}
+p{margin:0 0 1.05em}
+a{color:var(--accent-ink)}
+.eyebrow{font-family:var(--mono);font-size:11.5px;font-weight:600;letter-spacing:.14em;
+     text-transform:uppercase;color:var(--accent-ink);margin:0 0 10px}
+.lede{font-size:20px;line-height:1.52;color:var(--ink-2)}
+.num{font-family:var(--mono);font-variant-numeric:tabular-nums;font-feature-settings:"tnum"}
+.small{font-size:14.5px;line-height:1.58;color:var(--ink-2)}
+.tiny{font-family:var(--display);font-size:12.5px;line-height:1.5;color:var(--ink-3)}
+hr.rule{border:0;border-top:1px solid var(--rule);margin:0}
+
+/* ---- header ---- */
+header.top{border-bottom:1px solid var(--rule);background:var(--surface)}
+.hero{padding-block:62px 46px}
+.hero h1{font-size:clamp(42px,8vw,84px);font-weight:800;letter-spacing:-.034em;margin:0 0 18px}
+.hero .sub{font-size:clamp(17px,2.4vw,21px);color:var(--ink-2);max-width:62ch;line-height:1.5}
+.podium{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--rule);
+     border:1px solid var(--rule);border-radius:12px;overflow:hidden;margin-top:34px}
+.podium>div{background:var(--surface);padding:20px 18px 18px;position:relative}
+.podium .bar{position:absolute;inset:0 0 auto;height:4px}
+.podium .pos{font-family:var(--mono);font-size:11px;letter-spacing:.1em;color:var(--ink-3);
+     text-transform:uppercase}
+.podium .nm{font-family:var(--display);font-size:clamp(17px,2.6vw,23px);font-weight:700;margin:7px 0 4px;
+     letter-spacing:-.02em}
+.podium .pt{font-family:var(--mono);font-size:clamp(22px,4vw,32px);font-weight:600;letter-spacing:-.02em}
+.podium .mt{font-size:13px;color:var(--ink-3);font-family:var(--display);margin-top:5px}
+@media(max-width:620px){.podium{grid-template-columns:1fr}}
+
+/* ---- nav ---- */
+nav.toc{position:sticky;top:env(safe-area-inset-top,0px);z-index:30;
+     background:color-mix(in srgb,var(--surface) 92%,transparent);
+     backdrop-filter:saturate(1.6) blur(10px);border-bottom:1px solid var(--rule)}
+nav.toc .wrap{display:flex;gap:2px;overflow-x:auto;scrollbar-width:none;padding-block:0}
+nav.toc .wrap::-webkit-scrollbar{display:none}
+nav.toc a{font-family:var(--display);font-size:13px;font-weight:600;color:var(--ink-2);
+     text-decoration:none;padding:13px 12px;white-space:nowrap;border-bottom:2px solid transparent}
+nav.toc a:hover{color:var(--ink)}
+nav.toc a.on{color:var(--accent-ink);border-bottom-color:var(--accent)}
+
+/* ---- sections ---- */
+section{padding-block:56px;border-bottom:1px solid var(--rule)}
+section:nth-of-type(even){background:var(--sunk)}
+h2{font-size:clamp(27px,4.4vw,38px);font-weight:800;letter-spacing:-.028em;margin:0 0 14px}
+h3{font-size:20px;font-weight:700;margin:34px 0 10px}
+h4{font-size:15px;font-weight:700;margin:0 0 8px;font-family:var(--display)}
+
+/* ---- components ---- */
+.card{background:var(--surface);border:1px solid var(--rule);border-radius:12px;
+     padding:20px;box-shadow:var(--shadow)}
+.chart{background:var(--surface);border:1px solid var(--rule);border-radius:12px;
+     padding:18px 16px 10px;margin:26px 0 8px;box-shadow:var(--shadow)}
+.chart .ct{font-family:var(--display);font-size:16.5px;font-weight:700;letter-spacing:-.015em;margin:0 0 3px}
+.chart .cs{font-family:var(--display);font-size:13px;line-height:1.5;color:var(--ink-2);margin:0 0 12px;max-width:82ch}
+.ec{width:100%}
+.grid{display:grid;gap:14px}
+.grid>*{min-width:0}
+.g2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.g3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.g4{grid-template-columns:repeat(4,minmax(0,1fr))}
+@media(max-width:860px){.g3,.g4{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:560px){.g2,.g3,.g4{grid-template-columns:1fr}}
+.stat{background:var(--surface);border:1px solid var(--rule);border-radius:12px;padding:16px 16px 14px}
+.stat .k{font-family:var(--mono);font-size:clamp(24px,4.4vw,32px);font-weight:600;letter-spacing:-.025em;
+     line-height:1.05;display:block}
+.stat .l{font-family:var(--display);font-size:12.6px;line-height:1.42;color:var(--ink-2);margin-top:7px}
+.pull{border-left:3px solid var(--accent);padding:2px 0 2px 18px;margin:26px 0;
+     font-size:19px;line-height:1.5;color:var(--ink);font-weight:400}
+.note{font-family:var(--display);font-size:13px;line-height:1.55;color:var(--ink-3);
+     background:var(--surface-2);border-radius:9px;padding:12px 14px;margin:18px 0}
+.chip{display:inline-flex;align-items:center;gap:6px;font-family:var(--display);font-size:12.5px;
+     font-weight:600;padding:3px 9px;border-radius:999px;border:1px solid var(--rule-2);color:var(--ink-2)}
+.dot{width:9px;height:9px;border-radius:50%;flex:0 0 auto}
+table{border-collapse:collapse;width:100%;font-family:var(--display);font-size:13.6px}
+.tscroll{overflow-x:auto;margin:20px 0;border:1px solid var(--rule);border-radius:11px;background:var(--surface)}
+#t-2x2 th,#t-2x2 td{white-space:normal}
+th{text-align:left;font-weight:600;color:var(--ink-3);font-size:11.5px;letter-spacing:.07em;
+   text-transform:uppercase;padding:11px 13px;border-bottom:1px solid var(--rule);white-space:nowrap}
+td{padding:9px 13px;border-bottom:1px solid var(--rule);vertical-align:top}
+tbody tr:last-child td{border-bottom:0}
+td.n{font-family:var(--mono);font-variant-numeric:tabular-nums;white-space:nowrap}
+button,select,input{font-family:var(--display);font-size:13.5px;color:var(--ink)}
+.btn{background:var(--surface);border:1px solid var(--rule-2);border-radius:8px;padding:7px 13px;
+     font-weight:600;cursor:pointer;transition:.14s}
+.btn:hover{border-color:var(--ink-3)}
+.btn.on{background:var(--ink);color:var(--surface);border-color:var(--ink)}
+.btn:focus-visible,select:focus-visible,input:focus-visible,a:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.ctrl{display:flex;flex-wrap:wrap;gap:7px;align-items:center;margin:0 0 14px}
+.ctrl label{font-family:var(--display);font-size:12.4px;font-weight:600;color:var(--ink-3);
+     text-transform:uppercase;letter-spacing:.07em;margin-right:3px}
+select,input[type=search]{background:var(--surface);border:1px solid var(--rule-2);border-radius:8px;
+     padding:7px 10px}
+input[type=search]{min-width:0}
+.ballot{font-family:var(--display);font-size:14px}
+.ballot li{display:flex;gap:10px;align-items:baseline;padding:5px 0;border-bottom:1px dashed var(--rule)}
+.ballot li:last-child{border-bottom:0}
+.ballot .r{font-family:var(--mono);font-size:12px;color:var(--ink-3);width:22px;flex:0 0 auto}
+.ballot .p{flex:1;min-width:0}
+.ballot .v{font-family:var(--mono);font-size:12px;color:var(--ink-3)}
+ol,ul{padding-left:1.15em;margin:0 0 1.05em}
+li{margin-bottom:.32em}
+footer{padding-block:44px 60px;background:var(--surface)}
+.srcs{columns:2;column-gap:34px;font-family:var(--display);font-size:13px;line-height:1.55;color:var(--ink-2)}
+@media(max-width:620px){.srcs{columns:1}}
+.srcs li{break-inside:avoid;margin-bottom:.5em}
+.theme-btn{position:fixed;right:max(14px,env(safe-area-inset-right,0px));
+     bottom:calc(14px + env(safe-area-inset-bottom,0px));z-index:50;
+     width:40px;height:40px;border-radius:50%;background:var(--surface);
+     border:1px solid var(--rule-2);box-shadow:var(--shadow);cursor:pointer;
+     display:flex;align-items:center;justify-content:center;font-size:15px}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+
+
+<header class="top">
+ <div class="wrap hero">
+  <p class="eyebrow">Ballon d'Or 2026 &middot; men's vote &middot; 100 jurors</p>
+  <h1>Twenty-eight points</h1>
+  <p class="sub">Harry Kane beat Kylian Mbapp&eacute; by the fourth-smallest margin in the award's
+   seventy years. Every country's ballot is public, so the margin can be taken apart.
+   This page does that, and lets you check all one hundred ballots yourself.</p>
+  <div class="podium">
+   <div><span class="bar" style="background:var(--kane)"></span>
+    <div class="pos">Winner &middot; 40 first places</div>
+    <div class="nm">Harry Kane</div>
+    <div class="pt num">1,055</div>
+    <div class="mt">Bayern Munich &middot; England &middot; 73 goals</div></div>
+   <div><span class="bar" style="background:var(--mbappe)"></span>
+    <div class="pos">Second &middot; 23 first places</div>
+    <div class="nm">Kylian Mbapp&eacute;</div>
+    <div class="pt num">1,027</div>
+    <div class="mt">Real Madrid &middot; France &middot; no trophies</div></div>
+   <div><span class="bar" style="background:var(--yamal)"></span>
+    <div class="pos">Third &middot; 13 first places</div>
+    <div class="nm">Lamine Yamal</div>
+    <div class="pt num">881</div>
+    <div class="mt">Barcelona &middot; Spain &middot; world champion</div></div>
+  </div>
+ </div>
+</header>
+
+<div id="cdn-warn" hidden style="background:var(--accent-wash);border-bottom:1px solid var(--rule)">
+ <div class="wrap" style="padding-block:11px">
+  <p style="margin:0;font-family:var(--display);font-size:13px;line-height:1.5;color:var(--ink-2)">
+   <b>The charts could not load.</b> This page draws them with a library fetched from a public CDN,
+   and your network blocked all three sources. Every other part of the page works, including the
+   searchable explorer for all 100 ballots. The same charts are in the PDF deck and the Word document.</p>
+  <p id="cdn-detail" class="num" style="margin:5px 0 0;font-size:11.5px;color:var(--ink-3)"></p>
+ </div></div>
+
+<nav class="toc"><div class="wrap">
+ <a href="#three">The three</a><a href="#margin">The margin</a><a href="#omissions">Omissions</a>
+ <a href="#uk">The UK</a><a href="#podium">Podium &amp; zone</a><a href="#duel">Kane v Mbapp&eacute;</a>
+ <a href="#network">The network</a><a href="#bias">Bias</a><a href="#rules">What-ifs</a>
+ <a href="#explorer">All 100 ballots</a><a href="#method">Method</a>
+</div></nav>
+
+<section id="three"><div class="wrap">
+ <p class="eyebrow">One</p>
+ <h2>Three men, three completely different seasons</h2>
+ <div class="col">
+  <p class="lede">The award covered the 2025-26 club season and the 2026 World Cup in North America.
+   The three who finished on the podium had almost nothing in common.</p>
+ </div>
+
+ <div class="grid g3" style="margin-top:28px">
+  <div class="stat"><span class="k" style="color:var(--kane)">73</span>
+   <span class="l">goals by <b>Kane</b> in 65 matches &mdash; the second-biggest scoring season by
+   anyone this century, behind Messi's 82 in 2011-12. Three trophies, and England's best
+   World Cup finish since 1966.</span></div>
+  <div class="stat"><span class="k" style="color:var(--mbappe)">3</span>
+   <span class="l">scoring charts won by <b>Mbapp&eacute;</b>: the Pichichi, the Champions League and the
+   World Cup Golden Boot. He finished the season with no medals of any kind.</span></div>
+  <div class="stat"><span class="k" style="color:var(--yamal)">19</span>
+   <span class="l">years old. <b>Yamal</b> won La Liga, the Supercopa and the World Cup, led La Liga
+   for assists, and scored once in six World Cup matches.</span></div>
+ </div>
+
+ <div class="chart"><div class="ct">Appearances and goals, competition by competition</div>
+  <div class="cs">Pale bar = matches played. Solid bar = goals. Kane outscored his own appearance
+   count in the Bundesliga: 36 goals in 31 matches. Hover any bar for the detail.</div>
+  <div id="c-comp" class="ec" style="height:400px"></div></div>
+
+ <div class="chart"><div class="ct">Official player-of-the-match awards, on neutral ground</div>
+  <div class="cs">The Champions League and the World Cup are the only two competitions all three
+   played in where the same bodies &mdash; UEFA and FIFA &mdash; hand out the award. This is the
+   like-for-like comparison. Hover a bar for the split.</div>
+  <div id="c-motm" class="ec" style="height:250px"></div></div>
+
+ <div class="note"><b>Why the leagues are left out.</b> Kane won <b>11 Bundesliga man-of-the-match
+  awards</b>, more than any player in that division. There is no figure to put beside it: La Liga
+  publishes no season man-of-the-match count, and no provider tally for 2025-26 could be sourced for
+  Mbapp&eacute; or Yamal. Adding Kane's league awards to a total while the other two have none would
+  flatter him by a factor of three, so the chart shows only the competitions that count all three the
+  same way.</div>
+
+ <h3>How strong was each man's league?</h3>
+ <div class="col"><p>UEFA ranks its associations on a rolling five-year coefficient, which is the
+  closest thing football has to an official measure of league strength. By that measure the
+  Premier League is comfortably Europe's strongest and the Bundesliga is only the fourth
+  strongest of the big five.</p></div>
+ <div class="chart"><div class="ct">League strength against votes won</div>
+  <div class="cs">Left: UEFA's five-year association coefficient. Right: Ballon d'Or points won by
+   players from that league. The strongest league produced the fewest points of the three that
+   mattered.</div>
+  <div id="c-league" class="ec" style="height:290px"></div></div>
+ <div class="pull">Kane won the Ballon d'Or from the fourth-ranked of Europe's big five leagues.
+  The Premier League, ranked first, put seven men on the shortlist and they collected 1,195
+  points between them &mdash; fewer than Bayern's four players managed on their own.</div>
+</div></section>
+
+<section id="margin"><div class="wrap">
+ <p class="eyebrow">Two</p>
+ <h2>The margin came from the top of the ballot, and nowhere else</h2>
+ <div class="col"><p class="lede">Kane and Mbapp&eacute; were named on almost every ballot &mdash; 98 and 97
+  of 100. They made exactly the same number of podiums: sixty-four each. On that measure the
+  race was a dead heat.</p></div>
+
+ <div class="grid g4" style="margin-top:26px">
+  <div class="stat"><span class="k">64 &ndash; 64</span><span class="l">podium finishes.
+   An exact tie between the top two.</span></div>
+  <div class="stat"><span class="k">40 &ndash; 23</span><span class="l">first places.
+   This is the entire story of the award.</span></div>
+  <div class="stat"><span class="k">+255</span><span class="l">Kane's lead from first places
+   alone, before anything else was counted.</span></div>
+  <div class="stat"><span class="k">&minus;227</span><span class="l">of that lead clawed back by
+   Mbapp&eacute; across positions two to ten.</span></div>
+ </div>
+
+ <div class="chart"><div class="ct">Where each man's points came from</div>
+  <div class="cs">Points collected from each band of ballot positions, and the net swing between
+   them. Kane won the top band by 255; Mbapp&eacute; won every other band.</div>
+  <div id="c-tiers" class="ec" style="height:330px"></div></div>
+
+ <div class="chart"><div class="ct">Mbapp&eacute; was never ranked below seventh by anybody</div>
+  <div class="cs">How many jurors placed each man in each position. Click a name in the legend to
+   compare two at a time.</div>
+  <div id="c-shape" class="ec" style="height:330px"></div></div>
+
+ <div class="pull">Ninety-seven jurors named Mbapp&eacute; and not one of them put him eighth, ninth or
+  tenth. He was nobody's afterthought. Kane took five votes in that bottom band and was left
+  off two ballots entirely &mdash; and won.</div>
+
+ <div class="col"><p>So Kane was the more divisive candidate and Mbapp&eacute; the more universally
+  respected one, and the scoring scale rewarded division. The spread of Kane's ballot positions
+  is 2.36 against Mbapp&eacute;'s 1.73.</p></div>
+
+ <div class="chart"><div class="ct">Divisive or dependable</div>
+  <div class="cs">Each bubble is one of the top ten finishers, sized by final points. Left is a
+   better average position; up is a wider spread of opinion.</div>
+  <div id="c-spread" class="ec" style="height:420px"></div></div>
+</div></section>
+
+<section id="omissions"><div class="wrap">
+ <p class="eyebrow">Three</p>
+ <h2>Five jurors left one of the top two off the ballot entirely</h2>
+ <div class="col"><p class="lede">With thirty nominees and ten slots, leaving a man out is a
+  statement. Three jurors left out Mbapp&eacute;; two left out Kane.</p></div>
+
+ <div class="chart"><div class="ct">How many of the 100 jurors left each man off their ballot</div>
+  <div class="cs">Hover a bar to see exactly who. Haaland, who scored at a World Cup and plays for
+   Manchester City, was left out by almost a quarter of the jury.</div>
+  <div id="c-omit" class="ec" style="height:330px"></div></div>
+
+ <div class="grid g2" style="margin-top:8px">
+  <div class="card"><h4 style="color:var(--mbappe)">Nobody outside Europe left Mbapp&eacute; out</h4>
+   <p class="small" style="margin-bottom:12px">All three omissions came from UEFA jurors.
+    Pick one to see the ballot.</p>
+   <div class="ctrl"><select id="sel-om-m"></select></div>
+   <div id="om-m"></div></div>
+  <div class="card"><h4 style="color:var(--kane)">The two who left Kane out</h4>
+   <p class="small" style="margin-bottom:12px">Both put a different man first: Mbapp&eacute; and Yamal.</p>
+   <div class="ctrl"><select id="sel-om-k"></select></div>
+   <div id="om-k"></div></div>
+ </div>
+
+ <div class="note"><b>The detail worth telling.</b> Scotland replaced Mbapp&eacute; with Dayot Upamecano,
+  a Bayern centre-half who appears on exactly one ballot in the world. Greece left out Mbapp&eacute;,
+  Yamal <i>and</i> Messi, and gave third place to Willian Pacho, a PSG defender named on two
+  ballots all year.</div>
+</div></section>
+
+<section id="uk"><div class="wrap">
+ <p class="eyebrow">Four</p>
+ <h2>The United Kingdom question</h2>
+ <div class="col"><p class="lede">Four of the hundred jurors represent the home nations. The
+  suspicion that they swung an England captain to the Ballon d'Or is worth testing properly,
+  because the arithmetic is genuinely tight &mdash; and the answer has a twist in it.</p></div>
+
+ <div class="chart"><div class="ct">The four UK ballots in full</div>
+  <div class="cs">Every pick, with the points it carried. Kane in blue, Mbapp&eacute; in orange,
+   Yamal in green.</div>
+  <div id="uk-grid" style="margin-top:4px"></div></div>
+
+ <div class="grid g2" style="margin-top:22px">
+  <div class="stat"><span class="k">+30</span><span class="l">net points the four UK ballots gave
+   Kane over Mbapp&eacute; &mdash; slightly more than his final margin of 28.</span></div>
+  <div class="stat"><span class="k">1,000 &ndash; 998</span><span class="l">the result with the four UK
+   ballots removed and the other 96 left exactly as they were. <b>Mbapp&eacute; wins.</b></span></div>
+ </div>
+
+ <div class="chart"><div class="ct">The result, with and without the home nations</div>
+  <div class="cs">Conditional arithmetic on the ballots as submitted. Nothing else changes.</div>
+  <div id="c-uk" class="ec" style="height:280px"></div></div>
+
+ <h3>And now the twist</h3>
+ <div class="col">
+  <p><b>The home nations did not vote as a bloc.</b> Wales put Lamine Yamal first and Kane second.
+   Paul Abbandonato's ballot is one of only thirteen in the world to lead with Yamal.</p>
+  <p><b>Scotland is the outlier, not England.</b> John Greechan's ballot gave Kane fifteen points
+   and Mbapp&eacute; none at all &mdash; the single most pro-Kane ballot on earth. England's juror, Henry
+   Winter, had Mbapp&eacute; fifth.</p>
+ </div>
+ <div class="note"><b>Two things this does not show.</b> It is not evidence of bias: a journalist
+  watching a striker score 73 goals may simply rate him highest, as 40 jurors from 39 other
+  countries did. And no single ballot could have changed the result &mdash; the largest swing
+  available from one is fifteen points against a twenty-eight point lead.</div>
+
+ <div class="chart"><div class="ct">Every ballot, ranked by how far it leaned</div>
+  <div class="cs">Points given to Kane minus points given to Mbapp&eacute;, on each of the 100 ballots.
+   Hover for the juror. UK ballots are outlined.</div>
+  <div id="c-swing" class="ec" style="height:440px"></div></div>
+</div></section>
+
+<section id="podium"><div class="wrap">
+ <p class="eyebrow">Five</p>
+ <h2>The podium and the respect zone are two different competitions</h2>
+ <div class="col"><p class="lede">A ballot has two halves. The podium is where a juror says who was
+  best. Places four to seven are where a juror says who deserved respect. Almost entirely
+  different players live in each.</p></div>
+
+ <div class="chart"><div class="ct">Every ballot, split into bands</div>
+  <div class="cs">Each bar is all 100 ballots. Click a band in the legend to remove it.</div>
+  <div id="c-bands" class="ec" style="height:420px"></div></div>
+
+ <div class="pull">Kane tops the podium list with 64 and sits ninth in the respect zone with 29.
+  Khvicha Kvaratskhelia is the mirror image: 19 podiums, but 49 appearances between fourth and
+  seventh &mdash; more than anyone. That is what sixth place in a Ballon d'Or is made of.</div>
+
+ <div class="chart"><div class="ct">Who made the podium, by confederation</div>
+  <div class="cs">The share of each confederation's jurors who put that player in their top three.
+   OFC is a single ballot, so it reads 0% or 100%. Hover for the raw count.</div>
+  <div id="c-heat" class="ec" style="height:420px"></div></div>
+
+ <div class="col"><p>This is where the real geography of the vote shows up, and it is not the one
+  most people assumed. <b>Mbapp&eacute; was the podium pick of Africa</b> &mdash; 65% of CAF jurors put him
+  in their top three against 45% for Kane. <b>Europe was Kane's base</b> &mdash; 71% of UEFA jurors had
+  him on the podium against 56% for Mbapp&eacute;.</p></div>
+</div></section>
+
+<section id="duel"><div class="wrap">
+ <p class="eyebrow">Six</p>
+ <h2>Were they rivals, or running mates?</h2>
+ <div class="col"><p class="lede">When a juror rated Kane highly, what did that juror do with
+  Mbapp&eacute;? Two tests give two different answers, and the combination is the finding.</p></div>
+
+ <div class="grid g2" style="margin-top:26px">
+  <div class="card"><h4>Test one &middot; the podium</h4>
+   <p class="small">Forty jurors found room for both men in their top three. Fisher's exact test
+    on the 2&times;2 table gives an odds ratio of 0.83 and <b>p&nbsp;=&nbsp;0.83</b>. Having Kane on
+    your podium told you nothing about whether Mbapp&eacute; was on it too. The podium was simply wide
+    enough for the pair of them.</p>
+   <div id="t-2x2" style="margin-top:12px"></div></div>
+  <div class="card"><h4>Test two &middot; the order</h4>
+   <p class="small">Among the 95 jurors who named both, rating one higher went with rating the
+    other lower. Spearman's rank correlation is <b>&minus;0.25, p&nbsp;=&nbsp;0.013</b>. Inside the
+    order they were substitutes for the same slot, not a package.</p>
+   <p class="small" style="margin-top:12px"><b>Head to head:</b> Europe rated Kane higher 27&ndash;14.
+    Africa rated Mbapp&eacute; higher 14&ndash;6. The Americas and Asia were close to even. The 2026
+    Ballon d'Or was settled by a disagreement between two continents.</p></div>
+ </div>
+
+ <div class="chart"><div class="ct">One dot per juror who named both men</div>
+  <div class="cs">Horizontal = Kane's position on that ballot. Vertical = Mbapp&eacute;'s. Dots are nudged
+   slightly so overlapping ballots stay visible. Hover for the country.</div>
+  <div id="c-duel" class="ec" style="height:470px"></div></div>
+
+ <div class="chart"><div class="ct">The third name on the podium</div>
+  <div class="cs">What else sat in the top three, split by which of the two was there. Almost
+   identical &mdash; whatever divided the jury on Kane and Mbapp&eacute; did not extend to anyone else.</div>
+  <div id="c-third" class="ec" style="height:300px"></div></div>
+</div></section>
+
+<section id="network"><div class="wrap">
+ <p class="eyebrow">Seven</p>
+ <h2>The voting network</h2>
+ <div class="col"><p class="lede">Every chart so far has counted things. A network does something
+  different: it treats the hundred ballots as a structure and asks whether jurors cluster into
+  groups that vote alike &mdash; and whether those groups follow football's map.</p>
+  <p>Each ballot is compared with every other using cosine similarity across all thirty players'
+   point allocations. Each juror is then linked to its five nearest neighbours, and Louvain
+   community detection looks for groups in the result.</p></div>
+
+ <div class="chart"><div class="ct">Who votes like whom</div>
+  <div class="cs">100 jurors, 388 links. Scroll to zoom, drag to pan, hover a dot for the juror and
+   their top five, hover a line for the similarity score. Position comes from ballot similarity,
+   not geography, and a line is a statistical resemblance &mdash; not contact between journalists.</div>
+  <div class="ctrl"><label>Colour by</label>
+   <button class="btn on" data-net="first">Who they put first</button>
+   <button class="btn" data-net="group">Voting group</button>
+   <button class="btn" data-net="confed">Confederation</button></div>
+  <div id="c-net" class="ec" style="height:600px"></div></div>
+
+ <div id="groups" class="grid g3" style="margin-top:22px"></div>
+
+ <div class="chart"><div class="ct">Every ballot at once</div>
+  <div class="cs">One column per juror, one row per leading player, shaded by the points awarded.
+   Pale means that juror left that player out. Columns are grouped by voting community and sorted
+   within each group from most pro-Kane to most pro-Mbapp&eacute;.</div>
+  <div id="c-matrix" class="ec" style="height:430px"></div></div>
+
+ <h3>Does football's map explain the vote?</h3>
+ <div class="col"><p>If confederation really drove voting, ballots from the same confederation
+  should look more like each other than like ballots from elsewhere. That is testable: compare the
+  average within-group similarity to the between-group average, then shuffle the confederation
+  labels 9,999 times to see how often chance produces a gap that big.</p></div>
+
+ <div class="grid g2" style="margin-top:20px">
+  <div class="stat"><span class="k">0.728 <span style="color:var(--ink-3);font-size:.6em">vs</span> 0.721</span>
+   <span class="l">average ballot similarity within the same confederation against across
+    confederations. The gap is 0.007.</span></div>
+  <div class="stat"><span class="k">p = 0.28</span>
+   <span class="l">Shuffling the labels produces a gap that large about 28% of the time.
+    <b>No overall continental split.</b></span></div>
+ </div>
+
+ <div class="pull">Both things are true at once, and a careful presenter should say both. There is
+  no continental bloc voting across the jury as a whole. But inside the Kane-versus-Mbapp&eacute; choice
+  specifically, Europe and Africa pulled in opposite directions. A global non-effect and a local
+  effect are not a contradiction.</div>
+
+ <div class="grid g2" style="margin-top:22px">
+  <div class="card"><h4>The most ordinary ballot in the world</h4>
+   <p class="small">Neil Davidson of The Globe and Mail in <b>Canada</b> voted most like everyone
+    else, and his ten names line up with the final standings at 0.977.</p>
+   <div id="b-canada" style="margin-top:10px"></div></div>
+  <div class="card"><h4>The least ordinary</h4>
+   <p class="small">Igor Linnyk of FootClub in <b>Ukraine</b> put Fabi&aacute;n Ruiz first, Pau Cubars&iacute;
+    second and Kane ninth, and left out Mbapp&eacute; and Messi. Unconventional is not the same as
+    wrong: the midfielder who ran PSG's Champions League-winning midfield is a defensible answer.</p>
+   <div id="b-ukraine" style="margin-top:10px"></div></div>
+ </div>
+
+ <h3>Voting twins</h3>
+ <div class="col"><p>Across all 4,950 pairs of ballots, the two most alike in the world belong to
+  <b>Poland and New Zealand</b> &mdash; Maciej Iwa&#324;ski in Warsaw and Michael Burgess in Auckland, who
+  matched on the top three, shared eight of their ten names and have never met. None of the five
+  closest pairs share a confederation.</p></div>
+ <div class="tscroll"><table id="t-pairs"></table></div>
+</div></section>
+
+<section id="bias"><div class="wrap">
+ <p class="eyebrow">Eight</p>
+ <h2>The passport and the shirt</h2>
+ <div class="col"><p class="lede">Eighteen of the thirty nominees come from a country that also had
+  a juror. That is a clean natural experiment: compare the position each man got from his own
+  country's journalist with the median position he got from everybody else.</p></div>
+
+ <div class="chart"><div class="ct">The passport effect is real and it is large</div>
+  <div class="cs">Grey dot = median position from the other 99 jurors. Coloured dot = where his own
+   country's journalist put him. Fourteen of eighteen were helped, average gain 2.2 places,
+   Wilcoxon signed-rank p = 0.001.</div>
+  <div id="c-home" class="ec" style="height:560px"></div></div>
+
+ <div class="grid g3" style="margin-top:8px">
+  <div class="stat"><span class="k" style="color:var(--kane)">+8</span><span class="l">Morocco's juror
+   put <b>Achraf Hakimi</b> first. The rest of the world's median for him was ninth. He is the only
+   person on earth who thought the PSG right-back was the best footballer of the season.</span></div>
+  <div class="stat"><span class="k" style="color:var(--kane)">+5</span><span class="l">Georgia put
+   <b>Kvaratskhelia</b> first against a world median of sixth; Norway put <b>Haaland</b> second
+   against a median of seventh.</span></div>
+  <div class="stat"><span class="k" style="color:var(--mbappe)">&minus;1</span><span class="l">Only two
+   nominees were ranked worse at home, each by a single place: <b>Rodri</b>, whose own juror put
+   him fifth when the world said fourth and led with Mbapp&eacute;; and <b>Declan Rice</b>, put tenth
+   by England when the world said ninth.</span></div>
+ </div>
+
+ <h3>The PSG paradox</h3>
+ <div class="col"><p>PSG retained the Champions League, beating Arsenal on penalties in Budapest,
+  and won Ligue 1. They placed <b>nine of the thirty nominees</b> &mdash; almost a third of the
+  shortlist. Their players were selected 256 times, more than any other club's. Ninety-one of
+  the hundred ballots named at least two PSG men.</p>
+  <p>Their best finisher was sixth.</p></div>
+
+ <div class="chart"><div class="ct">Points won by club, and where PSG's nine finished</div>
+  <div class="cs">The European champions collected 1,326 points from nine players. Bayern collected
+   1,364 from four.</div>
+  <div id="c-club" class="ec" style="height:360px"></div></div>
+
+ <div class="pull">PSG split their own vote nine ways while Bayern concentrated theirs on a striker
+  who scored 73 goals. It is the strongest argument in the data for why a team award and an
+  individual award measure different things.</div>
+
+ <div class="chart"><div class="ct">Spain won the World Cup, had the most nominees and the most points &mdash; and no winner</div>
+  <div class="cs">Points won by the nationality of the nominee, with each nation's World Cup finish.
+   Spain gathered <b>1,969 points</b>, more than any other nation, from six nominees. England had
+   three nominees, 1,219 points, and the winner. Six Spanish nominees meant six places for Spanish
+   votes to scatter across.</div>
+  <div id="c-nations" class="ec" style="height:330px"></div></div>
+
+ <div class="chart"><div class="ct">Which players rose and fell together</div>
+  <div class="cs">Spearman correlation of the points each pair received across the hundred ballots.
+   Blue = jurors who rated one highly also rated the other highly. Brown = they traded places.</div>
+  <div id="c-corr" class="ec" style="height:520px"></div></div>
+
+ <div class="grid g2" style="margin-top:8px">
+  <div class="stat"><span class="k" style="color:var(--seq-5)">+0.32</span><span class="l">The strongest
+   positive pair on the board is <b>Kane and Michael Olise</b> &mdash; Bayern teammates. Olise appears on
+   80% of Kane-first ballots against 58% of the rest.</span></div>
+  <div class="stat"><span class="k" style="color:var(--mbappe)">&minus;0.35</span><span class="l">The strongest
+   negative pair is <b>Kvaratskhelia and Demb&eacute;l&eacute;</b> &mdash; also teammates, at PSG. Jurors picked one
+   PSG forward or the other, rarely both highly.</span></div>
+ </div>
+ <div class="note">These are the extremes of 66 pairs, chosen after looking at the data. They are a
+  good description of this vote, not proof of anything about how jurors think.</div>
+</div></section>
+
+<section id="rules"><div class="wrap">
+ <p class="eyebrow">Nine</p>
+ <h2>What-ifs you can run yourself</h2>
+ <div class="col"><p class="lede">Two fair questions. Would a different scoring rule have changed
+  the winner? And how few ballots would have had to change? Both are conditional arithmetic on the
+  ballots that were actually submitted &mdash; a different rule would probably have produced different
+  ballots.</p></div>
+
+ <div class="chart"><div class="ct">Change the scoring rule</div>
+  <div class="cs">The submitted rankings never change; only what each position is worth.</div>
+  <div class="ctrl" id="rule-btns"><label>Rule</label></div>
+  <div id="c-rule" class="ec" style="height:380px"></div>
+  <div id="rule-note" class="tiny" style="margin:4px 0 10px"></div></div>
+
+ <div class="pull">Kane wins on first places alone, on podium-weighted scoring, under the official
+  scale, and by more if the top is steeper. On approval &mdash; simply counting who was named &mdash; it is
+  98 to 97. The one rule that changes the answer is the plainest of all: a straight line from ten
+  down to one produces a dead tie at 780 points each.</div>
+
+ <div class="chart"><div class="ct">Remove ballots and watch the result move</div>
+  <div class="cs">Switch jurors off to recount the award without them. Start with a preset, or pick
+   countries yourself. Three ballots removed &mdash; Scotland, Austria and Denmark &mdash; is enough
+   to flip the award. This measures how close the race was; it is not a suggestion that anything
+   was wrong.</div>
+  <div class="ctrl" id="drop-presets"><label>Preset</label>
+   <button class="btn on" data-preset="none">All 100 ballots</button>
+   <button class="btn" data-preset="uk">Without the UK's four</button>
+   <button class="btn" data-preset="flip">Fewest needed to flip it (three)</button>
+   <button class="btn" data-preset="uefa">Without Europe</button>
+   <button class="btn" data-preset="caf">Without Africa</button></div>
+  <div id="c-drop" class="ec" style="height:290px"></div>
+  <div id="drop-status" class="tiny" style="margin:2px 0 14px"></div>
+  <div id="drop-picker" style="max-height:230px;overflow:auto;border:1px solid var(--rule);
+       border-radius:10px;padding:10px;background:var(--sunk)"></div></div>
+</div></section>
+
+<section id="explorer"><div class="wrap">
+ <p class="eyebrow">Ten</p>
+ <h2>All one hundred ballots</h2>
+ <div class="col"><p class="lede">Every juror, every pick, and who else voted like them. Search by
+  country, journalist or outlet.</p></div>
+
+ <div class="ctrl" style="margin-top:22px">
+  <input type="search" id="q" placeholder="Search country, journalist or outlet&hellip;" style="flex:1;min-width:180px">
+  <select id="sel-confed"><option value="">All confederations</option></select>
+  <select id="sel-first"><option value="">Any first pick</option></select>
+ </div>
+ <div id="cards" class="grid g2"></div>
+ <p id="count" class="tiny" style="margin-top:14px"></p>
+</div></section>
+
+<section id="method"><div class="wrap">
+ <p class="eyebrow">Eleven</p>
+ <h2>Method, checks and limits</h2>
+ <div class="col">
+  <h3 style="margin-top:14px">What the data is</h3>
+  <p>One hundred ballots, one journalist per country, ten ranked names each, scored
+   15-12-10-8-7-5-4-3-2-1. Ballots were taken from the El Nacional country-by-country interactive,
+   which attributes them to France Football; snapshot of 1 November 2026.</p>
+
+  <h3>The check that matters</h3>
+  <p>All thirty published point totals were recomputed from the thousand individual selections and
+   match exactly. Six thousand seven hundred points both ways.</p>
+
+  <h3>One known discrepancy in the source</h3>
+  <p>The El Nacional article's prose gives Yamal 888 points; its own interactive and its ballots
+   give 881. This analysis uses 881, because that is the figure the ballots produce.</p>
+
+  <h3>Methods used</h3>
+  <p>Cosine similarity over each ballot's thirty-player point vector; a five-nearest-neighbour graph
+   built from it; Louvain community detection; betweenness centrality on the bipartite juror-player
+   graph; a permutation test with 9,999 label shuffles; Fisher's exact test on podium co-occurrence;
+   Spearman rank correlation; and the Wilcoxon signed-rank test for home bias. The community count
+   depends on the Louvain resolution setting, which yields between four and ten groups across the
+   range tested, so the groups are a lens rather than fixed factions.</p>
+
+  <h3>What this does not show</h3>
+  <ul class="small">
+   <li>It does not show coordination, collusion or pressure. Similar ballots are a statistical
+    resemblance and nothing more.</li>
+   <li>A country label is one journalist, never that country's supporters.</li>
+   <li>Removing ballots or re-scoring them is conditional arithmetic.</li>
+   <li>The correlations are the extremes of 66 pairs, picked after looking at the data.</li>
+   <li>Man-of-the-match counts cover only the competitions that publish them. La Liga does not.</li>
+  </ul>
+ </div>
+</div></section>
+
+<footer><div class="wrap">
+ <p class="eyebrow">Sources</p>
+ <ol class="srcs" id="srcs"></ol>
+ <p class="tiny" style="margin-top:22px">Ballon d'Or 2026 men's vote &middot; 100 jurors &middot; 1,000 selections
+  &middot; 6,700 points &middot; snapshot 1 November 2026.</p>
+</div></footer>
+
+<button class="theme-btn" id="theme" aria-label="Switch between light and dark">&#9681;</button>
+
+<script>window.__BDOR__={"players":[{"n":"Harry Kane","pts":1055,"rk":1,"nat":"England","club":"Bayern Munich","lg":"Bundesliga","pos":"Forward","age":32},{"n":"Kylian Mbappé","pts":1027,"rk":2,"nat":"France","club":"Real Madrid","lg":"La Liga","pos":"Forward","age":27},{"n":"Lamine Yamal","pts":881,"rk":3,"nat":"Spain","club":"Barcelona","lg":"La Liga","pos":"Forward","age":19},{"n":"Rodri","pts":726,"rk":4,"nat":"Spain","club":"Manchester City","lg":"Premier League","pos":"Midfielder","age":30},{"n":"Leo Messi","pts":612,"rk":5,"nat":"Argentina","club":"Inter Miami","lg":"MLS","pos":"Forward","age":39},{"n":"Kvaratskhelia","pts":541,"rk":6,"nat":"Georgia","club":"Paris Saint-Germain","lg":"Ligue 1","pos":"Forward","age":25},{"n":"Ousmane Dembélé","pts":418,"rk":7,"nat":"France","club":"Paris Saint-Germain","lg":"Ligue 1","pos":"Forward","age":29},{"n":"Erling Haaland","pts":378,"rk":8,"nat":"Norway","club":"Manchester City","lg":"Premier League","pos":"Forward","age":26},{"n":"Michael Olise","pts":296,"rk":9,"nat":"France","club":"Bayern Munich","lg":"Bundesliga","pos":"Forward","age":24},{"n":"Fabián Ruiz","pts":201,"rk":10,"nat":"Spain","club":"Paris Saint-Germain","lg":"Ligue 1","pos":"Midfielder","age":30},{"n":"Jude Bellingham","pts":107,"rk":11,"nat":"England","club":"Real Madrid","lg":"La Liga","pos":"Midfielder","age":23},{"n":"Pau Cubarsí","pts":101,"rk":12,"nat":"Spain","club":"Barcelona","lg":"La Liga","pos":"Defender","age":19},{"n":"Achraf Hakimi","pts":65,"rk":13,"nat":"Morocco","club":"Paris Saint-Germain","lg":"Ligue 1","pos":"Defender","age":28},{"n":"Vitinha","pts":59,"rk":14,"nat":"Portugal","club":"Paris Saint-Germain","lg":"Ligue 1","pos":"Midfielder","age":26},{"n":"Declan Rice","pts":57,"rk":15,"nat":"England","club":"Arsenal","lg":"Premier League","pos":"Midfielder","age":27},{"n":"Ferran Torres","pts":44,"rk":16,"nat":"Spain","club":"Barcelona","lg":"La Liga","pos":"Forward","age":26},{"n":"Vinícius Jr.","pts":26,"rk":17,"nat":"Brazil","club":"Real Madrid","lg":"La Liga","pos":"Forward","age":26},{"n":"Marc Cucurella","pts":16,"rk":18,"nat":"Spain","club":"Chelsea","lg":"Premier League","pos":"Defender","age":28},{"n":"João Neves","pts":15,"rk":19,"nat":"Portugal","club":"Paris Saint-Germain","lg":"Ligue 1","pos":"Midfielder","age":22},{"n":"Willian Pacho","pts":12,"rk":20,"nat":"Ecuador","club":"Paris Saint-Germain","lg":"Ligue 1","pos":"Defender","age":24},{"n":"Gabriel","pts":11,"rk":21,"nat":"Brazil","club":"Arsenal","lg":"Premier League","pos":"Defender","age":28},{"n":"Lautaro Martínez","pts":11,"rk":22,"nat":"Argentina","club":"Inter Milan","lg":"Serie A","pos":"Forward","age":29},{"n":"Nuno Mendes","pts":8,"rk":23,"nat":"Portugal","club":"Paris Saint-Germain","lg":"Ligue 1","pos":"Defender","age":24},{"n":"Luis Díaz","pts":8,"rk":24,"nat":"Colombia","club":"Bayern Munich","lg":"Bundesliga","pos":"Forward","age":29},{"n":"Marquinhos","pts":7,"rk":25,"nat":"Brazil","club":"Paris Saint-Germain","lg":"Ligue 1","pos":"Defender","age":32},{"n":"Dayot Upamecano","pts":5,"rk":26,"nat":"France","club":"Bayern Munich","lg":"Bundesliga","pos":"Defender","age":28},{"n":"Bruno Fernandes","pts":5,"rk":27,"nat":"Portugal","club":"Manchester United","lg":"Premier League","pos":"Midfielder","age":32},{"n":"Julián Quiñones","pts":4,"rk":28,"nat":"Mexico","club":"Al-Qadsiah","lg":"Saudi Pro League","pos":"Forward","age":29},{"n":"Sadio Mané","pts":2,"rk":29,"nat":"Senegal","club":"Al Nassr","lg":"Saudi Pro League","pos":"Forward","age":34},{"n":"William Saliba","pts":2,"rk":30,"nat":"France","club":"Arsenal","lg":"Premier League","pos":"Defender","age":25}],"scale":[15,12,10,8,7,5,4,3,2,1],"ballots":[{"c":"Albania","code":"ALB","cf":"UEFA","j":"Besnik Dizdari (Futbolli Shqiptar)","b":[2,3,6,1,7,4,0,12,5,9],"g":0,"x":0.7354,"y":-0.2021,"sim":0.715,"deg":7,"uk":false},{"c":"Algeria","code":"ALG","cf":"CAF","j":"Yazid Ouahib (El Watan)","b":[2,3,6,15,9,11,1,0,12,4],"g":0,"x":0.7006,"y":-0.3324,"sim":0.5669,"deg":6,"uk":false},{"c":"Angola","code":"ANG","cf":"CAF","j":"Mateus Gonçalves (Rádio LAC)","b":[0,1,2,6,8,9,7,4,5,22],"g":1,"x":-0.0694,"y":-0.5433,"sim":0.7482,"deg":9,"uk":false},{"c":"Argentina","code":"ARG","cf":"CONMEBOL","j":"Ezequiel Fernández Moores (La Nación)","b":[4,0,1,3,2,5,8,6,13,7],"g":0,"x":0.3516,"y":0.2105,"sim":0.7784,"deg":7,"uk":false},{"c":"Australia","code":"AUS","cf":"AFC","j":"Daniel Garb (Network Ten)","b":[0,1,4,3,8,2,5,7,11,10],"g":0,"x":0.108,"y":0.3669,"sim":0.7853,"deg":7,"uk":false},{"c":"Austria","code":"AUT","cf":"UEFA","j":"Martin Konrad (Sky Sport Austria)","b":[0,3,5,2,7,8,1,17,10,13],"g":3,"x":-0.5804,"y":0.5169,"sim":0.7122,"deg":7,"uk":false},{"c":"Bahrain","code":"BHR","cf":"AFC","j":"Abdullah Ashoor (AFP)","b":[1,2,0,3,4,9,10,7,12,8],"g":2,"x":0.0647,"y":-0.0787,"sim":0.7766,"deg":8,"uk":false},{"c":"Belarus","code":"BLR","cf":"UEFA","j":"Sergueï Nikolaïev (Pressball)","b":[4,3,0,7,1,5,6,14,8,10],"g":0,"x":0.5487,"y":0.5737,"sim":0.6861,"deg":7,"uk":false},{"c":"Belgium","code":"BEL","cf":"UEFA","j":"Frédéric Larsimont (Le Soir)","b":[0,5,1,8,4,6,10,2,23,13],"g":3,"x":-0.6978,"y":0.0404,"sim":0.6951,"deg":6,"uk":false},{"c":"Benin","code":"BEN","cf":"CAF","j":"Abdul Fataï Sanni (La Nation)","b":[1,2,6,0,5,8,7,4,12,11],"g":1,"x":0.315,"y":-0.5797,"sim":0.7422,"deg":10,"uk":false},{"c":"Bolivia","code":"BOL","cf":"CONMEBOL","j":"Roberto Acosta Echavarria (late.com.bo and Bolivia TV)","b":[0,2,5,1,3,8,6,4,7,12],"g":3,"x":-0.5078,"y":0.2159,"sim":0.7973,"deg":12,"uk":false},{"c":"Bosnia and Herzegovina","code":"BIH","cf":"UEFA","j":"Semir Mustafic (N1 Bosnia)","b":[0,2,5,1,7,4,10,3,20,9],"g":4,"x":-0.8147,"y":-0.0213,"sim":0.7599,"deg":8,"uk":false},{"c":"Brazil","code":"BRA","cf":"CONMEBOL","j":"Cleber Machado (Record TV)","b":[4,1,3,0,8,2,7,16,6,5],"g":0,"x":0.6096,"y":0.493,"sim":0.7296,"deg":5,"uk":false},{"c":"Bulgaria","code":"BUL","cf":"UEFA","j":"Rumen Paytachev (blitz.bg)","b":[1,3,4,7,5,2,21,0,13,15],"g":0,"x":0.5704,"y":0.403,"sim":0.7007,"deg":6,"uk":false},{"c":"Burkina Faso","code":"BFA","cf":"CAF","j":"Lassina Sawadogo (Radiodiffusion Télévision du Burkina)","b":[2,6,1,0,3,8,4,5,11,12],"g":1,"x":0.2655,"y":-0.4877,"sim":0.7485,"deg":11,"uk":false},{"c":"Cameroon","code":"CMR","cf":"CAF","j":"Emmanuel Gustave Samnick (L'Actu Sport and Notre Afrik)","b":[1,9,3,6,5,8,14,24,12,0],"g":5,"x":0.4858,"y":-0.1964,"sim":0.5468,"deg":6,"uk":false},{"c":"Canada","code":"CAN","cf":"CONCACAF","j":"Neil Davidson (The Globe and Mail)","b":[0,2,1,3,4,5,7,6,8,9],"g":2,"x":-0.3623,"y":0.0262,"sim":0.8307,"deg":17,"uk":false},{"c":"Cape Verde","code":"CPV","cf":"CAF","j":"Simão Rodrigues (Inforpress)","b":[2,0,7,1,13,5,16,15,10,3],"g":4,"x":-0.9364,"y":-0.1914,"sim":0.6585,"deg":5,"uk":false},{"c":"Chile","code":"CHI","cf":"CONMEBOL","j":"Danilo Díaz (Radio ADN)","b":[0,4,3,5,1,7,8,2,13,6],"g":0,"x":0.1537,"y":0.6129,"sim":0.7542,"deg":5,"uk":false},{"c":"China","code":"CHN","cf":"AFC","j":"Luo Ming (Titan Sports)","b":[4,6,3,0,1,2,5,14,11,9],"g":5,"x":0.4241,"y":0.2429,"sim":0.6912,"deg":6,"uk":false},{"c":"Colombia","code":"COL","cf":"CONMEBOL","j":"Paché Andrade (Fútbol al minuto)","b":[0,3,1,4,2,7,6,23,19,27],"g":2,"x":-0.1873,"y":0.3454,"sim":0.7746,"deg":6,"uk":false},{"c":"Costa Rica","code":"CRC","cf":"CONCACAF","j":"Rodrigo Antonio Calvo Castro (Buzón de Rodrigo)","b":[0,1,3,4,7,10,11,6,8,2],"g":2,"x":0.003,"y":0.2775,"sim":0.7291,"deg":6,"uk":false},{"c":"Croatia","code":"CRO","cf":"UEFA","j":"Zdravko Reić (Jutarnji List)","b":[3,7,4,15,1,0,11,13,6,10],"g":0,"x":0.9442,"y":0.5729,"sim":0.5589,"deg":5,"uk":false},{"c":"Curaçao","code":"CUW","cf":"CONCACAF","j":"Carl Ruiter (Extra Curaçao and Radio Hoyer)","b":[8,0,5,2,1,3,13,22,29,23],"g":3,"x":-0.6623,"y":0.1978,"sim":0.6345,"deg":5,"uk":false},{"c":"Czechia","code":"CZE","cf":"UEFA","j":"Stanislav Hrabě","b":[3,1,4,2,6,10,9,7,5,0],"g":0,"x":0.8858,"y":0.1594,"sim":0.6863,"deg":6,"uk":false},{"c":"DR Congo","code":"COD","cf":"CAF","j":"Sylvie Meya Muabi (Top Congo FM)","b":[1,9,0,6,2,8,5,10,3,21],"g":1,"x":0.1281,"y":-0.5034,"sim":0.6766,"deg":6,"uk":false},{"c":"Denmark","code":"DEN","cf":"UEFA","j":"Troels Bager Thogersen (Campo)","b":[0,2,5,3,4,14,1,13,7,20],"g":3,"x":-0.5974,"y":0.3671,"sim":0.7389,"deg":6,"uk":false},{"c":"Ecuador","code":"ECU","cf":"CONMEBOL","j":"Patricio Cornejo Garcés (Radio Caravana)","b":[1,0,8,6,2,14,7,9,21,23],"g":1,"x":-0.143,"y":-0.5444,"sim":0.6712,"deg":6,"uk":false},{"c":"Egypt","code":"EGY","cf":"CAF","j":"Amr Nageeb Fahmy (beIN Sports)","b":[1,5,2,0,13,14,10,3,11,9],"g":4,"x":-0.581,"y":-0.0587,"sim":0.6694,"deg":5,"uk":false},{"c":"El Salvador","code":"SLV","cf":"CONCACAF","j":"Ricardo Menéndez (Radio Punto 105)","b":[0,5,4,3,11,2,1,7,8,14],"g":3,"x":-0.3819,"y":0.6051,"sim":0.7074,"deg":6,"uk":false},{"c":"England","code":"ENG","cf":"UEFA","j":"Henry Winter (World Soccer)","b":[0,3,2,5,1,11,8,10,4,14],"g":3,"x":-0.4337,"y":0.4483,"sim":0.7535,"deg":8,"uk":true},{"c":"Finland","code":"FIN","cf":"UEFA","j":"Ari Virtanen (Helsingin Sanomat and Ilta-Sanomat)","b":[1,0,3,2,8,5,13,7,6,4],"g":3,"x":-0.2521,"y":0.1906,"sim":0.7822,"deg":8,"uk":false},{"c":"France","code":"FRA","cf":"UEFA","j":"Vincent Garcia (France Football)","b":[1,6,2,5,4,0,8,7,3,9],"g":1,"x":0.3033,"y":-0.4152,"sim":0.7366,"deg":9,"uk":false},{"c":"Gabon","code":"GAB","cf":"CAF","j":"James Angelo Loundou (L'Union)","b":[9,4,0,2,6,3,1,5,28,8],"g":5,"x":0.106,"y":-0.1652,"sim":0.6328,"deg":6,"uk":false},{"c":"Georgia","code":"GEO","cf":"UEFA","j":"Vakhtang Bzikadze (Sarbieli)","b":[5,6,3,0,1,4,2,9,10,8],"g":5,"x":0.0629,"y":0.1245,"sim":0.6831,"deg":7,"uk":false},{"c":"Germany","code":"GER","cf":"UEFA","j":"Karl-Heinz Wild (Kicker)","b":[1,3,0,5,2,7,4,8,14,9],"g":0,"x":0.2115,"y":0.3058,"sim":0.7939,"deg":7,"uk":false},{"c":"Ghana","code":"GHA","cf":"CAF","j":"Michael Oti Adjei (TV3 Network)","b":[1,0,2,4,6,14,8,18,26,7],"g":1,"x":-0.291,"y":-0.5845,"sim":0.7288,"deg":6,"uk":false},{"c":"Greece","code":"GRE","cf":"UEFA","j":"Manos Staramopoulos (Dimokratia)","b":[5,3,19,17,18,8,0,20,24,14],"g":3,"x":-0.0919,"y":0.5484,"sim":0.3544,"deg":5,"uk":false},{"c":"Guatemala","code":"GUA","cf":"CONCACAF","j":"Luis Rolando Solares (TV Azteca Guate)","b":[3,1,2,4,0,6,5,10,7,8],"g":0,"x":0.7983,"y":0.1872,"sim":0.7817,"deg":11,"uk":false},{"c":"Guinea","code":"GUI","cf":"CAF","j":"Ibrahima Diallo (Afrikinfomedia)","b":[1,2,6,0,10,7,3,16,13,12],"g":1,"x":0.5082,"y":-0.6797,"sim":0.694,"deg":6,"uk":false},{"c":"Haiti","code":"HAI","cf":"CONCACAF","j":"Jean Pierre Étienne (Radio Ibo)","b":[0,6,1,2,4,3,8,9,5,10],"g":1,"x":-0.0666,"y":-0.3846,"sim":0.7677,"deg":10,"uk":false},{"c":"Honduras","code":"HON","cf":"CONCACAF","j":"Francisco Antonio Rivas (Emisión Deportiva)","b":[2,3,1,4,9,0,7,6,8,10],"g":0,"x":0.5293,"y":-0.1013,"sim":0.739,"deg":9,"uk":false},{"c":"Hungary","code":"HUN","cf":"UEFA","j":"György Szöllősi (freelance)","b":[0,2,4,7,1,5,3,9,12,10],"g":2,"x":-0.5335,"y":0.1002,"sim":0.7697,"deg":9,"uk":false},{"c":"Iceland","code":"ISL","cf":"UEFA","j":"Vidir Sigurdsson (freelance)","b":[3,1,4,0,2,7,11,5,8,6],"g":0,"x":0.7799,"y":0.4773,"sim":0.7648,"deg":10,"uk":false},{"c":"Iran","code":"IRN","cf":"AFC","j":"Siamak Rahmani (freelance)","b":[0,2,1,5,3,4,6,10,7,8],"g":4,"x":-0.4528,"y":0.0663,"sim":0.8174,"deg":15,"uk":false},{"c":"Iraq","code":"IRQ","cf":"AFC","j":"Sami Abdul Emam (Dubai Sports)","b":[1,4,0,2,9,15,12,5,6,14],"g":1,"x":0.0283,"y":-0.3795,"sim":0.6995,"deg":7,"uk":false},{"c":"Ireland","code":"IRL","cf":"UEFA","j":"Paul Kelly (freelance)","b":[0,2,5,8,3,1,7,4,13,14],"g":3,"x":-0.7537,"y":0.3847,"sim":0.7497,"deg":6,"uk":false},{"c":"Israel","code":"ISR","cf":"UEFA","j":"Nadav Jacobi (Channel 5 and Israel Hayom)","b":[0,3,2,1,5,4,9,8,11,6],"g":2,"x":-0.4423,"y":0.3627,"sim":0.7942,"deg":7,"uk":false},{"c":"Italy","code":"ITA","cf":"UEFA","j":"Paolo Condò (Corriere della Sera and Sky Sport Italia)","b":[1,3,5,4,0,7,2,10,8,6],"g":0,"x":0.5827,"y":0.3278,"sim":0.7598,"deg":7,"uk":false},{"c":"Ivory Coast","code":"CIV","cf":"CAF","j":"Adam Khalil (sport-ivoire.ci)","b":[1,5,7,6,3,10,12,2,8,22],"g":0,"x":0.5115,"y":-0.0222,"sim":0.5947,"deg":6,"uk":false},{"c":"Jamaica","code":"JAM","cf":"CONCACAF","j":"Andre Lowe (Jamaica Observer)","b":[0,1,11,4,6,2,10,8,7,16],"g":1,"x":-0.2144,"y":-0.2863,"sim":0.6794,"deg":5,"uk":false},{"c":"Japan","code":"JPN","cf":"AFC","j":"Masayuki Tanabe (Sports Graphic Number)","b":[0,2,3,1,4,8,5,6,7,11],"g":2,"x":-0.359,"y":0.1645,"sim":0.8131,"deg":13,"uk":false},{"c":"Jordan","code":"JOR","cf":"AFC","j":"Husam Barakat (Roya TV)","b":[2,1,7,3,10,4,0,6,5,16],"g":0,"x":0.3966,"y":-0.3917,"sim":0.7117,"deg":7,"uk":false},{"c":"Kosovo","code":"KVX","cf":"UEFA","j":"Bajram Shala (freelance)","b":[0,1,5,6,15,7,2,16,18,11],"g":4,"x":-0.8251,"y":-0.2918,"sim":0.6691,"deg":5,"uk":false},{"c":"Luxembourg","code":"LUX","cf":"UEFA","j":"Jeff Kettenmeyer (RTL Luxembourg)","b":[0,1,3,2,5,4,8,6,7,14],"g":3,"x":-0.2052,"y":0.2742,"sim":0.8233,"deg":14,"uk":false},{"c":"Mali","code":"MLI","cf":"CAF","j":"Souleymane Bobo Tounkara (L'Essor)","b":[1,2,6,0,16,11,7,8,5,3],"g":1,"x":0.3209,"y":-0.7501,"sim":0.6796,"deg":5,"uk":false},{"c":"Mexico","code":"MEX","cf":"CONCACAF","j":"Salvador Aguilera (Deportes CNN)","b":[2,9,6,1,7,15,10,27,3,4],"g":0,"x":0.7411,"y":-0.4677,"sim":0.5194,"deg":5,"uk":false},{"c":"Montenegro","code":"MNE","cf":"UEFA","j":"Danilo Mitrović (ND Vijesti)","b":[0,5,4,2,1,3,7,10,14,17],"g":3,"x":-0.7201,"y":0.2877,"sim":0.7553,"deg":6,"uk":false},{"c":"Morocco","code":"MAR","cf":"CAF","j":"Mostafa Badri (Almountakhab)","b":[12,1,2,5,6,0,4,9,8,7],"g":1,"x":0.2325,"y":-0.7585,"sim":0.6029,"deg":5,"uk":false},{"c":"Netherlands","code":"NED","cf":"UEFA","j":"Frans van den Nieuwenhof (Voetbal International)","b":[1,3,0,4,7,5,6,2,12,11],"g":0,"x":0.4209,"y":0.412,"sim":0.7742,"deg":8,"uk":false},{"c":"New Zealand","code":"NZL","cf":"OFC","j":"Michael Burgess (The New Zealand Herald)","b":[0,1,2,4,3,7,8,5,14,10],"g":2,"x":-0.2656,"y":0.0802,"sim":0.8122,"deg":12,"uk":false},{"c":"Nigeria","code":"NGA","cf":"CAF","j":"Samm Audu (scorenigeria)","b":[3,6,7,4,1,2,0,10,8,26],"g":0,"x":1.0,"y":0.2217,"sim":0.645,"deg":6,"uk":false},{"c":"North Macedonia","code":"MKD","cf":"UEFA","j":"Mario Sotirovski (Vecer Press)","b":[2,6,0,1,8,5,4,3,21,11],"g":1,"x":0.0422,"y":-0.5825,"sim":0.7276,"deg":7,"uk":false},{"c":"Northern Ireland","code":"NIR","cf":"UEFA","j":"Steven Beacom (Belfast Telegraph)","b":[0,7,1,4,2,6,3,8,10,5],"g":2,"x":-0.3285,"y":0.2941,"sim":0.7563,"deg":6,"uk":true},{"c":"Norway","code":"NOR","cf":"UEFA","j":"Lars Tjaernaas (Aftenposten)","b":[0,7,2,8,5,3,1,4,26,9],"g":4,"x":-0.8346,"y":0.19,"sim":0.7052,"deg":6,"uk":false},{"c":"Oman","code":"OMA","cf":"AFC","j":"Saleh al-Barhi (Al Watan)","b":[0,1,2,8,3,4,6,13,7,10],"g":2,"x":-0.2197,"y":-0.1327,"sim":0.7856,"deg":10,"uk":false},{"c":"Palestine","code":"PLE","cf":"AFC","j":"Mohamad Iraqi (Al-Ayyam)","b":[1,0,2,8,4,5,14,3,7,6],"g":2,"x":-0.3392,"y":-0.273,"sim":0.7798,"deg":7,"uk":false},{"c":"Panama","code":"PAN","cf":"CONCACAF","j":"Humberto Cornejo (La Prensa)","b":[4,1,0,6,2,7,5,13,3,9],"g":1,"x":0.1648,"y":-0.2059,"sim":0.7423,"deg":7,"uk":false},{"c":"Paraguay","code":"PAR","cf":"CONMEBOL","j":"Rubén Darío Da Rosa (Tigo Sports and Telefuturo)","b":[1,3,2,4,8,0,16,6,10,23],"g":0,"x":0.9234,"y":0.3489,"sim":0.7312,"deg":5,"uk":false},{"c":"Peru","code":"PER","cf":"CONMEBOL","j":"Carlos Salinas (Diario Líbero)","b":[9,5,3,1,2,4,0,7,6,17],"g":5,"x":0.2587,"y":-0.0507,"sim":0.6308,"deg":7,"uk":false},{"c":"Poland","code":"POL","cf":"UEFA","j":"Maciej Iwański (TVP Sport)","b":[0,1,2,3,4,8,7,6,5,15],"g":2,"x":-0.169,"y":0.1082,"sim":0.8212,"deg":12,"uk":false},{"c":"Portugal","code":"POR","cf":"UEFA","j":"António Tadeia (RTP and Substack)","b":[2,1,7,5,11,0,4,22,21,3],"g":4,"x":-0.2141,"y":-0.416,"sim":0.6694,"deg":5,"uk":false},{"c":"Qatar","code":"QAT","cf":"AFC","j":"Majed Alkhelaifi","b":[1,2,4,6,7,0,5,3,12,13],"g":1,"x":0.235,"y":-0.5653,"sim":0.7493,"deg":9,"uk":false},{"c":"Romania","code":"ROU","cf":"UEFA","j":"Emanuel Roșu (Fanatik Romania)","b":[1,0,5,7,2,4,13,18,12,3],"g":4,"x":-0.7011,"y":-0.2748,"sim":0.733,"deg":9,"uk":false},{"c":"Russia","code":"RUS","cf":"UEFA","j":"Konstantin Klechtchev (Match TV)","b":[0,1,2,4,5,6,7,3,13,12],"g":4,"x":-0.43,"y":-0.2199,"sim":0.8082,"deg":11,"uk":false},{"c":"Saudi Arabia","code":"KSA","cf":"AFC","j":"Khaled al-Arafah (Thmanyah)","b":[0,1,7,2,5,4,3,8,6,9],"g":4,"x":-0.6756,"y":-0.0395,"sim":0.7931,"deg":10,"uk":false},{"c":"Scotland","code":"SCO","cf":"UEFA","j":"John Greechan (Edinburgh Evening News)","b":[0,2,3,9,7,25,5,17,15,4],"g":2,"x":-0.678,"y":0.3923,"sim":0.6376,"deg":5,"uk":true},{"c":"Senegal","code":"SEN","cf":"CAF","j":"Idrissa Sané (Challenge Sports)","b":[0,2,1,6,3,4,5,8,9,10],"g":1,"x":-0.1313,"y":-0.2638,"sim":0.8099,"deg":11,"uk":false},{"c":"Serbia","code":"SRB","cf":"UEFA","j":"Zoran Stojadinović (Sportski Žurnal)","b":[3,1,2,0,6,9,8,10,4,7],"g":0,"x":0.6416,"y":0.0371,"sim":0.7431,"deg":7,"uk":false},{"c":"Slovakia","code":"SVK","cf":"UEFA","j":"Erik Farkas (sport.sk)","b":[0,1,3,2,6,8,5,7,4,11],"g":3,"x":-0.0117,"y":0.0426,"sim":0.8063,"deg":9,"uk":false},{"c":"Slovenia","code":"SVN","cf":"UEFA","j":"Aleš Potočnik (RTV Slovenija)","b":[0,3,1,7,4,5,6,2,8,13],"g":2,"x":0.0625,"y":0.5007,"sim":0.7794,"deg":8,"uk":false},{"c":"South Africa","code":"RSA","cf":"CAF","j":"Mark Gleeson (Reuters)","b":[0,3,8,1,7,2,12,5,6,14],"g":3,"x":-0.218,"y":0.4711,"sim":0.712,"deg":5,"uk":false},{"c":"South Korea","code":"KOR","cf":"AFC","j":"Kim Yong-il (Sports Seoul)","b":[3,1,4,0,5,7,2,10,6,12],"g":0,"x":0.6815,"y":0.4073,"sim":0.7542,"deg":12,"uk":false},{"c":"Spain","code":"ESP","cf":"UEFA","j":"José Félix Díaz (AS)","b":[1,2,0,5,3,9,11,4,7,8],"g":4,"x":-0.2164,"y":-0.0573,"sim":0.7865,"deg":8,"uk":false},{"c":"Sweden","code":"SWE","cf":"UEFA","j":"Anders Bengtsson (Offside)","b":[0,1,2,5,7,3,8,9,24,10],"g":4,"x":-0.7178,"y":-0.0762,"sim":0.7744,"deg":11,"uk":false},{"c":"Switzerland","code":"SUI","cf":"UEFA","j":"Daniel Visentini (La Tribune de Genève)","b":[2,0,11,6,1,3,5,8,4,7],"g":1,"x":-0.2146,"y":-0.5354,"sim":0.7146,"deg":5,"uk":false},{"c":"Syria","code":"SYR","cf":"AFC","j":"Orwa Qanawati (Al-Mawqif Al-Riyadi)","b":[9,4,0,12,1,5,2,7,15,10],"g":5,"x":-0.0517,"y":-0.1625,"sim":0.5635,"deg":5,"uk":false},{"c":"Thailand","code":"THA","cf":"AFC","j":"Urai Patoommawatana (Main Stand and T-Sports7)","b":[3,5,4,1,6,2,0,9,14,12],"g":5,"x":0.4689,"y":0.1967,"sim":0.6884,"deg":10,"uk":false},{"c":"Tunisia","code":"TUN","cf":"CAF","j":"Abdessalem Dhifallah (Radio Orient)","b":[2,4,6,1,0,5,12,3,13,11],"g":1,"x":0.1501,"y":-0.5972,"sim":0.7146,"deg":6,"uk":false},{"c":"Turkey","code":"TUR","cf":"UEFA","j":"Fatih Doğan (Sabah and TRT Spor)","b":[2,0,1,3,4,5,9,13,7,6],"g":2,"x":-0.0838,"y":0.0207,"sim":0.8002,"deg":8,"uk":false},{"c":"Uganda","code":"UGA","cf":"CAF","j":"Darren Allan Kyeyune (Daily Monitor)","b":[0,2,3,1,4,9,5,7,8,11],"g":2,"x":-0.2932,"y":0.1347,"sim":0.801,"deg":9,"uk":false},{"c":"Ukraine","code":"UKR","cf":"UEFA","j":"Igor Linnyk (FootClub)","b":[9,11,5,14,3,20,2,6,0,15],"g":5,"x":0.5837,"y":-0.1718,"sim":0.3413,"deg":5,"uk":false},{"c":"United Arab Emirates","code":"UAE","cf":"AFC","j":"Osama Mohamad Alamri (Abu Dhabi Sports TV)","b":[4,1,2,5,0,6,3,8,9,12],"g":1,"x":0.2076,"y":-0.3034,"sim":0.757,"deg":8,"uk":false},{"c":"United States","code":"USA","cf":"CONCACAF","j":"Paul Kennedy (Soccer America)","b":[3,4,1,0,2,7,8,5,10,6],"g":0,"x":0.8789,"y":0.4408,"sim":0.758,"deg":10,"uk":false},{"c":"Uruguay","code":"URU","cf":"CONMEBOL","j":"Álvaro González Márquez (99.5 FM Del Sol)","b":[0,2,1,5,7,3,4,11,6,8],"g":4,"x":-0.5888,"y":-0.1772,"sim":0.8011,"deg":14,"uk":false},{"c":"Uzbekistan","code":"UZB","cf":"AFC","j":"Narzulla Saydullaev (championat.asia)","b":[0,2,1,4,5,8,6,3,7,10],"g":2,"x":-0.485,"y":-0.1313,"sim":0.8072,"deg":8,"uk":false},{"c":"Venezuela","code":"VEN","cf":"CONMEBOL","j":"Francisco Blavia (Simple TV)","b":[0,2,1,4,3,8,5,11,9,6],"g":2,"x":-0.3117,"y":-0.0097,"sim":0.8051,"deg":10,"uk":false},{"c":"Vietnam","code":"VIE","cf":"AFC","j":"Truong Anh Ngoc (The Thao & Van Hoa)","b":[3,4,0,2,1,5,6,7,10,15],"g":0,"x":0.7213,"y":0.3392,"sim":0.7636,"deg":9,"uk":false},{"c":"Wales","code":"WAL","cf":"UEFA","j":"Paul Abbandonato (Mediawales and Trinitymirror.com)","b":[2,0,1,4,6,8,3,5,9,7],"g":1,"x":-0.1351,"y":-0.3762,"sim":0.7947,"deg":12,"uk":true},{"c":"Zambia","code":"ZAM","cf":"CAF","j":"Calvin Kaumba Chikenge (BolaNews)","b":[1,8,0,2,5,3,6,7,4,10],"g":3,"x":-0.3705,"y":-0.0757,"sim":0.7528,"deg":8,"uk":false}],"links":[{"s":"Albania","t":"Honduras","w":0.901},{"s":"Albania","t":"Burkina Faso","w":0.895},{"s":"Albania","t":"Guatemala","w":0.889},{"s":"Albania","t":"Jordan","w":0.882},{"s":"Albania","t":"Nigeria","w":0.874},{"s":"Albania","t":"Algeria","w":0.834},{"s":"Albania","t":"Mexico","w":0.752},{"s":"Algeria","t":"Honduras","w":0.802},{"s":"Algeria","t":"Serbia","w":0.799},{"s":"Algeria","t":"Burkina Faso","w":0.799},{"s":"Algeria","t":"Mexico","w":0.794},{"s":"Algeria","t":"Ukraine","w":0.554},{"s":"Angola","t":"Ecuador","w":0.934},{"s":"Angola","t":"Haiti","w":0.925},{"s":"Angola","t":"Wales","w":0.918},{"s":"Angola","t":"Senegal","w":0.915},{"s":"Angola","t":"Oman","w":0.911},{"s":"Angola","t":"DR Congo","w":0.89},{"s":"Angola","t":"Ghana","w":0.898},{"s":"Angola","t":"Jamaica","w":0.829},{"s":"Angola","t":"Mali","w":0.849},{"s":"Argentina","t":"Australia","w":0.942},{"s":"Argentina","t":"Chile","w":0.94},{"s":"Argentina","t":"Brazil","w":0.94},{"s":"Argentina","t":"United Arab Emirates","w":0.939},{"s":"Argentina","t":"Vietnam","w":0.92},{"s":"Argentina","t":"China","w":0.882},{"s":"Argentina","t":"Panama","w":0.918},{"s":"Australia","t":"New Zealand","w":0.959},{"s":"Australia","t":"Poland","w":0.954},{"s":"Australia","t":"Luxembourg","w":0.943},{"s":"Australia","t":"Chile","w":0.94},{"s":"Australia","t":"Brazil","w":0.917},{"s":"Australia","t":"Costa Rica","w":0.914},{"s":"Austria","t":"Ireland","w":0.934},{"s":"Austria","t":"England","w":0.915},{"s":"Austria","t":"Bolivia","w":0.904},{"s":"Austria","t":"Norway","w":0.903},{"s":"Austria","t":"South Africa","w":0.895},{"s":"Austria","t":"Greece","w":0.633},{"s":"Austria","t":"Scotland","w":0.846},{"s":"Bahrain","t":"Turkey","w":0.925},{"s":"Bahrain","t":"Honduras","w":0.918},{"s":"Bahrain","t":"New Zealand","w":0.918},{"s":"Bahrain","t":"Poland","w":0.911},{"s":"Bahrain","t":"Uganda","w":0.909},{"s":"Bahrain","t":"Iraq","w":0.86},{"s":"Bahrain","t":"Jordan","w":0.874},{"s":"Bahrain","t":"Spain","w":0.907},{"s":"Belarus","t":"Chile","w":0.928},{"s":"Belarus","t":"South Korea","w":0.911},{"s":"Belarus","t":"United States","w":0.909},{"s":"Belarus","t":"Slovenia","w":0.907},{"s":"Belarus","t":"Vietnam","w":0.904},{"s":"Belarus","t":"China","w":0.865},{"s":"Belarus","t":"Croatia","w":0.838},{"s":"Belgium","t":"Uzbekistan","w":0.887},{"s":"Belgium","t":"Montenegro","w":0.856},{"s":"Belgium","t":"Russia","w":0.851},{"s":"Belgium","t":"Zambia","w":0.851},{"s":"Belgium","t":"Bolivia","w":0.851},{"s":"Belgium","t":"Curaçao","w":0.816},{"s":"Benin","t":"France","w":0.964},{"s":"Benin","t":"Mali","w":0.915},{"s":"Benin","t":"North Macedonia","w":0.915},{"s":"Benin","t":"Qatar","w":0.909},{"s":"Benin","t":"Burkina Faso","w":0.904},{"s":"Benin","t":"DR Congo","w":0.819},{"s":"Benin","t":"Ecuador","w":0.865},{"s":"Benin","t":"Guinea","w":0.871},{"s":"Benin","t":"Ivory Coast","w":0.758},{"s":"Benin","t":"Morocco","w":0.819},{"s":"Bolivia","t":"Iran","w":0.97},{"s":"Bolivia","t":"Ireland","w":0.965},{"s":"Bolivia","t":"Uzbekistan","w":0.956},{"s":"Bolivia","t":"Luxembourg","w":0.954},{"s":"Bolivia","t":"Canada","w":0.951},{"s":"Bolivia","t":"Curaçao","w":0.851},{"s":"Bolivia","t":"Denmark","w":0.914},{"s":"Bolivia","t":"England","w":0.928},{"s":"Bolivia","t":"Georgia","w":0.804},{"s":"Bolivia","t":"Sweden","w":0.926},{"s":"Bosnia and Herzegovina","t":"Uruguay","w":0.962},{"s":"Bosnia and Herzegovina","t":"Montenegro","w":0.945},{"s":"Bosnia and Herzegovina","t":"Iran","w":0.943},{"s":"Bosnia and Herzegovina","t":"Hungary","w":0.942},{"s":"Bosnia and Herzegovina","t":"Saudi Arabia","w":0.934},{"s":"Bosnia and Herzegovina","t":"Cape Verde","w":0.871},{"s":"Bosnia and Herzegovina","t":"Romania","w":0.892},{"s":"Bosnia and Herzegovina","t":"Sweden","w":0.929},{"s":"Brazil","t":"United States","w":0.945},{"s":"Brazil","t":"Iceland","w":0.914},{"s":"Brazil","t":"Paraguay","w":0.906},{"s":"Bulgaria","t":"Italy","w":0.942},{"s":"Bulgaria","t":"South Korea","w":0.931},{"s":"Bulgaria","t":"Netherlands","w":0.918},{"s":"Bulgaria","t":"Iceland","w":0.911},{"s":"Bulgaria","t":"Germany","w":0.895},{"s":"Bulgaria","t":"Ivory Coast","w":0.766},{"s":"Burkina Faso","t":"North Macedonia","w":0.97},{"s":"Burkina Faso","t":"Wales","w":0.94},{"s":"Burkina Faso","t":"Senegal","w":0.929},{"s":"Burkina Faso","t":"Switzerland","w":0.906},{"s":"Burkina Faso","t":"France","w":0.895},{"s":"Burkina Faso","t":"Guinea","w":0.852},{"s":"Burkina Faso","t":"Mali","w":0.867},{"s":"Burkina Faso","t":"Tunisia","w":0.896},{"s":"Cameroon","t":"DR Congo","w":0.81},{"s":"Cameroon","t":"Peru","w":0.791},{"s":"Cameroon","t":"Serbia","w":0.744},{"s":"Cameroon","t":"Ivory Coast","w":0.724},{"s":"Cameroon","t":"Thailand","w":0.722},{"s":"Cameroon","t":"Ukraine","w":0.593},{"s":"Canada","t":"Japan","w":0.981},{"s":"Canada","t":"Poland","w":0.978},{"s":"Canada","t":"Iran","w":0.976},{"s":"Canada","t":"New Zealand","w":0.973},{"s":"Canada","t":"Uganda","w":0.972},{"s":"Canada","t":"Colombia","w":0.931},{"s":"Canada","t":"Denmark","w":0.911},{"s":"Canada","t":"Hungary","w":0.943},{"s":"Canada","t":"Luxembourg","w":0.967},{"s":"Canada","t":"Russia","w":0.959},{"s":"Canada","t":"Senegal","w":0.961},{"s":"Canada","t":"Turkey","w":0.962},{"s":"Canada","t":"Uruguay","w":0.962},{"s":"Canada","t":"Uzbekistan","w":0.964},{"s":"Canada","t":"Venezuela","w":0.967},{"s":"Canada","t":"Wales","w":0.942},{"s":"Cape Verde","t":"Uruguay","w":0.871},{"s":"Cape Verde","t":"Sweden","w":0.852},{"s":"Cape Verde","t":"Saudi Arabia","w":0.84},{"s":"Cape Verde","t":"Romania","w":0.829},{"s":"Chile","t":"Slovenia","w":0.945},{"s":"Chile","t":"El Salvador","w":0.922},{"s":"China","t":"Vietnam","w":0.89},{"s":"China","t":"Panama","w":0.874},{"s":"China","t":"Thailand","w":0.87},{"s":"China","t":"Georgia","w":0.808},{"s":"Colombia","t":"Slovenia","w":0.945},{"s":"Colombia","t":"Poland","w":0.94},{"s":"Colombia","t":"New Zealand","w":0.923},{"s":"Colombia","t":"Japan","w":0.922},{"s":"Colombia","t":"Costa Rica","w":0.915},{"s":"Costa Rica","t":"Slovenia","w":0.936},{"s":"Costa Rica","t":"Netherlands","w":0.914},{"s":"Costa Rica","t":"Northern Ireland","w":0.896},{"s":"Costa Rica","t":"Jamaica","w":0.846},{"s":"Croatia","t":"Iceland","w":0.827},{"s":"Croatia","t":"Nigeria","w":0.818},{"s":"Croatia","t":"United States","w":0.815},{"s":"Croatia","t":"South Korea","w":0.81},{"s":"Curaçao","t":"Ireland","w":0.901},{"s":"Curaçao","t":"Zambia","w":0.885},{"s":"Curaçao","t":"Finland","w":0.838},{"s":"Czechia","t":"Guatemala","w":0.942},{"s":"Czechia","t":"Honduras","w":0.896},{"s":"Czechia","t":"South Korea","w":0.89},{"s":"Czechia","t":"United States","w":0.89},{"s":"Czechia","t":"Serbia","w":0.885},{"s":"Czechia","t":"Nigeria","w":0.882},{"s":"DR Congo","t":"Ecuador","w":0.857},{"s":"DR Congo","t":"Haiti","w":0.83},{"s":"DR Congo","t":"Senegal","w":0.816},{"s":"Denmark","t":"Montenegro","w":0.937},{"s":"Denmark","t":"Ireland","w":0.918},{"s":"Denmark","t":"Iran","w":0.917},{"s":"Denmark","t":"El Salvador","w":0.889},{"s":"Ecuador","t":"Zambia","w":0.887},{"s":"Ecuador","t":"Ghana","w":0.885},{"s":"Ecuador","t":"Palestine","w":0.871},{"s":"Egypt","t":"Spain","w":0.871},{"s":"Egypt","t":"Romania","w":0.851},{"s":"Egypt","t":"Iran","w":0.815},{"s":"Egypt","t":"Finland","w":0.815},{"s":"Egypt","t":"Sweden","w":0.813},{"s":"El Salvador","t":"Montenegro","w":0.928},{"s":"El Salvador","t":"England","w":0.878},{"s":"El Salvador","t":"Israel","w":0.874},{"s":"El Salvador","t":"Greece","w":0.545},{"s":"England","t":"Israel","w":0.962},{"s":"England","t":"Japan","w":0.929},{"s":"England","t":"Luxembourg","w":0.929},{"s":"England","t":"Iran","w":0.92},{"s":"England","t":"Greece","w":0.542},{"s":"Finland","t":"Slovakia","w":0.948},{"s":"Finland","t":"Luxembourg","w":0.948},{"s":"Finland","t":"Germany","w":0.943},{"s":"Finland","t":"Oman","w":0.937},{"s":"Finland","t":"Zambia","w":0.937},{"s":"Finland","t":"South Africa","w":0.895},{"s":"France","t":"Qatar","w":0.934},{"s":"France","t":"United Arab Emirates","w":0.889},{"s":"France","t":"North Macedonia","w":0.889},{"s":"France","t":"Georgia","w":0.802},{"s":"France","t":"Ivory Coast","w":0.783},{"s":"France","t":"Mali","w":0.859},{"s":"France","t":"Morocco","w":0.777},{"s":"Gabon","t":"Syria","w":0.854},{"s":"Gabon","t":"Peru","w":0.805},{"s":"Gabon","t":"Haiti","w":0.788},{"s":"Gabon","t":"Uganda","w":0.786},{"s":"Gabon","t":"Iraq","w":0.779},{"s":"Gabon","t":"Ukraine","w":0.57},{"s":"Georgia","t":"Thailand","w":0.912},{"s":"Georgia","t":"Iran","w":0.797},{"s":"Georgia","t":"Greece","w":0.6},{"s":"Georgia","t":"Peru","w":0.769},{"s":"Germany","t":"Italy","w":0.958},{"s":"Germany","t":"Luxembourg","w":0.951},{"s":"Germany","t":"Netherlands","w":0.937},{"s":"Germany","t":"South Korea","w":0.925},{"s":"Germany","t":"Spain","w":0.922},{"s":"Ghana","t":"Palestine","w":0.92},{"s":"Ghana","t":"Wales","w":0.907},{"s":"Ghana","t":"Haiti","w":0.889},{"s":"Ghana","t":"Jamaica","w":0.843},{"s":"Greece","t":"Thailand","w":0.593},{"s":"Guatemala","t":"Vietnam","w":0.953},{"s":"Guatemala","t":"Iceland","w":0.948},{"s":"Guatemala","t":"United States","w":0.948},{"s":"Guatemala","t":"South Korea","w":0.945},{"s":"Guatemala","t":"Honduras","w":0.906},{"s":"Guatemala","t":"Nigeria","w":0.851},{"s":"Guatemala","t":"Paraguay","w":0.922},{"s":"Guatemala","t":"Serbia","w":0.928},{"s":"Guatemala","t":"Thailand","w":0.882},{"s":"Guinea","t":"Mali","w":0.907},{"s":"Guinea","t":"Jordan","w":0.873},{"s":"Guinea","t":"Qatar","w":0.848},{"s":"Guinea","t":"Mexico","w":0.739},{"s":"Haiti","t":"Senegal","w":0.964},{"s":"Haiti","t":"Wales","w":0.929},{"s":"Haiti","t":"Slovakia","w":0.918},{"s":"Haiti","t":"Oman","w":0.904},{"s":"Haiti","t":"Jamaica","w":0.849},{"s":"Haiti","t":"North Macedonia","w":0.903},{"s":"Honduras","t":"Serbia","w":0.906},{"s":"Honduras","t":"Turkey","w":0.904},{"s":"Honduras","t":"Jordan","w":0.874},{"s":"Honduras","t":"Mexico","w":0.758},{"s":"Hungary","t":"Uruguay","w":0.934},{"s":"Hungary","t":"Uganda","w":0.932},{"s":"Hungary","t":"New Zealand","w":0.931},{"s":"Hungary","t":"Montenegro","w":0.918},{"s":"Hungary","t":"Northern Ireland","w":0.907},{"s":"Hungary","t":"Scotland","w":0.815},{"s":"Hungary","t":"Syria","w":0.75},{"s":"Iceland","t":"United States","w":0.975},{"s":"Iceland","t":"South Korea","w":0.956},{"s":"Iceland","t":"Netherlands","w":0.94},{"s":"Iceland","t":"Vietnam","w":0.94},{"s":"Iceland","t":"Italy","w":0.917},{"s":"Iceland","t":"Paraguay","w":0.89},{"s":"Iran","t":"Uzbekistan","w":0.964},{"s":"Iran","t":"Senegal","w":0.962},{"s":"Iran","t":"Luxembourg","w":0.961},{"s":"Iran","t":"Montenegro","w":0.925},{"s":"Iran","t":"Russia","w":0.958},{"s":"Iran","t":"Sweden","w":0.918},{"s":"Iran","t":"Turkey","w":0.94},{"s":"Iran","t":"Uruguay","w":0.959},{"s":"Iraq","t":"United Arab Emirates","w":0.882},{"s":"Iraq","t":"Panama","w":0.865},{"s":"Iraq","t":"Syria","w":0.852},{"s":"Iraq","t":"Russia","w":0.849},{"s":"Iraq","t":"Morocco","w":0.749},{"s":"Ireland","t":"Norway","w":0.928},{"s":"Ireland","t":"Japan","w":0.923},{"s":"Israel","t":"Uganda","w":0.973},{"s":"Israel","t":"Japan","w":0.961},{"s":"Israel","t":"Luxembourg","w":0.958},{"s":"Israel","t":"Venezuela","w":0.953},{"s":"Israel","t":"Scotland","w":0.832},{"s":"Italy","t":"South Korea","w":0.97},{"s":"Italy","t":"Netherlands","w":0.948},{"s":"Italy","t":"Ivory Coast","w":0.813},{"s":"Italy","t":"Thailand","w":0.871},{"s":"Ivory Coast","t":"Netherlands","w":0.766},{"s":"Jamaica","t":"Russia","w":0.826},{"s":"Japan","t":"Venezuela","w":0.976},{"s":"Japan","t":"Poland","w":0.973},{"s":"Japan","t":"Uganda","w":0.965},{"s":"Japan","t":"Luxembourg","w":0.962},{"s":"Japan","t":"New Zealand","w":0.956},{"s":"Japan","t":"Oman","w":0.945},{"s":"Japan","t":"Senegal","w":0.956},{"s":"Japan","t":"Turkey","w":0.936},{"s":"Jordan","t":"Qatar","w":0.873},{"s":"Jordan","t":"Mexico","w":0.738},{"s":"Jordan","t":"Portugal","w":0.837},{"s":"Kosovo","t":"Russia","w":0.846},{"s":"Kosovo","t":"Saudi Arabia","w":0.843},{"s":"Kosovo","t":"Romania","w":0.838},{"s":"Kosovo","t":"Uruguay","w":0.827},{"s":"Kosovo","t":"Sweden","w":0.823},{"s":"Luxembourg","t":"Slovakia","w":0.97},{"s":"Luxembourg","t":"Poland","w":0.965},{"s":"Luxembourg","t":"Slovenia","w":0.934},{"s":"Luxembourg","t":"South Africa","w":0.884},{"s":"Luxembourg","t":"Zambia","w":0.893},{"s":"Morocco","t":"Tunisia","w":0.783},{"s":"Morocco","t":"Qatar","w":0.769},{"s":"Netherlands","t":"South Korea","w":0.961},{"s":"Netherlands","t":"Slovenia","w":0.951},{"s":"New Zealand","t":"Poland","w":0.984},{"s":"New Zealand","t":"Venezuela","w":0.958},{"s":"New Zealand","t":"Northern Ireland","w":0.917},{"s":"New Zealand","t":"Oman","w":0.943},{"s":"New Zealand","t":"Palestine","w":0.945},{"s":"New Zealand","t":"Saudi Arabia","w":0.942},{"s":"Nigeria","t":"Vietnam","w":0.838},{"s":"Nigeria","t":"United States","w":0.838},{"s":"North Macedonia","t":"Wales","w":0.947},{"s":"North Macedonia","t":"Senegal","w":0.923},{"s":"North Macedonia","t":"Switzerland","w":0.896},{"s":"Northern Ireland","t":"Saudi Arabia","w":0.947},{"s":"Northern Ireland","t":"Poland","w":0.915},{"s":"Northern Ireland","t":"Slovenia","w":0.906},{"s":"Norway","t":"Saudi Arabia","w":0.914},{"s":"Norway","t":"Sweden","w":0.9},{"s":"Norway","t":"Uruguay","w":0.895},{"s":"Norway","t":"Scotland","w":0.813},{"s":"Oman","t":"Poland","w":0.973},{"s":"Oman","t":"Slovakia","w":0.947},{"s":"Oman","t":"Venezuela","w":0.939},{"s":"Oman","t":"Palestine","w":0.923},{"s":"Oman","t":"Zambia","w":0.901},{"s":"Palestine","t":"Uzbekistan","w":0.939},{"s":"Palestine","t":"Zambia","w":0.934},{"s":"Palestine","t":"Poland","w":0.932},{"s":"Panama","t":"United Arab Emirates","w":0.928},{"s":"Panama","t":"Qatar","w":0.923},{"s":"Panama","t":"Russia","w":0.917},{"s":"Panama","t":"Tunisia","w":0.884},{"s":"Paraguay","t":"United States","w":0.896},{"s":"Paraguay","t":"Serbia","w":0.896},{"s":"Peru","t":"Thailand","w":0.813},{"s":"Peru","t":"Spain","w":0.794},{"s":"Peru","t":"Syria","w":0.75},{"s":"Peru","t":"Ukraine","w":0.717},{"s":"Poland","t":"Slovakia","w":0.956},{"s":"Poland","t":"Venezuela","w":0.962},{"s":"Portugal","t":"Uruguay","w":0.865},{"s":"Portugal","t":"Spain","w":0.849},{"s":"Portugal","t":"Qatar","w":0.832},{"s":"Portugal","t":"Romania","w":0.826},{"s":"Qatar","t":"Tunisia","w":0.901},{"s":"Qatar","t":"United Arab Emirates","w":0.896},{"s":"Romania","t":"Saudi Arabia","w":0.934},{"s":"Romania","t":"Russia","w":0.918},{"s":"Romania","t":"Uruguay","w":0.903},{"s":"Romania","t":"Sweden","w":0.896},{"s":"Russia","t":"Uzbekistan","w":0.965},{"s":"Russia","t":"Uruguay","w":0.951},{"s":"Russia","t":"Saudi Arabia","w":0.942},{"s":"Saudi Arabia","t":"Uruguay","w":0.964},{"s":"Saudi Arabia","t":"Sweden","w":0.958},{"s":"Scotland","t":"Uganda","w":0.868},{"s":"Senegal","t":"Wales","w":0.965},{"s":"Senegal","t":"Slovakia","w":0.954},{"s":"Senegal","t":"Switzerland","w":0.885},{"s":"Serbia","t":"Slovakia","w":0.895},{"s":"Slovakia","t":"South Africa","w":0.907},{"s":"Slovakia","t":"Zambia","w":0.9},{"s":"Slovenia","t":"South Africa","w":0.884},{"s":"South Korea","t":"United States","w":0.959},{"s":"South Korea","t":"Vietnam","w":0.95},{"s":"South Korea","t":"Thailand","w":0.898},{"s":"Spain","t":"Turkey","w":0.928},{"s":"Spain","t":"Sweden","w":0.914},{"s":"Spain","t":"Uruguay","w":0.914},{"s":"Sweden","t":"Uruguay","w":0.953},{"s":"Switzerland","t":"Wales","w":0.878},{"s":"Switzerland","t":"Uruguay","w":0.865},{"s":"Syria","t":"United Arab Emirates","w":0.71},{"s":"Thailand","t":"Vietnam","w":0.893},{"s":"Thailand","t":"Ukraine","w":0.526},{"s":"Tunisia","t":"Wales","w":0.914},{"s":"Tunisia","t":"United Arab Emirates","w":0.912},{"s":"Turkey","t":"Uganda","w":0.965},{"s":"Turkey","t":"Venezuela","w":0.943},{"s":"Uganda","t":"Venezuela","w":0.964},{"s":"United Arab Emirates","t":"Wales","w":0.892},{"s":"United States","t":"Vietnam","w":0.962},{"s":"Uzbekistan","t":"Wales","w":0.961},{"s":"Uzbekistan","t":"Venezuela","w":0.959},{"s":"Venezuela","t":"Wales","w":0.942}],"groups":[{"id":0,"n":25,"cf":{"UEFA":10,"CONCACAF":4,"CONMEBOL":4,"AFC":4,"CAF":3},"first":{"Rodri":9,"Kylian Mbappé":6,"Lamine Yamal":5},"top":{"Rodri":296,"Kylian Mbappé":271,"Leo Messi":207,"Lamine Yamal":186},"members":["Albania","Algeria","Argentina","Australia","Belarus","Brazil","Bulgaria","Chile","Croatia","Czechia","Germany","Guatemala","Honduras","Iceland","Italy","Ivory Coast","Jordan","Mexico","Netherlands","Nigeria","Paraguay","Serbia","South Korea","United States","Vietnam"]},{"id":1,"n":21,"cf":{"CAF":10,"UEFA":4,"CONCACAF":3,"AFC":3,"CONMEBOL":1},"first":{"Kylian Mbappé":9,"Lamine Yamal":5,"Harry Kane":4},"top":{"Kylian Mbappé":258,"Lamine Yamal":227,"Harry Kane":209,"Ousmane Dembélé":179},"members":["Angola","Benin","Burkina Faso","DR Congo","Ecuador","France","Ghana","Guinea","Haiti","Iraq","Jamaica","Mali","Morocco","North Macedonia","Panama","Qatar","Senegal","Switzerland","Tunisia","United Arab Emirates","Wales"]},{"id":2,"n":18,"cf":{"UEFA":7,"AFC":5,"CONMEBOL":2,"CONCACAF":2,"OFC":1,"CAF":1},"first":{"Harry Kane":15,"Kylian Mbappé":2,"Lamine Yamal":1},"top":{"Harry Kane":259,"Kylian Mbappé":179,"Lamine Yamal":179,"Rodri":143},"members":["Bahrain","Canada","Colombia","Costa Rica","Hungary","Israel","Japan","New Zealand","Northern Ireland","Oman","Palestine","Poland","Scotland","Slovenia","Turkey","Uganda","Uzbekistan","Venezuela"]},{"id":3,"n":15,"cf":{"UEFA":10,"CAF":2,"CONCACAF":2,"CONMEBOL":1},"first":{"Harry Kane":11,"Kylian Mbappé":2,"Michael Olise":1},"top":{"Harry Kane":203,"Kvaratskhelia":135,"Rodri":123,"Kylian Mbappé":118},"members":["Austria","Belgium","Bolivia","Curaçao","Denmark","El Salvador","England","Finland","Greece","Ireland","Luxembourg","Montenegro","Slovakia","South Africa","Zambia"]},{"id":4,"n":13,"cf":{"UEFA":8,"AFC":2,"CAF":2,"CONMEBOL":1},"first":{"Harry Kane":8,"Kylian Mbappé":3,"Lamine Yamal":2},"top":{"Harry Kane":167,"Kylian Mbappé":145,"Lamine Yamal":137,"Kvaratskhelia":108},"members":["Bosnia and Herzegovina","Cape Verde","Egypt","Iran","Kosovo","Norway","Portugal","Romania","Russia","Saudi Arabia","Spain","Sweden","Uruguay"]},{"id":5,"n":8,"cf":{"AFC":3,"CAF":2,"UEFA":2,"CONMEBOL":1},"first":{"Fabián Ruiz":4,"Kylian Mbappé":1,"Leo Messi":1},"top":{"Fabián Ruiz":79,"Kvaratskhelia":68,"Rodri":67,"Leo Messi":59},"members":["Cameroon","China","Gabon","Georgia","Peru","Syria","Thailand","Ukraine"]}],"nn":{"Albania":[{"c":"Honduras","s":0.9011},{"c":"Burkina Faso","s":0.8948},{"c":"Guatemala","s":0.8885},{"c":"Jordan","s":0.8823},{"c":"Nigeria","s":0.8744}],"Algeria":[{"c":"Albania","s":0.8336},{"c":"Honduras","s":0.8022},{"c":"Serbia","s":0.7991},{"c":"Burkina Faso","s":0.7991},{"c":"Mexico","s":0.7943}],"Angola":[{"c":"Ecuador","s":0.9341},{"c":"Haiti","s":0.9246},{"c":"Wales","s":0.9184},{"c":"Senegal","s":0.9152},{"c":"Oman","s":0.9105}],"Argentina":[{"c":"Australia","s":0.9419},{"c":"Chile","s":0.9403},{"c":"Brazil","s":0.9403},{"c":"United Arab Emirates","s":0.9388},{"c":"Vietnam","s":0.9199}],"Australia":[{"c":"New Zealand","s":0.9592},{"c":"Poland","s":0.9545},{"c":"Luxembourg","s":0.9435},{"c":"Argentina","s":0.9419},{"c":"Chile","s":0.9403}],"Austria":[{"c":"Ireland","s":0.9341},{"c":"England","s":0.9152},{"c":"Bolivia","s":0.9042},{"c":"Norway","s":0.9027},{"c":"South Africa","s":0.8948}],"Bahrain":[{"c":"Turkey","s":0.9246},{"c":"Honduras","s":0.9184},{"c":"New Zealand","s":0.9184},{"c":"Poland","s":0.9105},{"c":"Uganda","s":0.9089}],"Belarus":[{"c":"Chile","s":0.9278},{"c":"South Korea","s":0.9105},{"c":"United States","s":0.9089},{"c":"Slovenia","s":0.9074},{"c":"Vietnam","s":0.9042}],"Belgium":[{"c":"Uzbekistan","s":0.887},{"c":"Montenegro","s":0.8556},{"c":"Russia","s":0.8509},{"c":"Zambia","s":0.8509},{"c":"Bolivia","s":0.8509}],"Benin":[{"c":"France","s":0.9639},{"c":"Mali","s":0.9152},{"c":"North Macedonia","s":0.9152},{"c":"Qatar","s":0.9089},{"c":"Burkina Faso","s":0.9042}],"Bolivia":[{"c":"Iran","s":0.9702},{"c":"Ireland","s":0.9655},{"c":"Uzbekistan","s":0.956},{"c":"Luxembourg","s":0.9545},{"c":"Canada","s":0.9513}],"Bosnia and Herzegovina":[{"c":"Uruguay","s":0.9623},{"c":"Montenegro","s":0.9451},{"c":"Iran","s":0.9435},{"c":"Hungary","s":0.9419},{"c":"Saudi Arabia","s":0.9341}],"Brazil":[{"c":"United States","s":0.9451},{"c":"Argentina","s":0.9403},{"c":"Australia","s":0.9168},{"c":"Iceland","s":0.9137},{"c":"Paraguay","s":0.9058}],"Bulgaria":[{"c":"Italy","s":0.9419},{"c":"South Korea","s":0.9309},{"c":"Netherlands","s":0.9184},{"c":"Iceland","s":0.9105},{"c":"Germany","s":0.8948}],"Burkina Faso":[{"c":"North Macedonia","s":0.9702},{"c":"Wales","s":0.9403},{"c":"Senegal","s":0.9294},{"c":"Switzerland","s":0.9058},{"c":"Benin","s":0.9042}],"Cameroon":[{"c":"DR Congo","s":0.81},{"c":"Peru","s":0.7912},{"c":"Serbia","s":0.7441},{"c":"Ivory Coast","s":0.7237},{"c":"Thailand","s":0.7221}],"Canada":[{"c":"Japan","s":0.9812},{"c":"Poland","s":0.978},{"c":"Iran","s":0.9765},{"c":"New Zealand","s":0.9733},{"c":"Uganda","s":0.9717}],"Cape Verde":[{"c":"Bosnia and Herzegovina","s":0.8713},{"c":"Uruguay","s":0.8713},{"c":"Sweden","s":0.8524},{"c":"Saudi Arabia","s":0.8399},{"c":"Romania","s":0.8289}],"Chile":[{"c":"Slovenia","s":0.9451},{"c":"Argentina","s":0.9403},{"c":"Australia","s":0.9403},{"c":"Belarus","s":0.9278},{"c":"El Salvador","s":0.9215}],"China":[{"c":"Vietnam","s":0.8901},{"c":"Argentina","s":0.8823},{"c":"Panama","s":0.8744},{"c":"Thailand","s":0.8697},{"c":"Belarus","s":0.865}],"Colombia":[{"c":"Slovenia","s":0.9451},{"c":"Poland","s":0.9403},{"c":"Canada","s":0.9309},{"c":"New Zealand","s":0.9231},{"c":"Japan","s":0.9215}],"Costa Rica":[{"c":"Slovenia","s":0.9356},{"c":"Colombia","s":0.9152},{"c":"Australia","s":0.9137},{"c":"Netherlands","s":0.9137},{"c":"Northern Ireland","s":0.8964}],"Croatia":[{"c":"Belarus","s":0.8383},{"c":"Iceland","s":0.8273},{"c":"Nigeria","s":0.8179},{"c":"United States","s":0.8148},{"c":"South Korea","s":0.81}],"Curaçao":[{"c":"Ireland","s":0.9011},{"c":"Zambia","s":0.8854},{"c":"Bolivia","s":0.8509},{"c":"Finland","s":0.8383},{"c":"Belgium","s":0.8163}],"Czechia":[{"c":"Guatemala","s":0.9419},{"c":"Honduras","s":0.8964},{"c":"South Korea","s":0.8901},{"c":"United States","s":0.8901},{"c":"Serbia","s":0.8854}],"DR Congo":[{"c":"Angola","s":0.8901},{"c":"Ecuador","s":0.8571},{"c":"Haiti","s":0.8305},{"c":"Benin","s":0.8195},{"c":"Senegal","s":0.8163}],"Denmark":[{"c":"Montenegro","s":0.9372},{"c":"Ireland","s":0.9184},{"c":"Iran","s":0.9168},{"c":"Bolivia","s":0.9137},{"c":"Canada","s":0.9105}],"Ecuador":[{"c":"Angola","s":0.9341},{"c":"Zambia","s":0.887},{"c":"Ghana","s":0.8854},{"c":"Palestine","s":0.8713},{"c":"Benin","s":0.865}],"Egypt":[{"c":"Spain","s":0.8713},{"c":"Romania","s":0.8509},{"c":"Iran","s":0.8148},{"c":"Finland","s":0.8148},{"c":"Sweden","s":0.8132}],"El Salvador":[{"c":"Montenegro","s":0.9278},{"c":"Chile","s":0.9215},{"c":"Denmark","s":0.8885},{"c":"England","s":0.8776},{"c":"Israel","s":0.8744}],"England":[{"c":"Israel","s":0.9623},{"c":"Japan","s":0.9294},{"c":"Luxembourg","s":0.9294},{"c":"Bolivia","s":0.9278},{"c":"Iran","s":0.9199}],"Finland":[{"c":"Slovakia","s":0.9482},{"c":"Luxembourg","s":0.9482},{"c":"Germany","s":0.9435},{"c":"Oman","s":0.9372},{"c":"Zambia","s":0.9372}],"France":[{"c":"Benin","s":0.9639},{"c":"Qatar","s":0.9341},{"c":"Burkina Faso","s":0.8948},{"c":"United Arab Emirates","s":0.8885},{"c":"North Macedonia","s":0.8885}],"Gabon":[{"c":"Syria","s":0.854},{"c":"Peru","s":0.8053},{"c":"Haiti","s":0.7881},{"c":"Uganda","s":0.7865},{"c":"Iraq","s":0.7786}],"Georgia":[{"c":"Thailand","s":0.9121},{"c":"China","s":0.8085},{"c":"Bolivia","s":0.8038},{"c":"France","s":0.8022},{"c":"Iran","s":0.7975}],"Germany":[{"c":"Italy","s":0.9576},{"c":"Luxembourg","s":0.9513},{"c":"Finland","s":0.9435},{"c":"Netherlands","s":0.9372},{"c":"South Korea","s":0.9246}],"Ghana":[{"c":"Palestine","s":0.9199},{"c":"Wales","s":0.9074},{"c":"Angola","s":0.898},{"c":"Haiti","s":0.8885},{"c":"Ecuador","s":0.8854}],"Greece":[{"c":"Austria","s":0.6327},{"c":"Georgia","s":0.5997},{"c":"Thailand","s":0.5934},{"c":"El Salvador","s":0.5447},{"c":"England","s":0.5416}],"Guatemala":[{"c":"Vietnam","s":0.9529},{"c":"Iceland","s":0.9482},{"c":"United States","s":0.9482},{"c":"South Korea","s":0.9451},{"c":"Czechia","s":0.9419}],"Guinea":[{"c":"Mali","s":0.9074},{"c":"Jordan","s":0.8728},{"c":"Benin","s":0.8713},{"c":"Burkina Faso","s":0.8524},{"c":"Qatar","s":0.8477}],"Haiti":[{"c":"Senegal","s":0.9639},{"c":"Wales","s":0.9294},{"c":"Angola","s":0.9246},{"c":"Slovakia","s":0.9184},{"c":"Oman","s":0.9042}],"Honduras":[{"c":"Bahrain","s":0.9184},{"c":"Serbia","s":0.9058},{"c":"Guatemala","s":0.9058},{"c":"Turkey","s":0.9042},{"c":"Albania","s":0.9011}],"Hungary":[{"c":"Canada","s":0.9435},{"c":"Bosnia and Herzegovina","s":0.9419},{"c":"Uruguay","s":0.9341},{"c":"Uganda","s":0.9325},{"c":"New Zealand","s":0.9309}],"Iceland":[{"c":"United States","s":0.9749},{"c":"South Korea","s":0.956},{"c":"Guatemala","s":0.9482},{"c":"Netherlands","s":0.9403},{"c":"Vietnam","s":0.9403}],"Iran":[{"c":"Canada","s":0.9765},{"c":"Bolivia","s":0.9702},{"c":"Uzbekistan","s":0.9639},{"c":"Senegal","s":0.9623},{"c":"Luxembourg","s":0.9608}],"Iraq":[{"c":"United Arab Emirates","s":0.8823},{"c":"Panama","s":0.865},{"c":"Bahrain","s":0.8603},{"c":"Syria","s":0.8524},{"c":"Russia","s":0.8493}],"Ireland":[{"c":"Bolivia","s":0.9655},{"c":"Austria","s":0.9341},{"c":"Norway","s":0.9278},{"c":"Japan","s":0.9231},{"c":"Denmark","s":0.9184}],"Israel":[{"c":"Uganda","s":0.9733},{"c":"England","s":0.9623},{"c":"Japan","s":0.9608},{"c":"Luxembourg","s":0.9576},{"c":"Venezuela","s":0.9529}],"Italy":[{"c":"South Korea","s":0.9702},{"c":"Germany","s":0.9576},{"c":"Netherlands","s":0.9482},{"c":"Bulgaria","s":0.9419},{"c":"Iceland","s":0.9168}],"Ivory Coast":[{"c":"Italy","s":0.8132},{"c":"France","s":0.7834},{"c":"Bulgaria","s":0.7661},{"c":"Netherlands","s":0.7661},{"c":"Benin","s":0.7582}],"Jamaica":[{"c":"Haiti","s":0.8493},{"c":"Costa Rica","s":0.8462},{"c":"Ghana","s":0.843},{"c":"Angola","s":0.8289},{"c":"Russia","s":0.8257}],"Japan":[{"c":"Canada","s":0.9812},{"c":"Venezuela","s":0.9765},{"c":"Poland","s":0.9733},{"c":"Uganda","s":0.9655},{"c":"Luxembourg","s":0.9623}],"Jordan":[{"c":"Albania","s":0.8823},{"c":"Bahrain","s":0.8744},{"c":"Honduras","s":0.8744},{"c":"Guinea","s":0.8728},{"c":"Qatar","s":0.8728}],"Kosovo":[{"c":"Russia","s":0.8462},{"c":"Saudi Arabia","s":0.843},{"c":"Romania","s":0.8383},{"c":"Uruguay","s":0.8273},{"c":"Sweden","s":0.8226}],"Luxembourg":[{"c":"Slovakia","s":0.9702},{"c":"Canada","s":0.967},{"c":"Poland","s":0.9655},{"c":"Japan","s":0.9623},{"c":"Iran","s":0.9608}],"Mali":[{"c":"Benin","s":0.9152},{"c":"Guinea","s":0.9074},{"c":"Burkina Faso","s":0.8666},{"c":"France","s":0.8587},{"c":"Angola","s":0.8493}],"Mexico":[{"c":"Algeria","s":0.7943},{"c":"Honduras","s":0.7582},{"c":"Albania","s":0.752},{"c":"Guinea","s":0.7394},{"c":"Jordan","s":0.7378}],"Montenegro":[{"c":"Bosnia and Herzegovina","s":0.9451},{"c":"Denmark","s":0.9372},{"c":"El Salvador","s":0.9278},{"c":"Iran","s":0.9246},{"c":"Hungary","s":0.9184}],"Morocco":[{"c":"Benin","s":0.8195},{"c":"Tunisia","s":0.7834},{"c":"France","s":0.7771},{"c":"Qatar","s":0.7692},{"c":"Iraq","s":0.7488}],"Netherlands":[{"c":"South Korea","s":0.9608},{"c":"Slovenia","s":0.9513},{"c":"Italy","s":0.9482},{"c":"Iceland","s":0.9403},{"c":"Germany","s":0.9372}],"New Zealand":[{"c":"Poland","s":0.9843},{"c":"Canada","s":0.9733},{"c":"Australia","s":0.9592},{"c":"Venezuela","s":0.9576},{"c":"Japan","s":0.956}],"Nigeria":[{"c":"Czechia","s":0.8823},{"c":"Albania","s":0.8744},{"c":"Guatemala","s":0.8509},{"c":"Vietnam","s":0.8383},{"c":"United States","s":0.8383}],"North Macedonia":[{"c":"Burkina Faso","s":0.9702},{"c":"Wales","s":0.9466},{"c":"Senegal","s":0.9231},{"c":"Benin","s":0.9152},{"c":"Haiti","s":0.9027}],"Northern Ireland":[{"c":"Saudi Arabia","s":0.9466},{"c":"New Zealand","s":0.9168},{"c":"Poland","s":0.9152},{"c":"Hungary","s":0.9074},{"c":"Slovenia","s":0.9058}],"Norway":[{"c":"Ireland","s":0.9278},{"c":"Saudi Arabia","s":0.9137},{"c":"Austria","s":0.9027},{"c":"Sweden","s":0.8995},{"c":"Uruguay","s":0.8948}],"Oman":[{"c":"Poland","s":0.9733},{"c":"Slovakia","s":0.9466},{"c":"Japan","s":0.9451},{"c":"New Zealand","s":0.9435},{"c":"Venezuela","s":0.9388}],"Palestine":[{"c":"New Zealand","s":0.9451},{"c":"Uzbekistan","s":0.9388},{"c":"Zambia","s":0.9341},{"c":"Poland","s":0.9325},{"c":"Oman","s":0.9231}],"Panama":[{"c":"United Arab Emirates","s":0.9278},{"c":"Qatar","s":0.9231},{"c":"Argentina","s":0.9184},{"c":"Russia","s":0.9168},{"c":"Tunisia","s":0.8838}],"Paraguay":[{"c":"Guatemala","s":0.9215},{"c":"Brazil","s":0.9058},{"c":"United States","s":0.8964},{"c":"Serbia","s":0.8964},{"c":"Iceland","s":0.8901}],"Peru":[{"c":"Thailand","s":0.8132},{"c":"Gabon","s":0.8053},{"c":"Spain","s":0.7943},{"c":"Cameroon","s":0.7912},{"c":"Georgia","s":0.7692}],"Poland":[{"c":"New Zealand","s":0.9843},{"c":"Canada","s":0.978},{"c":"Japan","s":0.9733},{"c":"Oman","s":0.9733},{"c":"Luxembourg","s":0.9655}],"Portugal":[{"c":"Uruguay","s":0.865},{"c":"Spain","s":0.8493},{"c":"Jordan","s":0.8367},{"c":"Qatar","s":0.832},{"c":"Romania","s":0.8257}],"Qatar":[{"c":"France","s":0.9341},{"c":"Panama","s":0.9231},{"c":"Benin","s":0.9089},{"c":"Tunisia","s":0.9011},{"c":"United Arab Emirates","s":0.8964}],"Romania":[{"c":"Saudi Arabia","s":0.9341},{"c":"Russia","s":0.9184},{"c":"Uruguay","s":0.9027},{"c":"Sweden","s":0.8964},{"c":"Bosnia and Herzegovina","s":0.8917}],"Russia":[{"c":"Uzbekistan","s":0.9655},{"c":"Canada","s":0.9592},{"c":"Iran","s":0.9576},{"c":"Uruguay","s":0.9513},{"c":"Saudi Arabia","s":0.9419}],"Saudi Arabia":[{"c":"Uruguay","s":0.9639},{"c":"Sweden","s":0.9576},{"c":"Northern Ireland","s":0.9466},{"c":"Russia","s":0.9419},{"c":"New Zealand","s":0.9419}],"Scotland":[{"c":"Uganda","s":0.8681},{"c":"Austria","s":0.8462},{"c":"Israel","s":0.832},{"c":"Hungary","s":0.8148},{"c":"Norway","s":0.8132}],"Senegal":[{"c":"Wales","s":0.9655},{"c":"Haiti","s":0.9639},{"c":"Iran","s":0.9623},{"c":"Canada","s":0.9608},{"c":"Japan","s":0.956}],"Serbia":[{"c":"Guatemala","s":0.9278},{"c":"Honduras","s":0.9058},{"c":"Paraguay","s":0.8964},{"c":"Slovakia","s":0.8948},{"c":"Czechia","s":0.8854}],"Slovakia":[{"c":"Luxembourg","s":0.9702},{"c":"Poland","s":0.956},{"c":"Senegal","s":0.9545},{"c":"Finland","s":0.9482},{"c":"Oman","s":0.9466}],"Slovenia":[{"c":"Netherlands","s":0.9513},{"c":"Colombia","s":0.9451},{"c":"Chile","s":0.9451},{"c":"Costa Rica","s":0.9356},{"c":"Luxembourg","s":0.9341}],"South Africa":[{"c":"Slovakia","s":0.9074},{"c":"Finland","s":0.8948},{"c":"Austria","s":0.8948},{"c":"Slovenia","s":0.8838},{"c":"Luxembourg","s":0.8838}],"South Korea":[{"c":"Italy","s":0.9702},{"c":"Netherlands","s":0.9608},{"c":"United States","s":0.9592},{"c":"Iceland","s":0.956},{"c":"Vietnam","s":0.9498}],"Spain":[{"c":"Turkey","s":0.9278},{"c":"Germany","s":0.9215},{"c":"Sweden","s":0.9137},{"c":"Uruguay","s":0.9137},{"c":"Bahrain","s":0.9074}],"Sweden":[{"c":"Saudi Arabia","s":0.9576},{"c":"Uruguay","s":0.9529},{"c":"Bosnia and Herzegovina","s":0.9294},{"c":"Bolivia","s":0.9262},{"c":"Iran","s":0.9184}],"Switzerland":[{"c":"Burkina Faso","s":0.9058},{"c":"North Macedonia","s":0.8964},{"c":"Senegal","s":0.8854},{"c":"Wales","s":0.8776},{"c":"Uruguay","s":0.865}],"Syria":[{"c":"Gabon","s":0.854},{"c":"Iraq","s":0.8524},{"c":"Hungary","s":0.7504},{"c":"Peru","s":0.7504},{"c":"United Arab Emirates","s":0.7096}],"Thailand":[{"c":"Georgia","s":0.9121},{"c":"South Korea","s":0.898},{"c":"Vietnam","s":0.8932},{"c":"Guatemala","s":0.8823},{"c":"Italy","s":0.8713}],"Tunisia":[{"c":"Wales","s":0.9137},{"c":"United Arab Emirates","s":0.9121},{"c":"Qatar","s":0.9011},{"c":"Burkina Faso","s":0.8964},{"c":"Panama","s":0.8838}],"Turkey":[{"c":"Uganda","s":0.9655},{"c":"Canada","s":0.9623},{"c":"Venezuela","s":0.9435},{"c":"Iran","s":0.9403},{"c":"Japan","s":0.9356}],"Uganda":[{"c":"Israel","s":0.9733},{"c":"Canada","s":0.9717},{"c":"Japan","s":0.9655},{"c":"Turkey","s":0.9655},{"c":"Venezuela","s":0.9639}],"Ukraine":[{"c":"Peru","s":0.7174},{"c":"Cameroon","s":0.5934},{"c":"Gabon","s":0.5699},{"c":"Algeria","s":0.5542},{"c":"Thailand","s":0.5259}],"United Arab Emirates":[{"c":"Argentina","s":0.9388},{"c":"Panama","s":0.9278},{"c":"Tunisia","s":0.9121},{"c":"Qatar","s":0.8964},{"c":"Wales","s":0.8917}],"United States":[{"c":"Iceland","s":0.9749},{"c":"Vietnam","s":0.9623},{"c":"South Korea","s":0.9592},{"c":"Guatemala","s":0.9482},{"c":"Brazil","s":0.9451}],"Uruguay":[{"c":"Saudi Arabia","s":0.9639},{"c":"Bosnia and Herzegovina","s":0.9623},{"c":"Canada","s":0.9623},{"c":"Iran","s":0.9592},{"c":"Sweden","s":0.9529}],"Uzbekistan":[{"c":"Russia","s":0.9655},{"c":"Iran","s":0.9639},{"c":"Canada","s":0.9639},{"c":"Wales","s":0.9608},{"c":"Venezuela","s":0.9592}],"Venezuela":[{"c":"Japan","s":0.9765},{"c":"Canada","s":0.967},{"c":"Uganda","s":0.9639},{"c":"Poland","s":0.9623},{"c":"Uzbekistan","s":0.9592}],"Vietnam":[{"c":"United States","s":0.9623},{"c":"Guatemala","s":0.9529},{"c":"South Korea","s":0.9498},{"c":"Iceland","s":0.9403},{"c":"Argentina","s":0.9199}],"Wales":[{"c":"Senegal","s":0.9655},{"c":"Uzbekistan","s":0.9608},{"c":"North Macedonia","s":0.9466},{"c":"Canada","s":0.9419},{"c":"Venezuela","s":0.9419}],"Zambia":[{"c":"Finland","s":0.9372},{"c":"Palestine","s":0.9341},{"c":"Oman","s":0.9011},{"c":"Slovakia","s":0.8995},{"c":"Luxembourg","s":0.8932}]},"podium_heat":{"players":["Harry Kane","Kylian Mbappé","Lamine Yamal","Rodri","Leo Messi","Kvaratskhelia","Ousmane Dembélé"],"confeds":["UEFA","CAF","AFC","CONMEBOL","CONCACAF","OFC"],"n":{"AFC":17,"CAF":20,"CONCACAF":11,"CONMEBOL":10,"OFC":1,"UEFA":41},"pct":[[71,45,65,70,64,100],[56,65,71,70,73,100],[49,65,53,40,36,100],[49,25,29,50,36,0],[17,10,53,30,27,0],[29,10,6,20,18,0],[10,35,6,0,18,0]],"cnt":[[29,9,11,7,7,1],[23,13,12,7,8,1],[20,13,9,4,4,1],[20,5,5,5,4,0],[7,2,9,3,3,0],[12,2,1,2,2,0],[4,7,1,0,2,0]]},"corr":{"players":["Harry Kane","Kylian Mbappé","Lamine Yamal","Rodri","Leo Messi","Kvaratskhelia","Ousmane Dembélé","Erling Haaland","Michael Olise","Fabián Ruiz","Jude Bellingham","Pau Cubarsí"],"m":[[1.0,-0.197,0.06,-0.188,-0.035,0.077,-0.324,0.075,0.318,-0.207,-0.083,0.013],[-0.197,1.0,-0.051,-0.244,-0.071,-0.172,0.147,0.075,0.124,-0.085,0.069,-0.095],[0.06,-0.051,1.0,-0.281,-0.23,-0.186,0.052,-0.105,-0.049,0.13,-0.091,0.082],[-0.188,-0.244,-0.281,1.0,0.193,-0.096,-0.164,0.067,-0.068,-0.09,0.093,-0.013],[-0.035,-0.071,-0.23,0.193,1.0,-0.188,-0.028,0.017,-0.257,-0.101,0.009,-0.101],[0.077,-0.172,-0.186,-0.096,-0.188,1.0,-0.35,-0.09,-0.065,-0.074,-0.143,-0.025],[-0.324,0.147,0.052,-0.164,-0.028,-0.35,1.0,-0.25,0.026,0.072,-0.011,0.016],[0.075,0.075,-0.105,0.067,0.017,-0.09,-0.25,1.0,-0.248,-0.281,0.141,-0.174],[0.318,0.124,-0.049,-0.068,-0.257,-0.065,0.026,-0.248,1.0,-0.211,-0.129,-0.083],[-0.207,-0.085,0.13,-0.09,-0.101,-0.074,0.072,-0.281,-0.211,1.0,-0.068,-0.106],[-0.083,0.069,-0.091,0.093,0.009,-0.143,-0.011,0.141,-0.129,-0.068,1.0,-0.173],[0.013,-0.095,0.082,-0.013,-0.101,-0.025,0.016,-0.174,-0.083,-0.106,-0.173,1.0]]},"home":{"rows":[{"player":"Achraf Hakimi","home":"Morocco","home_rank":1,"median_elsewhere":9.0,"boost":8.0,"n_others":21},{"player":"Kvaratskhelia","home":"Georgia","home_rank":1,"median_elsewhere":6.0,"boost":5.0,"n_others":84},{"player":"Erling Haaland","home":"Norway","home_rank":2,"median_elsewhere":7.0,"boost":5.0,"n_others":76},{"player":"Ousmane Dembélé","home":"France","home_rank":2,"median_elsewhere":6.5,"boost":4.5,"n_others":74},{"player":"Leo Messi","home":"Argentina","home_rank":1,"median_elsewhere":5.0,"boost":4.0,"n_others":84},{"player":"Kylian Mbappé","home":"France","home_rank":1,"median_elsewhere":3.0,"boost":2.0,"n_others":96},{"player":"Nuno Mendes","home":"Portugal","home_rank":8,"median_elsewhere":10.0,"boost":2.0,"n_others":3},{"player":"Fabián Ruiz","home":"Spain","home_rank":6,"median_elsewhere":8.0,"boost":2.0,"n_others":39},{"player":"Julián Quiñones","home":"Mexico","home_rank":8,"median_elsewhere":10.0,"boost":2.0,"n_others":1},{"player":"Luis Díaz","home":"Colombia","home_rank":8,"median_elsewhere":10.0,"boost":2.0,"n_others":4},{"player":"Pau Cubarsí","home":"Spain","home_rank":7,"median_elsewhere":8.5,"boost":1.5,"n_others":26},{"player":"Harry Kane","home":"England","home_rank":1,"median_elsewhere":2.0,"boost":1.0,"n_others":97},{"player":"Lamine Yamal","home":"Spain","home_rank":2,"median_elsewhere":3.0,"boost":1.0,"n_others":95},{"player":"Jude Bellingham","home":"England","home_rank":8,"median_elsewhere":9.0,"boost":1.0,"n_others":39},{"player":"Vinícius Jr.","home":"Brazil","home_rank":8,"median_elsewhere":8.0,"boost":0.0,"n_others":7},{"player":"Michael Olise","home":"France","home_rank":7,"median_elsewhere":7.0,"boost":0.0,"n_others":66},{"player":"Rodri","home":"Spain","home_rank":5,"median_elsewhere":4.0,"boost":-1.0,"n_others":89},{"player":"Declan Rice","home":"England","home_rank":10,"median_elsewhere":9.0,"boost":-1.0,"n_others":19}],"mean_boost":2.17,"median_boost":2.0,"n_boosted":14,"n":18,"wilcoxon_p":0.0012},"h2h":[{"country":"Albania","code":"ALB","confed":"UEFA","kane":7,"mbappe":4,"winner":"Mbappe"},{"country":"Algeria","code":"ALG","confed":"CAF","kane":8,"mbappe":7,"winner":"Mbappe"},{"country":"Angola","code":"ANG","confed":"CAF","kane":1,"mbappe":2,"winner":"Kane"},{"country":"Argentina","code":"ARG","confed":"CONMEBOL","kane":2,"mbappe":3,"winner":"Kane"},{"country":"Australia","code":"AUS","confed":"AFC","kane":1,"mbappe":2,"winner":"Kane"},{"country":"Austria","code":"AUT","confed":"UEFA","kane":1,"mbappe":7,"winner":"Kane"},{"country":"Bahrain","code":"BHR","confed":"AFC","kane":3,"mbappe":1,"winner":"Mbappe"},{"country":"Belarus","code":"BLR","confed":"UEFA","kane":3,"mbappe":5,"winner":"Kane"},{"country":"Belgium","code":"BEL","confed":"UEFA","kane":1,"mbappe":3,"winner":"Kane"},{"country":"Benin","code":"BEN","confed":"CAF","kane":4,"mbappe":1,"winner":"Mbappe"},{"country":"Bolivia","code":"BOL","confed":"CONMEBOL","kane":1,"mbappe":4,"winner":"Kane"},{"country":"Bosnia and Herzegovina","code":"BIH","confed":"UEFA","kane":1,"mbappe":4,"winner":"Kane"},{"country":"Brazil","code":"BRA","confed":"CONMEBOL","kane":4,"mbappe":2,"winner":"Mbappe"},{"country":"Bulgaria","code":"BUL","confed":"UEFA","kane":8,"mbappe":1,"winner":"Mbappe"},{"country":"Burkina Faso","code":"BFA","confed":"CAF","kane":4,"mbappe":3,"winner":"Mbappe"},{"country":"Cameroon","code":"CMR","confed":"CAF","kane":10,"mbappe":1,"winner":"Mbappe"},{"country":"Canada","code":"CAN","confed":"CONCACAF","kane":1,"mbappe":3,"winner":"Kane"},{"country":"Cape Verde","code":"CPV","confed":"CAF","kane":2,"mbappe":4,"winner":"Kane"},{"country":"Chile","code":"CHI","confed":"CONMEBOL","kane":1,"mbappe":5,"winner":"Kane"},{"country":"China","code":"CHN","confed":"AFC","kane":4,"mbappe":5,"winner":"Kane"},{"country":"Colombia","code":"COL","confed":"CONMEBOL","kane":1,"mbappe":3,"winner":"Kane"},{"country":"Costa Rica","code":"CRC","confed":"CONCACAF","kane":1,"mbappe":2,"winner":"Kane"},{"country":"Croatia","code":"CRO","confed":"UEFA","kane":6,"mbappe":5,"winner":"Mbappe"},{"country":"Curaçao","code":"CUW","confed":"CONCACAF","kane":2,"mbappe":5,"winner":"Kane"},{"country":"Czechia","code":"CZE","confed":"UEFA","kane":10,"mbappe":2,"winner":"Mbappe"},{"country":"DR Congo","code":"COD","confed":"CAF","kane":3,"mbappe":1,"winner":"Mbappe"},{"country":"Denmark","code":"DEN","confed":"UEFA","kane":1,"mbappe":7,"winner":"Kane"},{"country":"Ecuador","code":"ECU","confed":"CONMEBOL","kane":2,"mbappe":1,"winner":"Mbappe"},{"country":"Egypt","code":"EGY","confed":"CAF","kane":4,"mbappe":1,"winner":"Mbappe"},{"country":"El Salvador","code":"SLV","confed":"CONCACAF","kane":1,"mbappe":7,"winner":"Kane"},{"country":"England","code":"ENG","confed":"UEFA","kane":1,"mbappe":5,"winner":"Kane"},{"country":"Finland","code":"FIN","confed":"UEFA","kane":2,"mbappe":1,"winner":"Mbappe"},{"country":"France","code":"FRA","confed":"UEFA","kane":6,"mbappe":1,"winner":"Mbappe"},{"country":"Gabon","code":"GAB","confed":"CAF","kane":3,"mbappe":7,"winner":"Kane"},{"country":"Georgia","code":"GEO","confed":"UEFA","kane":4,"mbappe":5,"winner":"Kane"},{"country":"Germany","code":"GER","confed":"UEFA","kane":3,"mbappe":1,"winner":"Mbappe"},{"country":"Ghana","code":"GHA","confed":"CAF","kane":2,"mbappe":1,"winner":"Mbappe"},{"country":"Greece","code":"GRE","confed":"UEFA","kane":7,"mbappe":99,"winner":"Kane"},{"country":"Guatemala","code":"GUA","confed":"CONCACAF","kane":5,"mbappe":2,"winner":"Mbappe"},{"country":"Guinea","code":"GUI","confed":"CAF","kane":4,"mbappe":1,"winner":"Mbappe"},{"country":"Haiti","code":"HAI","confed":"CONCACAF","kane":1,"mbappe":3,"winner":"Kane"},{"country":"Honduras","code":"HON","confed":"CONCACAF","kane":6,"mbappe":3,"winner":"Mbappe"},{"country":"Hungary","code":"HUN","confed":"UEFA","kane":1,"mbappe":5,"winner":"Kane"},{"country":"Iceland","code":"ISL","confed":"UEFA","kane":4,"mbappe":2,"winner":"Mbappe"},{"country":"Iran","code":"IRN","confed":"AFC","kane":1,"mbappe":3,"winner":"Kane"},{"country":"Iraq","code":"IRQ","confed":"AFC","kane":3,"mbappe":1,"winner":"Mbappe"},{"country":"Ireland","code":"IRL","confed":"UEFA","kane":1,"mbappe":6,"winner":"Kane"},{"country":"Israel","code":"ISR","confed":"UEFA","kane":1,"mbappe":4,"winner":"Kane"},{"country":"Italy","code":"ITA","confed":"UEFA","kane":5,"mbappe":1,"winner":"Mbappe"},{"country":"Ivory Coast","code":"CIV","confed":"CAF","kane":99,"mbappe":1,"winner":"Mbappe"},{"country":"Jamaica","code":"JAM","confed":"CONCACAF","kane":1,"mbappe":2,"winner":"Kane"},{"country":"Japan","code":"JPN","confed":"AFC","kane":1,"mbappe":4,"winner":"Kane"},{"country":"Jordan","code":"JOR","confed":"AFC","kane":7,"mbappe":2,"winner":"Mbappe"},{"country":"Kosovo","code":"KVX","confed":"UEFA","kane":1,"mbappe":2,"winner":"Kane"},{"country":"Luxembourg","code":"LUX","confed":"UEFA","kane":1,"mbappe":2,"winner":"Kane"},{"country":"Mali","code":"MLI","confed":"CAF","kane":4,"mbappe":1,"winner":"Mbappe"},{"country":"Mexico","code":"MEX","confed":"CONCACAF","kane":99,"mbappe":4,"winner":"Mbappe"},{"country":"Montenegro","code":"MNE","confed":"UEFA","kane":1,"mbappe":5,"winner":"Kane"},{"country":"Morocco","code":"MAR","confed":"CAF","kane":6,"mbappe":2,"winner":"Mbappe"},{"country":"Netherlands","code":"NED","confed":"UEFA","kane":3,"mbappe":1,"winner":"Mbappe"},{"country":"New Zealand","code":"NZL","confed":"OFC","kane":1,"mbappe":2,"winner":"Kane"},{"country":"Nigeria","code":"NGA","confed":"CAF","kane":7,"mbappe":5,"winner":"Mbappe"},{"country":"North Macedonia","code":"MKD","confed":"UEFA","kane":3,"mbappe":4,"winner":"Kane"},{"country":"Northern Ireland","code":"NIR","confed":"UEFA","kane":1,"mbappe":3,"winner":"Kane"},{"country":"Norway","code":"NOR","confed":"UEFA","kane":1,"mbappe":7,"winner":"Kane"},{"country":"Oman","code":"OMA","confed":"AFC","kane":1,"mbappe":2,"winner":"Kane"},{"country":"Palestine","code":"PLE","confed":"AFC","kane":2,"mbappe":1,"winner":"Mbappe"},{"country":"Panama","code":"PAN","confed":"CONCACAF","kane":3,"mbappe":2,"winner":"Mbappe"},{"country":"Paraguay","code":"PAR","confed":"CONMEBOL","kane":6,"mbappe":1,"winner":"Mbappe"},{"country":"Peru","code":"PER","confed":"CONMEBOL","kane":7,"mbappe":4,"winner":"Mbappe"},{"country":"Poland","code":"POL","confed":"UEFA","kane":1,"mbappe":2,"winner":"Kane"},{"country":"Portugal","code":"POR","confed":"UEFA","kane":6,"mbappe":2,"winner":"Mbappe"},{"country":"Qatar","code":"QAT","confed":"AFC","kane":6,"mbappe":1,"winner":"Mbappe"},{"country":"Romania","code":"ROU","confed":"UEFA","kane":2,"mbappe":1,"winner":"Mbappe"},{"country":"Russia","code":"RUS","confed":"UEFA","kane":1,"mbappe":2,"winner":"Kane"},{"country":"Saudi Arabia","code":"KSA","confed":"AFC","kane":1,"mbappe":2,"winner":"Kane"},{"country":"Scotland","code":"SCO","confed":"UEFA","kane":1,"mbappe":99,"winner":"Kane"},{"country":"Senegal","code":"SEN","confed":"CAF","kane":1,"mbappe":3,"winner":"Kane"},{"country":"Serbia","code":"SRB","confed":"UEFA","kane":4,"mbappe":2,"winner":"Mbappe"},{"country":"Slovakia","code":"SVK","confed":"UEFA","kane":1,"mbappe":2,"winner":"Kane"},{"country":"Slovenia","code":"SVN","confed":"UEFA","kane":1,"mbappe":3,"winner":"Kane"},{"country":"South Africa","code":"RSA","confed":"CAF","kane":1,"mbappe":4,"winner":"Kane"},{"country":"South Korea","code":"KOR","confed":"AFC","kane":4,"mbappe":2,"winner":"Mbappe"},{"country":"Spain","code":"ESP","confed":"UEFA","kane":3,"mbappe":1,"winner":"Mbappe"},{"country":"Sweden","code":"SWE","confed":"UEFA","kane":1,"mbappe":2,"winner":"Kane"},{"country":"Switzerland","code":"SUI","confed":"UEFA","kane":2,"mbappe":5,"winner":"Kane"},{"country":"Syria","code":"SYR","confed":"AFC","kane":3,"mbappe":5,"winner":"Kane"},{"country":"Thailand","code":"THA","confed":"AFC","kane":7,"mbappe":4,"winner":"Mbappe"},{"country":"Tunisia","code":"TUN","confed":"CAF","kane":5,"mbappe":4,"winner":"Mbappe"},{"country":"Turkey","code":"TUR","confed":"UEFA","kane":2,"mbappe":3,"winner":"Kane"},{"country":"Uganda","code":"UGA","confed":"CAF","kane":1,"mbappe":4,"winner":"Kane"},{"country":"Ukraine","code":"UKR","confed":"UEFA","kane":9,"mbappe":99,"winner":"Kane"},{"country":"United Arab Emirates","code":"UAE","confed":"AFC","kane":5,"mbappe":2,"winner":"Mbappe"},{"country":"United States","code":"USA","confed":"CONCACAF","kane":4,"mbappe":3,"winner":"Mbappe"},{"country":"Uruguay","code":"URU","confed":"CONMEBOL","kane":1,"mbappe":3,"winner":"Kane"},{"country":"Uzbekistan","code":"UZB","confed":"AFC","kane":1,"mbappe":3,"winner":"Kane"},{"country":"Venezuela","code":"VEN","confed":"CONMEBOL","kane":1,"mbappe":3,"winner":"Kane"},{"country":"Vietnam","code":"VIE","confed":"AFC","kane":3,"mbappe":5,"winner":"Kane"},{"country":"Wales","code":"WAL","confed":"UEFA","kane":2,"mbappe":3,"winner":"Kane"},{"country":"Zambia","code":"ZAM","confed":"CAF","kane":3,"mbappe":1,"winner":"Mbappe"}],"stand":[{"rank":1,"player":"Harry Kane","points":1055,"ballots":98,"firsts":40,"podium":64,"mid47":29,"tail":5,"omissions":2,"mean_rank":3.04,"sd_rank":2.36,"nat":"England","club":"Bayern Munich","pos":"Forward","age":32,"dist":{"1":40,"2":11,"3":13,"4":12,"5":4,"6":7,"7":6,"8":2,"9":1,"10":2}},{"rank":2,"player":"Kylian Mbappé","points":1027,"ballots":97,"firsts":23,"podium":64,"mid47":33,"tail":0,"omissions":3,"mean_rank":2.96,"sd_rank":1.73,"nat":"France","club":"Real Madrid","pos":"Forward","age":27,"dist":{"1":23,"2":24,"3":17,"4":13,"5":13,"6":1,"7":6,"8":0,"9":0,"10":0}},{"rank":3,"player":"Lamine Yamal","points":881,"ballots":96,"firsts":13,"podium":51,"mid47":39,"tail":6,"omissions":4,"mean_rank":3.75,"sd_rank":2.12,"nat":"Spain","club":"Barcelona","pos":"Forward","age":19,"dist":{"1":13,"2":20,"3":18,"4":13,"5":11,"6":9,"7":6,"8":5,"9":0,"10":1}},{"rank":4,"player":"Rodri","points":726,"ballots":90,"firsts":10,"podium":39,"mid47":35,"tail":16,"omissions":10,"mean_rank":4.53,"sd_rank":2.63,"nat":"Spain","club":"Manchester City","pos":"Midfielder","age":30,"dist":{"1":10,"2":16,"3":13,"4":9,"5":11,"6":9,"7":6,"8":8,"9":4,"10":4}},{"rank":5,"player":"Leo Messi","points":612,"ballots":85,"firsts":6,"podium":24,"mid47":46,"tail":15,"omissions":15,"mean_rank":4.99,"sd_rank":2.41,"nat":"Argentina","club":"Inter Miami","pos":"Forward","age":39,"dist":{"1":6,"2":7,"3":11,"4":16,"5":12,"6":12,"7":6,"8":6,"9":5,"10":4}},{"rank":6,"player":"Kvaratskhelia","points":541,"ballots":85,"firsts":2,"podium":19,"mid47":49,"tail":17,"omissions":15,"mean_rank":5.49,"sd_rank":2.25,"nat":"Georgia","club":"Paris Saint-Germain","pos":"Forward","age":25,"dist":{"1":2,"2":7,"3":10,"4":11,"5":11,"6":14,"7":13,"8":8,"9":7,"10":2}},{"rank":7,"player":"Ousmane Dembélé","points":418,"ballots":75,"firsts":0,"podium":14,"mid47":34,"tail":27,"omissions":25,"mean_rank":6.15,"sd_rank":2.55,"nat":"France","club":"Paris Saint-Germain","pos":"Forward","age":29,"dist":{"1":0,"2":7,"3":7,"4":10,"5":9,"6":5,"7":10,"8":10,"9":9,"10":8}},{"rank":8,"player":"Erling Haaland","points":378,"ballots":77,"firsts":0,"podium":9,"mid47":38,"tail":30,"omissions":23,"mean_rank":6.57,"sd_rank":2.21,"nat":"Norway","club":"Manchester City","pos":"Forward","age":26,"dist":{"1":0,"2":3,"3":6,"4":5,"5":11,"6":11,"7":11,"8":12,"9":12,"10":6}},{"rank":9,"player":"Michael Olise","points":296,"ballots":67,"firsts":1,"podium":4,"mid47":35,"tail":28,"omissions":33,"mean_rank":6.93,"sd_rank":2.11,"nat":"France","club":"Bayern Munich","pos":"Forward","age":24,"dist":{"1":1,"2":1,"3":2,"4":5,"5":6,"6":13,"7":11,"8":9,"9":12,"10":7}},{"rank":10,"player":"Fabián Ruiz","points":201,"ballots":40,"firsts":4,"podium":7,"mid47":12,"tail":21,"omissions":60,"mean_rank":6.8,"sd_rank":3.02,"nat":"Spain","club":"Paris Saint-Germain","pos":"Midfielder","age":30,"dist":{"1":4,"2":3,"3":0,"4":1,"5":3,"6":5,"7":3,"8":7,"9":4,"10":10}},{"rank":11,"player":"Jude Bellingham","points":107,"ballots":40,"firsts":0,"podium":0,"mid47":11,"tail":29,"omissions":60,"mean_rank":8.38,"sd_rank":1.51,"nat":"England","club":"Real Madrid","pos":"Midfielder","age":23,"dist":{"1":0,"2":0,"3":0,"4":0,"5":2,"6":3,"7":6,"8":9,"9":7,"10":13}},{"rank":12,"player":"Pau Cubarsí","points":101,"ballots":27,"firsts":0,"podium":3,"mid47":9,"tail":15,"omissions":73,"mean_rank":7.59,"sd_rank":2.42,"nat":"Spain","club":"Barcelona","pos":"Defender","age":19,"dist":{"1":0,"2":1,"3":2,"4":0,"5":2,"6":3,"7":4,"8":2,"9":5,"10":8}},{"rank":13,"player":"Achraf Hakimi","points":65,"ballots":22,"firsts":1,"podium":1,"mid47":5,"tail":16,"omissions":78,"mean_rank":8.32,"sd_rank":2.21,"nat":"Morocco","club":"Paris Saint-Germain","pos":"Defender","age":28,"dist":{"1":1,"2":0,"3":0,"4":1,"5":0,"6":0,"7":4,"8":1,"9":8,"10":7}},{"rank":14,"player":"Vitinha","points":59,"ballots":21,"firsts":0,"podium":0,"mid47":5,"tail":16,"omissions":79,"mean_rank":8.29,"sd_rank":1.45,"nat":"Portugal","club":"Paris Saint-Germain","pos":"Midfielder","age":26,"dist":{"1":0,"2":0,"3":0,"4":0,"5":2,"6":0,"7":3,"8":5,"9":7,"10":4}},{"rank":15,"player":"Declan Rice","points":57,"ballots":20,"firsts":0,"podium":0,"mid47":7,"tail":13,"omissions":80,"mean_rank":8.2,"sd_rank":1.85,"nat":"England","club":"Arsenal","pos":"Midfielder","age":27,"dist":{"1":0,"2":0,"3":0,"4":1,"5":0,"6":4,"7":2,"8":2,"9":4,"10":7}},{"rank":16,"player":"Ferran Torres","points":44,"ballots":12,"firsts":0,"podium":0,"mid47":5,"tail":7,"omissions":88,"mean_rank":7.58,"sd_rank":2.43,"nat":"Spain","club":"Barcelona","pos":"Forward","age":26,"dist":{"1":0,"2":0,"3":0,"4":2,"5":1,"6":2,"7":0,"8":1,"9":2,"10":4}},{"rank":17,"player":"Vinícius Jr.","points":26,"ballots":8,"firsts":0,"podium":0,"mid47":3,"tail":5,"omissions":92,"mean_rank":7.88,"sd_rank":1.64,"nat":"Brazil","club":"Real Madrid","pos":"Forward","age":26,"dist":{"1":0,"2":0,"3":0,"4":0,"5":1,"6":0,"7":2,"8":3,"9":0,"10":2}},{"rank":18,"player":"Marc Cucurella","points":16,"ballots":5,"firsts":0,"podium":0,"mid47":1,"tail":4,"omissions":95,"mean_rank":8.0,"sd_rank":2.45,"nat":"Spain","club":"Chelsea","pos":"Defender","age":28,"dist":{"1":0,"2":0,"3":0,"4":1,"5":0,"6":0,"7":0,"8":2,"9":0,"10":2}},{"rank":19,"player":"João Neves","points":15,"ballots":4,"firsts":0,"podium":0,"mid47":1,"tail":3,"omissions":96,"mean_rank":7.5,"sd_rank":1.73,"nat":"Portugal","club":"Paris Saint-Germain","pos":"Midfielder","age":22,"dist":{"1":0,"2":0,"3":0,"4":0,"5":1,"6":0,"7":0,"8":2,"9":1,"10":0}},{"rank":20,"player":"Willian Pacho","points":12,"ballots":2,"firsts":0,"podium":1,"mid47":0,"tail":1,"omissions":98,"mean_rank":6.0,"sd_rank":4.24,"nat":"Ecuador","club":"Paris Saint-Germain","pos":"Defender","age":24,"dist":{"1":0,"2":0,"3":1,"4":0,"5":0,"6":0,"7":0,"8":0,"9":1,"10":0}},{"rank":21,"player":"Gabriel","points":11,"ballots":4,"firsts":0,"podium":0,"mid47":1,"tail":3,"omissions":96,"mean_rank":8.25,"sd_rank":1.71,"nat":"Brazil","club":"Arsenal","pos":"Defender","age":28,"dist":{"1":0,"2":0,"3":0,"4":0,"5":0,"6":1,"7":0,"8":1,"9":1,"10":1}},{"rank":22,"player":"Lautaro Martínez","points":11,"ballots":5,"firsts":0,"podium":0,"mid47":1,"tail":4,"omissions":95,"mean_rank":8.8,"sd_rank":1.1,"nat":"Argentina","club":"Inter Milan","pos":"Forward","age":29,"dist":{"1":0,"2":0,"3":0,"4":0,"5":0,"6":0,"7":1,"8":0,"9":3,"10":1}},{"rank":23,"player":"Nuno Mendes","points":8,"ballots":4,"firsts":0,"podium":0,"mid47":0,"tail":4,"omissions":96,"mean_rank":9.0,"sd_rank":1.15,"nat":"Portugal","club":"Paris Saint-Germain","pos":"Defender","age":24,"dist":{"1":0,"2":0,"3":0,"4":0,"5":0,"6":0,"7":0,"8":2,"9":0,"10":2}},{"rank":24,"player":"Luis Díaz","points":8,"ballots":5,"firsts":0,"podium":0,"mid47":0,"tail":5,"omissions":95,"mean_rank":9.4,"sd_rank":0.89,"nat":"Colombia","club":"Bayern Munich","pos":"Forward","age":29,"dist":{"1":0,"2":0,"3":0,"4":0,"5":0,"6":0,"7":0,"8":1,"9":1,"10":3}},{"rank":25,"player":"Marquinhos","points":7,"ballots":3,"firsts":0,"podium":0,"mid47":0,"tail":3,"omissions":97,"mean_rank":8.67,"sd_rank":0.58,"nat":"Brazil","club":"Paris Saint-Germain","pos":"Defender","age":32,"dist":{"1":0,"2":0,"3":0,"4":0,"5":0,"6":0,"7":0,"8":1,"9":2,"10":0}},{"rank":26,"player":"Dayot Upamecano","points":5,"ballots":1,"firsts":0,"podium":0,"mid47":1,"tail":0,"omissions":99,"mean_rank":6.0,"sd_rank":null,"nat":"France","club":"Bayern Munich","pos":"Defender","age":28,"dist":{"1":0,"2":0,"3":0,"4":0,"5":0,"6":1,"7":0,"8":0,"9":0,"10":0}},{"rank":27,"player":"Bruno Fernandes","points":5,"ballots":3,"firsts":0,"podium":0,"mid47":0,"tail":3,"omissions":97,"mean_rank":9.33,"sd_rank":0.58,"nat":"Portugal","club":"Manchester United","pos":"Midfielder","age":32,"dist":{"1":0,"2":0,"3":0,"4":0,"5":0,"6":0,"7":0,"8":0,"9":2,"10":1}},{"rank":28,"player":"Julián Quiñones","points":4,"ballots":2,"firsts":0,"podium":0,"mid47":0,"tail":2,"omissions":98,"mean_rank":9.0,"sd_rank":1.41,"nat":"Mexico","club":"Al-Qadsiah","pos":"Forward","age":29,"dist":{"1":0,"2":0,"3":0,"4":0,"5":0,"6":0,"7":0,"8":1,"9":0,"10":1}},{"rank":29,"player":"Sadio Mané","points":2,"ballots":1,"firsts":0,"podium":0,"mid47":0,"tail":1,"omissions":99,"mean_rank":9.0,"sd_rank":null,"nat":"Senegal","club":"Al Nassr","pos":"Forward","age":34,"dist":{"1":0,"2":0,"3":0,"4":0,"5":0,"6":0,"7":0,"8":0,"9":1,"10":0}},{"rank":30,"player":"William Saliba","points":2,"ballots":1,"firsts":0,"podium":0,"mid47":0,"tail":1,"omissions":99,"mean_rank":9.0,"sd_rank":null,"nat":"France","club":"Arsenal","pos":"Defender","age":25,"dist":{"1":0,"2":0,"3":0,"4":0,"5":0,"6":0,"7":0,"8":0,"9":1,"10":0}}],"margin":{"kane":1055,"mbappe":1027,"gap":28,"tiers":[{"tier":"1st","kane":600,"mbappe":345},{"tier":"2nd-3rd","kane":262,"mbappe":458},{"tier":"4th-7th","kane":183,"mbappe":224},{"tier":"8th-10th","kane":10,"mbappe":0}]},"omit":{"Harry Kane":[{"country":"Ivory Coast","confed":"CAF","juror":"Adam Khalil (sport-ivoire.ci)"},{"country":"Mexico","confed":"CONCACAF","juror":"Salvador Aguilera (Deportes CNN)"}],"Kylian Mbappé":[{"country":"Greece","confed":"UEFA","juror":"Manos Staramopoulos (Dimokratia)"},{"country":"Scotland","confed":"UEFA","juror":"John Greechan (Edinburgh Evening News)"},{"country":"Ukraine","confed":"UEFA","juror":"Igor Linnyk (FootClub)"}],"Lamine Yamal":[{"country":"Belarus","confed":"UEFA","juror":"Sergueï Nikolaïev (Pressball)"},{"country":"Cameroon","confed":"CAF","juror":"Emmanuel Gustave Samnick (L'Actu Sport and Notre Afrik)"},{"country":"Croatia","confed":"UEFA","juror":"Zdravko Reić (Jutarnji List)"},{"country":"Greece","confed":"UEFA","juror":"Manos Staramopoulos (Dimokratia)"}],"Rodri":[{"country":"Angola","confed":"CAF","juror":"Mateus Gonçalves (Rádio LAC)"},{"country":"Belgium","confed":"UEFA","juror":"Frédéric Larsimont (Le Soir)"},{"country":"Benin","confed":"CAF","juror":"Abdul Fataï Sanni (La Nation)"},{"country":"Ecuador","confed":"CONMEBOL","juror":"Patricio Cornejo Garcés (Radio Caravana)"},{"country":"Ghana","confed":"CAF","juror":"Michael Oti Adjei (TV3 Network)"},{"country":"Iraq","confed":"AFC","juror":"Sami Abdul Emam (Dubai Sports)"},{"country":"Jamaica","confed":"CONCACAF","juror":"Andre Lowe (Jamaica Observer)"},{"country":"Kosovo","confed":"UEFA","juror":"Bajram Shala (freelance)"},{"country":"Morocco","confed":"CAF","juror":"Mostafa Badri (Almountakhab)"},{"country":"Syria","confed":"AFC","juror":"Orwa Qanawati (Al-Mawqif Al-Riyadi)"}],"Leo Messi":[{"country":"Austria","confed":"UEFA","juror":"Martin Konrad (Sky Sport Austria)"},{"country":"Cameroon","confed":"CAF","juror":"Emmanuel Gustave Samnick (L'Actu Sport and Notre Afrik)"},{"country":"Cape Verde","confed":"CAF","juror":"Simão Rodrigues (Inforpress)"},{"country":"Curaçao","confed":"CONCACAF","juror":"Carl Ruiter (Extra Curaçao and Radio Hoyer)"},{"country":"DR Congo","confed":"CAF","juror":"Sylvie Meya Muabi (Top Congo FM)"},{"country":"Ecuador","confed":"CONMEBOL","juror":"Patricio Cornejo Garcés (Radio Caravana)"},{"country":"Egypt","confed":"CAF","juror":"Amr Nageeb Fahmy (beIN Sports)"},{"country":"Greece","confed":"UEFA","juror":"Manos Staramopoulos (Dimokratia)"},{"country":"Guinea","confed":"CAF","juror":"Ibrahima Diallo (Afrikinfomedia)"},{"country":"Ivory Coast","confed":"CAF","juror":"Adam Khalil (sport-ivoire.ci)"},{"country":"Kosovo","confed":"UEFA","juror":"Bajram Shala (freelance)"},{"country":"Mali","confed":"CAF","juror":"Souleymane Bobo Tounkara (L'Essor)"},{"country":"South Africa","confed":"CAF","juror":"Mark Gleeson (Reuters)"},{"country":"Sweden","confed":"UEFA","juror":"Anders Bengtsson (Offside)"},{"country":"Ukraine","confed":"UEFA","juror":"Igor Linnyk (FootClub)"}],"Kvaratskhelia":[{"country":"Algeria","confed":"CAF","juror":"Yazid Ouahib (El Watan)"},{"country":"Bahrain","confed":"AFC","juror":"Abdullah Ashoor (AFP)"},{"country":"Colombia","confed":"CONMEBOL","juror":"Paché Andrade (Fútbol al minuto)"},{"country":"Costa Rica","confed":"CONCACAF","juror":"Rodrigo Antonio Calvo Castro (Buzón de Rodrigo)"},{"country":"Croatia","confed":"UEFA","juror":"Zdravko Reić (Jutarnji List)"},{"country":"Ecuador","confed":"CONMEBOL","juror":"Patricio Cornejo Garcés (Radio Caravana)"},{"country":"Ghana","confed":"CAF","juror":"Michael Oti Adjei (TV3 Network)"},{"country":"Guinea","confed":"CAF","juror":"Ibrahima Diallo (Afrikinfomedia)"},{"country":"Honduras","confed":"CONCACAF","juror":"Francisco Antonio Rivas (Emisión Deportiva)"},{"country":"Jamaica","confed":"CONCACAF","juror":"Andre Lowe (Jamaica Observer)"},{"country":"Mexico","confed":"CONCACAF","juror":"Salvador Aguilera (Deportes CNN)"},{"country":"Nigeria","confed":"CAF","juror":"Samm Audu (scorenigeria)"},{"country":"Oman","confed":"AFC","juror":"Saleh al-Barhi (Al Watan)"},{"country":"Paraguay","confed":"CONMEBOL","juror":"Rubén Darío Da Rosa (Tigo Sports and Telefuturo)"},{"country":"Serbia","confed":"UEFA","juror":"Zoran Stojadinović (Sportski Žurnal)"}],"Ousmane Dembélé":[{"country":"Australia","confed":"AFC","juror":"Daniel Garb (Network Ten)"},{"country":"Austria","confed":"UEFA","juror":"Martin Konrad (Sky Sport Austria)"},{"country":"Bahrain","confed":"AFC","juror":"Abdullah Ashoor (AFP)"},{"country":"Bosnia and Herzegovina","confed":"UEFA","juror":"Semir Mustafic (N1 Bosnia)"},{"country":"Bulgaria","confed":"UEFA","juror":"Rumen Paytachev (blitz.bg)"},{"country":"Cape Verde","confed":"CAF","juror":"Simão Rodrigues (Inforpress)"},{"country":"Curaçao","confed":"CONCACAF","juror":"Carl Ruiter (Extra Curaçao and Radio Hoyer)"},{"country":"Denmark","confed":"UEFA","juror":"Troels Bager Thogersen (Campo)"},{"country":"Egypt","confed":"CAF","juror":"Amr Nageeb Fahmy (beIN Sports)"},{"country":"El Salvador","confed":"CONCACAF","juror":"Ricardo Menéndez (Radio Punto 105)"},{"country":"England","confed":"UEFA","juror":"Henry Winter (World Soccer)"},{"country":"Germany","confed":"UEFA","juror":"Karl-Heinz Wild (Kicker)"},{"country":"Greece","confed":"UEFA","juror":"Manos Staramopoulos (Dimokratia)"},{"country":"Hungary","confed":"UEFA","juror":"György Szöllősi (freelance)"},{"country":"Ireland","confed":"UEFA","juror":"Paul Kelly (freelance)"},{"country":"Montenegro","confed":"UEFA","juror":"Danilo Mitrović (ND Vijesti)"},{"country":"New Zealand","confed":"OFC","juror":"Michael Burgess (The New Zealand Herald)"},{"country":"Norway","confed":"UEFA","juror":"Lars Tjaernaas (Aftenposten)"},{"country":"Portugal","confed":"UEFA","juror":"António Tadeia (RTP and Substack)"},{"country":"Romania","confed":"UEFA","juror":"Emanuel Roșu (Fanatik Romania)"},{"country":"Scotland","confed":"UEFA","juror":"John Greechan (Edinburgh Evening News)"},{"country":"Spain","confed":"UEFA","juror":"José Félix Díaz (AS)"},{"country":"Sweden","confed":"UEFA","juror":"Anders Bengtsson (Offside)"},{"country":"Syria","confed":"AFC","juror":"Orwa Qanawati (Al-Mawqif Al-Riyadi)"},{"country":"Uganda","confed":"CAF","juror":"Darren Allan Kyeyune (Daily Monitor)"}],"Erling Haaland":[{"country":"Algeria","confed":"CAF","juror":"Yazid Ouahib (El Watan)"},{"country":"Belgium","confed":"UEFA","juror":"Frédéric Larsimont (Le Soir)"},{"country":"Burkina Faso","confed":"CAF","juror":"Lassina Sawadogo (Radiodiffusion Télévision du Burkina)"},{"country":"Cameroon","confed":"CAF","juror":"Emmanuel Gustave Samnick (L'Actu Sport and Notre Afrik)"},{"country":"China","confed":"AFC","juror":"Luo Ming (Titan Sports)"},{"country":"Curaçao","confed":"CONCACAF","juror":"Carl Ruiter (Extra Curaçao and Radio Hoyer)"},{"country":"DR Congo","confed":"CAF","juror":"Sylvie Meya Muabi (Top Congo FM)"},{"country":"Egypt","confed":"CAF","juror":"Amr Nageeb Fahmy (beIN Sports)"},{"country":"England","confed":"UEFA","juror":"Henry Winter (World Soccer)"},{"country":"Gabon","confed":"CAF","juror":"James Angelo Loundou (L'Union)"},{"country":"Georgia","confed":"UEFA","juror":"Vakhtang Bzikadze (Sarbieli)"},{"country":"Greece","confed":"UEFA","juror":"Manos Staramopoulos (Dimokratia)"},{"country":"Haiti","confed":"CONCACAF","juror":"Jean Pierre Étienne (Radio Ibo)"},{"country":"Iraq","confed":"AFC","juror":"Sami Abdul Emam (Dubai Sports)"},{"country":"Israel","confed":"UEFA","juror":"Nadav Jacobi (Channel 5 and Israel Hayom)"},{"country":"North Macedonia","confed":"UEFA","juror":"Mario Sotirovski (Vecer Press)"},{"country":"Paraguay","confed":"CONMEBOL","juror":"Rubén Darío Da Rosa (Tigo Sports and Telefuturo)"},{"country":"Senegal","confed":"CAF","juror":"Idrissa Sané (Challenge Sports)"},{"country":"Thailand","confed":"AFC","juror":"Urai Patoommawatana (Main Stand and T-Sports7)"},{"country":"Tunisia","confed":"CAF","juror":"Abdessalem Dhifallah (Radio Orient)"},{"country":"Ukraine","confed":"UEFA","juror":"Igor Linnyk (FootClub)"},{"country":"United Arab Emirates","confed":"AFC","juror":"Osama Mohamad Alamri (Abu Dhabi Sports TV)"},{"country":"Venezuela","confed":"CONMEBOL","juror":"Francisco Blavia (Simple TV)"}],"Michael Olise":[{"country":"Albania","confed":"UEFA","juror":"Besnik Dizdari (Futbolli Shqiptar)"},{"country":"Algeria","confed":"CAF","juror":"Yazid Ouahib (El Watan)"},{"country":"Bosnia and Herzegovina","confed":"UEFA","juror":"Semir Mustafic (N1 Bosnia)"},{"country":"Bulgaria","confed":"UEFA","juror":"Rumen Paytachev (blitz.bg)"},{"country":"Cape Verde","confed":"CAF","juror":"Simão Rodrigues (Inforpress)"},{"country":"China","confed":"AFC","juror":"Luo Ming (Titan Sports)"},{"country":"Colombia","confed":"CONMEBOL","juror":"Paché Andrade (Fútbol al minuto)"},{"country":"Croatia","confed":"UEFA","juror":"Zdravko Reić (Jutarnji List)"},{"country":"Czechia","confed":"UEFA","juror":"Stanislav Hrabě"},{"country":"Denmark","confed":"UEFA","juror":"Troels Bager Thogersen (Campo)"},{"country":"Egypt","confed":"CAF","juror":"Amr Nageeb Fahmy (beIN Sports)"},{"country":"Guinea","confed":"CAF","juror":"Ibrahima Diallo (Afrikinfomedia)"},{"country":"Hungary","confed":"UEFA","juror":"György Szöllősi (freelance)"},{"country":"Iraq","confed":"AFC","juror":"Sami Abdul Emam (Dubai Sports)"},{"country":"Jordan","confed":"AFC","juror":"Husam Barakat (Roya TV)"},{"country":"Kosovo","confed":"UEFA","juror":"Bajram Shala (freelance)"},{"country":"Mexico","confed":"CONCACAF","juror":"Salvador Aguilera (Deportes CNN)"},{"country":"Montenegro","confed":"UEFA","juror":"Danilo Mitrović (ND Vijesti)"},{"country":"Netherlands","confed":"UEFA","juror":"Frans van den Nieuwenhof (Voetbal International)"},{"country":"Panama","confed":"CONCACAF","juror":"Humberto Cornejo (La Prensa)"},{"country":"Peru","confed":"CONMEBOL","juror":"Carlos Salinas (Diario Líbero)"},{"country":"Portugal","confed":"UEFA","juror":"António Tadeia (RTP and Substack)"},{"country":"Qatar","confed":"AFC","juror":"Majed Alkhelaifi"},{"country":"Romania","confed":"UEFA","juror":"Emanuel Roșu (Fanatik Romania)"},{"country":"Russia","confed":"UEFA","juror":"Konstantin Klechtchev (Match TV)"},{"country":"Scotland","confed":"UEFA","juror":"John Greechan (Edinburgh Evening News)"},{"country":"South Korea","confed":"AFC","juror":"Kim Yong-il (Sports Seoul)"},{"country":"Syria","confed":"AFC","juror":"Orwa Qanawati (Al-Mawqif Al-Riyadi)"},{"country":"Thailand","confed":"AFC","juror":"Urai Patoommawatana (Main Stand and T-Sports7)"},{"country":"Tunisia","confed":"CAF","juror":"Abdessalem Dhifallah (Radio Orient)"},{"country":"Turkey","confed":"UEFA","juror":"Fatih Doğan (Sabah and TRT Spor)"},{"country":"Ukraine","confed":"UEFA","juror":"Igor Linnyk (FootClub)"},{"country":"Vietnam","confed":"AFC","juror":"Truong Anh Ngoc (The Thao & Van Hoa)"}],"Fabián Ruiz":[{"country":"Argentina","confed":"CONMEBOL","juror":"Ezequiel Fernández Moores (La Nación)"},{"country":"Australia","confed":"AFC","juror":"Daniel Garb (Network Ten)"},{"country":"Austria","confed":"UEFA","juror":"Martin Konrad (Sky Sport Austria)"},{"country":"Belarus","confed":"UEFA","juror":"Sergueï Nikolaïev (Pressball)"},{"country":"Belgium","confed":"UEFA","juror":"Frédéric Larsimont (Le Soir)"},{"country":"Benin","confed":"CAF","juror":"Abdul Fataï Sanni (La Nation)"},{"country":"Bolivia","confed":"CONMEBOL","juror":"Roberto Acosta Echavarria (late.com.bo and Bolivia TV)"},{"country":"Brazil","confed":"CONMEBOL","juror":"Cleber Machado (Record TV)"},{"country":"Bulgaria","confed":"UEFA","juror":"Rumen Paytachev (blitz.bg)"},{"country":"Burkina Faso","confed":"CAF","juror":"Lassina Sawadogo (Radiodiffusion Télévision du Burkina)"},{"country":"Cape Verde","confed":"CAF","juror":"Simão Rodrigues (Inforpress)"},{"country":"Chile","confed":"CONMEBOL","juror":"Danilo Díaz (Radio ADN)"},{"country":"Colombia","confed":"CONMEBOL","juror":"Paché Andrade (Fútbol al minuto)"},{"country":"Costa Rica","confed":"CONCACAF","juror":"Rodrigo Antonio Calvo Castro (Buzón de Rodrigo)"},{"country":"Croatia","confed":"UEFA","juror":"Zdravko Reić (Jutarnji List)"},{"country":"Curaçao","confed":"CONCACAF","juror":"Carl Ruiter (Extra Curaçao and Radio Hoyer)"},{"country":"Denmark","confed":"UEFA","juror":"Troels Bager Thogersen (Campo)"},{"country":"El Salvador","confed":"CONCACAF","juror":"Ricardo Menéndez (Radio Punto 105)"},{"country":"England","confed":"UEFA","juror":"Henry Winter (World Soccer)"},{"country":"Finland","confed":"UEFA","juror":"Ari Virtanen (Helsingin Sanomat and Ilta-Sanomat)"},{"country":"Ghana","confed":"CAF","juror":"Michael Oti Adjei (TV3 Network)"},{"country":"Greece","confed":"UEFA","juror":"Manos Staramopoulos (Dimokratia)"},{"country":"Guatemala","confed":"CONCACAF","juror":"Luis Rolando Solares (TV Azteca Guate)"},{"country":"Guinea","confed":"CAF","juror":"Ibrahima Diallo (Afrikinfomedia)"},{"country":"Iceland","confed":"UEFA","juror":"Vidir Sigurdsson (freelance)"},{"country":"Iran","confed":"AFC","juror":"Siamak Rahmani (freelance)"},{"country":"Ireland","confed":"UEFA","juror":"Paul Kelly (freelance)"},{"country":"Italy","confed":"UEFA","juror":"Paolo Condò (Corriere della Sera and Sky Sport Italia)"},{"country":"Ivory Coast","confed":"CAF","juror":"Adam Khalil (sport-ivoire.ci)"},{"country":"Jamaica","confed":"CONCACAF","juror":"Andre Lowe (Jamaica Observer)"},{"country":"Japan","confed":"AFC","juror":"Masayuki Tanabe (Sports Graphic Number)"},{"country":"Jordan","confed":"AFC","juror":"Husam Barakat (Roya TV)"},{"country":"Kosovo","confed":"UEFA","juror":"Bajram Shala (freelance)"},{"country":"Luxembourg","confed":"UEFA","juror":"Jeff Kettenmeyer (RTL Luxembourg)"},{"country":"Mali","confed":"CAF","juror":"Souleymane Bobo Tounkara (L'Essor)"},{"country":"Montenegro","confed":"UEFA","juror":"Danilo Mitrović (ND Vijesti)"},{"country":"Netherlands","confed":"UEFA","juror":"Frans van den Nieuwenhof (Voetbal International)"},{"country":"New Zealand","confed":"OFC","juror":"Michael Burgess (The New Zealand Herald)"},{"country":"Nigeria","confed":"CAF","juror":"Samm Audu (scorenigeria)"},{"country":"North Macedonia","confed":"UEFA","juror":"Mario Sotirovski (Vecer Press)"},{"country":"Northern Ireland","confed":"UEFA","juror":"Steven Beacom (Belfast Telegraph)"},{"country":"Oman","confed":"AFC","juror":"Saleh al-Barhi (Al Watan)"},{"country":"Palestine","confed":"AFC","juror":"Mohamad Iraqi (Al-Ayyam)"},{"country":"Paraguay","confed":"CONMEBOL","juror":"Rubén Darío Da Rosa (Tigo Sports and Telefuturo)"},{"country":"Poland","confed":"UEFA","juror":"Maciej Iwański (TVP Sport)"},{"country":"Portugal","confed":"UEFA","juror":"António Tadeia (RTP and Substack)"},{"country":"Qatar","confed":"AFC","juror":"Majed Alkhelaifi"},{"country":"Romania","confed":"UEFA","juror":"Emanuel Roșu (Fanatik Romania)"},{"country":"Russia","confed":"UEFA","juror":"Konstantin Klechtchev (Match TV)"},{"country":"Slovakia","confed":"UEFA","juror":"Erik Farkas (sport.sk)"},{"country":"Slovenia","confed":"UEFA","juror":"Aleš Potočnik (RTV Slovenija)"},{"country":"South Africa","confed":"CAF","juror":"Mark Gleeson (Reuters)"},{"country":"South Korea","confed":"AFC","juror":"Kim Yong-il (Sports Seoul)"},{"country":"Switzerland","confed":"UEFA","juror":"Daniel Visentini (La Tribune de Genève)"},{"country":"Tunisia","confed":"CAF","juror":"Abdessalem Dhifallah (Radio Orient)"},{"country":"United States","confed":"CONCACAF","juror":"Paul Kennedy (Soccer America)"},{"country":"Uruguay","confed":"CONMEBOL","juror":"Álvaro González Márquez (99.5 FM Del Sol)"},{"country":"Uzbekistan","confed":"AFC","juror":"Narzulla Saydullaev (championat.asia)"},{"country":"Vietnam","confed":"AFC","juror":"Truong Anh Ngoc (The Thao & Van Hoa)"},{"country":"Zambia","confed":"CAF","juror":"Calvin Kaumba Chikenge (BolaNews)"}]},"swing":[{"country":"Scotland","confed":"UEFA","kane":15,"mbappe":0,"net":15},{"country":"Austria","confed":"UEFA","kane":15,"mbappe":4,"net":11},{"country":"Denmark","confed":"UEFA","kane":15,"mbappe":4,"net":11},{"country":"El Salvador","confed":"CONCACAF","kane":15,"mbappe":4,"net":11},{"country":"Norway","confed":"UEFA","kane":15,"mbappe":4,"net":11},{"country":"Ireland","confed":"UEFA","kane":15,"mbappe":5,"net":10},{"country":"Chile","confed":"CONMEBOL","kane":15,"mbappe":7,"net":8},{"country":"England","confed":"UEFA","kane":15,"mbappe":7,"net":8},{"country":"Hungary","confed":"UEFA","kane":15,"mbappe":7,"net":8},{"country":"Montenegro","confed":"UEFA","kane":15,"mbappe":7,"net":8},{"country":"Bolivia","confed":"CONMEBOL","kane":15,"mbappe":8,"net":7},{"country":"Bosnia and Herzegovina","confed":"UEFA","kane":15,"mbappe":8,"net":7},{"country":"Israel","confed":"UEFA","kane":15,"mbappe":8,"net":7},{"country":"Japan","confed":"AFC","kane":15,"mbappe":8,"net":7},{"country":"South Africa","confed":"CAF","kane":15,"mbappe":8,"net":7},{"country":"Uganda","confed":"CAF","kane":15,"mbappe":8,"net":7},{"country":"Gabon","confed":"CAF","kane":10,"mbappe":4,"net":6},{"country":"Belgium","confed":"UEFA","kane":15,"mbappe":10,"net":5},{"country":"Canada","confed":"CONCACAF","kane":15,"mbappe":10,"net":5},{"country":"Colombia","confed":"CONMEBOL","kane":15,"mbappe":10,"net":5},{"country":"Curaçao","confed":"CONCACAF","kane":12,"mbappe":7,"net":5},{"country":"Haiti","confed":"CONCACAF","kane":15,"mbappe":10,"net":5},{"country":"Iran","confed":"AFC","kane":15,"mbappe":10,"net":5},{"country":"Northern Ireland","confed":"UEFA","kane":15,"mbappe":10,"net":5},{"country":"Senegal","confed":"CAF","kane":15,"mbappe":10,"net":5},{"country":"Slovenia","confed":"UEFA","kane":15,"mbappe":10,"net":5},{"country":"Switzerland","confed":"UEFA","kane":12,"mbappe":7,"net":5},{"country":"Uruguay","confed":"CONMEBOL","kane":15,"mbappe":10,"net":5},{"country":"Uzbekistan","confed":"AFC","kane":15,"mbappe":10,"net":5},{"country":"Venezuela","confed":"CONMEBOL","kane":15,"mbappe":10,"net":5},{"country":"Cape Verde","confed":"CAF","kane":12,"mbappe":8,"net":4},{"country":"Greece","confed":"UEFA","kane":4,"mbappe":0,"net":4},{"country":"Angola","confed":"CAF","kane":15,"mbappe":12,"net":3},{"country":"Australia","confed":"AFC","kane":15,"mbappe":12,"net":3},{"country":"Belarus","confed":"UEFA","kane":10,"mbappe":7,"net":3},{"country":"Costa Rica","confed":"CONCACAF","kane":15,"mbappe":12,"net":3},{"country":"Jamaica","confed":"CONCACAF","kane":15,"mbappe":12,"net":3},{"country":"Kosovo","confed":"UEFA","kane":15,"mbappe":12,"net":3},{"country":"Luxembourg","confed":"UEFA","kane":15,"mbappe":12,"net":3},{"country":"New Zealand","confed":"OFC","kane":15,"mbappe":12,"net":3},{"country":"Oman","confed":"AFC","kane":15,"mbappe":12,"net":3},{"country":"Poland","confed":"UEFA","kane":15,"mbappe":12,"net":3},{"country":"Russia","confed":"UEFA","kane":15,"mbappe":12,"net":3},{"country":"Saudi Arabia","confed":"AFC","kane":15,"mbappe":12,"net":3},{"country":"Slovakia","confed":"UEFA","kane":15,"mbappe":12,"net":3},{"country":"Sweden","confed":"UEFA","kane":15,"mbappe":12,"net":3},{"country":"Syria","confed":"AFC","kane":10,"mbappe":7,"net":3},{"country":"Vietnam","confed":"AFC","kane":10,"mbappe":7,"net":3},{"country":"Argentina","confed":"CONMEBOL","kane":12,"mbappe":10,"net":2},{"country":"North Macedonia","confed":"UEFA","kane":10,"mbappe":8,"net":2},{"country":"Turkey","confed":"UEFA","kane":12,"mbappe":10,"net":2},{"country":"Ukraine","confed":"UEFA","kane":2,"mbappe":0,"net":2},{"country":"Wales","confed":"UEFA","kane":12,"mbappe":10,"net":2},{"country":"China","confed":"AFC","kane":8,"mbappe":7,"net":1},{"country":"Georgia","confed":"UEFA","kane":8,"mbappe":7,"net":1},{"country":"Algeria","confed":"CAF","kane":3,"mbappe":4,"net":-1},{"country":"Tunisia","confed":"CAF","kane":7,"mbappe":8,"net":-1},{"country":"Burkina Faso","confed":"CAF","kane":8,"mbappe":10,"net":-2},{"country":"Croatia","confed":"UEFA","kane":5,"mbappe":7,"net":-2},{"country":"Panama","confed":"CONCACAF","kane":10,"mbappe":12,"net":-2},{"country":"United States","confed":"CONCACAF","kane":8,"mbappe":10,"net":-2},{"country":"Ecuador","confed":"CONMEBOL","kane":12,"mbappe":15,"net":-3},{"country":"Finland","confed":"UEFA","kane":12,"mbappe":15,"net":-3},{"country":"Ghana","confed":"CAF","kane":12,"mbappe":15,"net":-3},{"country":"Nigeria","confed":"CAF","kane":4,"mbappe":7,"net":-3},{"country":"Palestine","confed":"AFC","kane":12,"mbappe":15,"net":-3},{"country":"Romania","confed":"UEFA","kane":12,"mbappe":15,"net":-3},{"country":"Albania","confed":"UEFA","kane":4,"mbappe":8,"net":-4},{"country":"Brazil","confed":"CONMEBOL","kane":8,"mbappe":12,"net":-4},{"country":"Iceland","confed":"UEFA","kane":8,"mbappe":12,"net":-4},{"country":"Peru","confed":"CONMEBOL","kane":4,"mbappe":8,"net":-4},{"country":"Serbia","confed":"UEFA","kane":8,"mbappe":12,"net":-4},{"country":"South Korea","confed":"AFC","kane":8,"mbappe":12,"net":-4},{"country":"Thailand","confed":"AFC","kane":4,"mbappe":8,"net":-4},{"country":"Bahrain","confed":"AFC","kane":10,"mbappe":15,"net":-5},{"country":"DR Congo","confed":"CAF","kane":10,"mbappe":15,"net":-5},{"country":"Germany","confed":"UEFA","kane":10,"mbappe":15,"net":-5},{"country":"Guatemala","confed":"CONCACAF","kane":7,"mbappe":12,"net":-5},{"country":"Honduras","confed":"CONCACAF","kane":5,"mbappe":10,"net":-5},{"country":"Iraq","confed":"AFC","kane":10,"mbappe":15,"net":-5},{"country":"Netherlands","confed":"UEFA","kane":10,"mbappe":15,"net":-5},{"country":"Spain","confed":"UEFA","kane":10,"mbappe":15,"net":-5},{"country":"United Arab Emirates","confed":"AFC","kane":7,"mbappe":12,"net":-5},{"country":"Zambia","confed":"CAF","kane":10,"mbappe":15,"net":-5},{"country":"Benin","confed":"CAF","kane":8,"mbappe":15,"net":-7},{"country":"Egypt","confed":"CAF","kane":8,"mbappe":15,"net":-7},{"country":"Guinea","confed":"CAF","kane":8,"mbappe":15,"net":-7},{"country":"Mali","confed":"CAF","kane":8,"mbappe":15,"net":-7},{"country":"Morocco","confed":"CAF","kane":5,"mbappe":12,"net":-7},{"country":"Portugal","confed":"UEFA","kane":5,"mbappe":12,"net":-7},{"country":"Italy","confed":"UEFA","kane":7,"mbappe":15,"net":-8},{"country":"Jordan","confed":"AFC","kane":4,"mbappe":12,"net":-8},{"country":"Mexico","confed":"CONCACAF","kane":0,"mbappe":8,"net":-8},{"country":"France","confed":"UEFA","kane":5,"mbappe":15,"net":-10},{"country":"Paraguay","confed":"CONMEBOL","kane":5,"mbappe":15,"net":-10},{"country":"Qatar","confed":"AFC","kane":5,"mbappe":15,"net":-10},{"country":"Czechia","confed":"UEFA","kane":1,"mbappe":12,"net":-11},{"country":"Bulgaria","confed":"UEFA","kane":3,"mbappe":15,"net":-12},{"country":"Cameroon","confed":"CAF","kane":1,"mbappe":15,"net":-14},{"country":"Ivory Coast","confed":"CAF","kane":0,"mbappe":15,"net":-15}],"clubs":[{"club":"Bayern Munich","points":1364,"selections":171,"nominees":4},{"club":"Paris Saint-Germain","points":1326,"selections":256,"nominees":9},{"club":"Real Madrid","points":1160,"selections":145,"nominees":3},{"club":"Manchester City","points":1104,"selections":167,"nominees":2},{"club":"Barcelona","points":1026,"selections":135,"nominees":3},{"club":"Inter Miami","points":612,"selections":85,"nominees":1},{"club":"Arsenal","points":70,"selections":25,"nominees":3},{"club":"Chelsea","points":16,"selections":5,"nominees":1},{"club":"Inter Milan","points":11,"selections":5,"nominees":1},{"club":"Manchester United","points":5,"selections":3,"nominees":1},{"club":"Al-Qadsiah","points":4,"selections":2,"nominees":1},{"club":"Al Nassr","points":2,"selections":1,"nominees":1}],"leagues":[{"league":"La Liga","points":2186,"nominees":6,"selections":280,"uefa_coef":85.953},{"league":"Bundesliga","points":1364,"nominees":4,"selections":171,"uefa_coef":82.902},{"league":"Ligue 1","points":1326,"nominees":9,"selections":256,"uefa_coef":75.534},{"league":"Premier League","points":1195,"nominees":7,"selections":200,"uefa_coef":103.658},{"league":"MLS","points":612,"nominees":1,"selections":85,"uefa_coef":null},{"league":"Serie A","points":11,"nominees":1,"selections":5,"uefa_coef":92.124},{"league":"Saudi Pro League","points":6,"nominees":2,"selections":3,"uefa_coef":null}],"nations":[{"nation":"Spain","nominees":6,"points":1969,"best_finish":3,"players":["Fabián Ruiz","Ferran Torres","Lamine Yamal","Marc Cucurella","Pau Cubarsí","Rodri"]},{"nation":"France","nominees":5,"points":1748,"best_finish":2,"players":["Dayot Upamecano","Kylian Mbappé","Michael Olise","Ousmane Dembélé","William Saliba"]},{"nation":"England","nominees":3,"points":1219,"best_finish":1,"players":["Declan Rice","Harry Kane","Jude Bellingham"]},{"nation":"Argentina","nominees":2,"points":623,"best_finish":5,"players":["Lautaro Martínez","Leo Messi"]},{"nation":"Georgia","nominees":1,"points":541,"best_finish":6,"players":["Kvaratskhelia"]},{"nation":"Norway","nominees":1,"points":378,"best_finish":8,"players":["Erling Haaland"]},{"nation":"Portugal","nominees":4,"points":87,"best_finish":14,"players":["Bruno Fernandes","João Neves","Nuno Mendes","Vitinha"]},{"nation":"Morocco","nominees":1,"points":65,"best_finish":13,"players":["Achraf Hakimi"]},{"nation":"Brazil","nominees":3,"points":44,"best_finish":17,"players":["Gabriel","Marquinhos","Vinícius Jr."]},{"nation":"Ecuador","nominees":1,"points":12,"best_finish":20,"players":["Willian Pacho"]},{"nation":"Colombia","nominees":1,"points":8,"best_finish":24,"players":["Luis Díaz"]},{"nation":"Mexico","nominees":1,"points":4,"best_finish":28,"players":["Julián Quiñones"]},{"nation":"Senegal","nominees":1,"points":2,"best_finish":29,"players":["Sadio Mané"]}],"psg":{"nominees":9,"points":1326,"selections":256,"best_finish":6,"players":[{"player":"Kvaratskhelia","rank":6,"points":541},{"player":"Ousmane Dembélé","rank":7,"points":418},{"player":"Fabián Ruiz","rank":10,"points":201},{"player":"Achraf Hakimi","rank":13,"points":65},{"player":"Vitinha","rank":14,"points":59},{"player":"João Neves","rank":19,"points":15},{"player":"Willian Pacho","rank":20,"points":12},{"player":"Nuno Mendes","rank":23,"points":8},{"player":"Marquinhos","rank":25,"points":7}],"per_ballot":{"1":9,"2":42,"3":34,"4":14,"5":1},"bayern_points":1364,"bayern_nominees":4},"geo":{"confed":{"within":0.7281234014781366,"between":0.7206452526184092,"gap":0.007478148859727418,"p":0.2756,"n_perm":9999},"uefa":{"within":0.7267304575539605,"between":0.7181302132580701,"gap":0.008600244295890347,"p":0.1065,"n_perm":9999}},"pairs":[{"a":"New Zealand","b":"Poland","sim":0.9843,"shared":8,"same_confed":false},{"a":"Canada","b":"Japan","sim":0.9812,"shared":9,"same_confed":false},{"a":"Canada","b":"Poland","sim":0.978,"shared":9,"same_confed":false},{"a":"Canada","b":"Iran","sim":0.9765,"shared":9,"same_confed":false},{"a":"Japan","b":"Venezuela","sim":0.9765,"shared":9,"same_confed":false},{"a":"Iceland","b":"United States","sim":0.9749,"shared":9,"same_confed":false},{"a":"Canada","b":"New Zealand","sim":0.9733,"shared":8,"same_confed":false},{"a":"Israel","b":"Uganda","sim":0.9733,"shared":9,"same_confed":false},{"a":"Japan","b":"Poland","sim":0.9733,"shared":9,"same_confed":false},{"a":"Oman","b":"Poland","sim":0.9733,"shared":8,"same_confed":false}],"podium_stats":{"counts":{"Harry Kane":64,"Kylian Mbappé":64,"Lamine Yamal":51,"Rodri":39,"Leo Messi":24,"Kvaratskhelia":19,"Ousmane Dembélé":14,"Erling Haaland":9,"Fabián Ruiz":7,"Michael Olise":4,"Pau Cubarsí":3,"Willian Pacho":1,"Achraf Hakimi":1},"both":40,"kane_only":24,"mbappe_only":24,"neither":12,"fisher_or":0.833,"fisher_p":0.8285,"spearman_rho":-0.254,"spearman_p":0.013059417970645425,"spearman_n":95,"third_name":{"kane_podium":{"Lamine Yamal":32,"Rodri":18,"Leo Messi":12,"Kvaratskhelia":11,"Erling Haaland":4,"Michael Olise":4},"mbappe_podium":{"Lamine Yamal":33,"Rodri":20,"Leo Messi":12,"Kvaratskhelia":6,"Ousmane Dembélé":6,"Erling Haaland":5}}},"mid47":{"Kvaratskhelia":49,"Leo Messi":46,"Lamine Yamal":39,"Erling Haaland":38,"Michael Olise":35,"Rodri":35,"Ousmane Dembélé":34,"Kylian Mbappé":33,"Harry Kane":29,"Fabián Ruiz":12,"Jude Bellingham":11,"Pau Cubarsí":9,"Declan Rice":7,"Ferran Torres":5},"firsts":{"counts":{"Harry Kane":40,"Kylian Mbappé":23,"Lamine Yamal":13,"Rodri":10,"Leo Messi":6,"Fabián Ruiz":4,"Kvaratskhelia":2,"Michael Olise":1,"Achraf Hakimi":1},"by_confed":{"Achraf Hakimi":{"AFC":0,"CAF":1,"CONCACAF":0,"CONMEBOL":0,"OFC":0,"UEFA":0},"Fabián Ruiz":{"AFC":1,"CAF":1,"CONCACAF":0,"CONMEBOL":1,"OFC":0,"UEFA":1},"Harry Kane":{"AFC":6,"CAF":4,"CONCACAF":5,"CONMEBOL":5,"OFC":1,"UEFA":19},"Kvaratskhelia":{"AFC":0,"CAF":0,"CONCACAF":0,"CONMEBOL":0,"OFC":0,"UEFA":2},"Kylian Mbappé":{"AFC":4,"CAF":9,"CONCACAF":0,"CONMEBOL":2,"OFC":0,"UEFA":8},"Lamine Yamal":{"AFC":1,"CAF":4,"CONCACAF":2,"CONMEBOL":0,"OFC":0,"UEFA":6},"Leo Messi":{"AFC":2,"CAF":0,"CONCACAF":1,"CONMEBOL":2,"OFC":0,"UEFA":1},"Michael Olise":{"AFC":0,"CAF":0,"CONCACAF":1,"CONMEBOL":0,"OFC":0,"UEFA":0},"Rodri":{"AFC":3,"CAF":1,"CONCACAF":2,"CONMEBOL":0,"OFC":0,"UEFA":4}},"who":{"Lamine Yamal":["Albania","Algeria","Burkina Faso","Cape Verde","Honduras","Jordan","Mexico","North Macedonia","Portugal","Switzerland","Tunisia","Turkey","Wales"],"Harry Kane":["Angola","Australia","Austria","Belgium","Bolivia","Bosnia and Herzegovina","Canada","Chile","Colombia","Costa Rica","Denmark","El Salvador","England","Haiti","Hungary","Iran","Ireland","Israel","Jamaica","Japan","Kosovo","Luxembourg","Montenegro","New Zealand","Northern Ireland","Norway","Oman","Poland","Russia","Saudi Arabia","Scotland","Senegal","Slovakia","Slovenia","South Africa","Sweden","Uganda","Uruguay","Uzbekistan","Venezuela"],"Leo Messi":["Argentina","Belarus","Brazil","China","Panama","United Arab Emirates"],"Kylian Mbappé":["Bahrain","Benin","Bulgaria","Cameroon","DR Congo","Ecuador","Egypt","Finland","France","Germany","Ghana","Guinea","Iraq","Italy","Ivory Coast","Mali","Netherlands","Palestine","Paraguay","Qatar","Romania","Spain","Zambia"],"Rodri":["Croatia","Czechia","Guatemala","Iceland","Nigeria","Serbia","South Korea","Thailand","United States","Vietnam"],"Michael Olise":["Curaçao"],"Fabián Ruiz":["Gabon","Peru","Syria","Ukraine"],"Kvaratskhelia":["Georgia","Greece"],"Achraf Hakimi":["Morocco"]}},"ctx":{"meta":{"award":"Ballon d'Or 2026 (men's, 70th edition)","season_covered":"2025-26 club season plus the 2026 FIFA World Cup","jury":100,"scale":{"1":15,"2":12,"3":10,"4":8,"5":7,"6":5,"7":4,"8":3,"9":2,"10":1},"total_points":6700,"margin_note":"Kane beat Mbappe by 28 points (1055-1027). L'Equipe: 4th-closest vote in 70 years, closest since Messi over van Dijk by 7 in 2019.","first_place_votes":{"Harry Kane":40,"Kylian Mbappé":23,"Lamine Yamal":13,"Rodri":10}},"season_results":{"Champions League":"PSG beat Arsenal 1-1 (4-3 pens), Puskas Arena, 30 May 2026. POTM: Vitinha.","Premier League":"Arsenal","La Liga":"Barcelona (94 pts); Real Madrid 2nd (86)","Bundesliga":"Bayern Munich (also DFB-Pokal = domestic double)","Serie A":"Inter","Ligue 1":"PSG","World Cup 2026":"Spain beat Argentina 1-0 AET (Ferran Torres 106'), MetLife, 19 July 2026. England 3rd (beat France 6-4). Golden Ball Rodri, Golden Boot Mbappe (10), Golden Glove Unai Simon.","ucl_bracket_notes":"Bayern beat Real Madrid in QF, lost SF to PSG 5-6 agg. Barcelona out in QF to Atletico. Arsenal lost SF... no: Arsenal beat Atletico in SF and lost the final."},"uefa_association_coefficient_5yr":{"England":103.658,"Italy":92.124,"Spain":85.953,"Germany":82.902,"France":75.534,"Netherlands":65.762,"Portugal":63.266,"Belgium":57.75,"Turkiye":48.125,"Czechia":45.975},"players":{"Harry Kane":{"age":32,"club":"Bayern Munich","country":"England","league":"Bundesliga","league_uefa_rank":4,"competitions":[{"comp":"Bundesliga","type":"Domestic league","apps":31,"goals":36,"assists":5,"motm":11},{"comp":"DFB-Pokal","type":"Domestic cup","apps":6,"goals":10,"assists":0,"motm":null},{"comp":"Champions League","type":"Europe","apps":13,"goals":14,"assists":2,"motm":4},{"comp":"German Supercup","type":"Domestic cup","apps":1,"goals":1,"assists":0,"motm":null},{"comp":"World Cup 2026","type":"International tournament","apps":7,"goals":6,"assists":1,"motm":2},{"comp":"World Cup qualifiers","type":"International","apps":5,"goals":5,"assists":0,"motm":null},{"comp":"Friendlies","type":"International","apps":2,"goals":1,"assists":0,"motm":null}],"totals":{"apps":65,"goals":73,"assists":8,"min_per_goal":71},"trophies":["Bundesliga","DFB-Pokal","German Supercup","World Cup bronze"],"individual":["European Golden Shoe","Bundesliga top scorer (3rd straight)","DFB-Pokal top scorer"],"team_exit":"Bayern lost Champions League semi-final to PSG 5-6 on aggregate"},"Kylian Mbappé":{"age":27,"club":"Real Madrid","country":"France","league":"La Liga","league_uefa_rank":3,"competitions":[{"comp":"La Liga","type":"Domestic league","apps":31,"goals":25,"assists":5,"motm":null},{"comp":"Copa del Rey","type":"Domestic cup","apps":1,"goals":2,"assists":0,"motm":null},{"comp":"Champions League","type":"Europe","apps":11,"goals":15,"assists":1,"motm":3},{"comp":"Supercopa de España","type":"Domestic cup","apps":1,"goals":0,"assists":0,"motm":null},{"comp":"World Cup 2026","type":"International tournament","apps":8,"goals":10,"assists":4,"motm":3},{"comp":"World Cup qualifiers","type":"International","apps":4,"goals":5,"assists":3,"motm":null}],"totals":{"apps":56,"goals":57,"assists":13,"min_per_goal":null},"trophies":[],"individual":["Pichichi (La Liga top scorer, 2nd straight)","Champions League top scorer","World Cup Golden Boot (2nd straight)","World Cup Bronze Ball"],"team_exit":"Real Madrid trophyless 2nd straight season; 2nd in La Liga; Champions League quarter-final exit to Bayern; Copa round-of-16 exit to 2nd-tier Albacete; Supercopa runners-up. France 4th at the World Cup."},"Lamine Yamal":{"age":19,"club":"Barcelona","country":"Spain","league":"La Liga","league_uefa_rank":3,"competitions":[{"comp":"La Liga","type":"Domestic league","apps":28,"goals":16,"assists":11,"motm":null},{"comp":"Copa del Rey","type":"Domestic cup","apps":5,"goals":2,"assists":2,"motm":null},{"comp":"Supercopa de España","type":"Domestic cup","apps":2,"goals":0,"assists":1,"motm":null},{"comp":"Champions League","type":"Europe","apps":10,"goals":6,"assists":4,"motm":1},{"comp":"World Cup 2026","type":"International tournament","apps":6,"goals":1,"assists":0,"motm":2}],"totals":{"apps":51,"goals":25,"assists":18,"wc_minutes":405},"trophies":["La Liga","Supercopa de España","World Cup winner"],"individual":["La Liga Player of the Season (2nd straight)","La Liga top assist provider"],"team_exit":"Barcelona Champions League quarter-final exit to Atletico Madrid; Copa semi-final exit"}},"world_cup_potm_counts":{"Lionel Messi":5,"Jude Bellingham":4,"Kylian Mbappé":3,"Harry Kane":2,"Lamine Yamal":2,"Vinicius Jr":3,"Erling Haaland":3,"Rodri":1},"sources":["ESPN 2026 Ballon d'Or results and voting breakdown","Bundesliga.com: Breaking down Harry Kane's brilliant 2025/26 numbers","Bundesliga.com: 2025/26 Bundesliga Man of the Match awards","UEFA.com: Every 2025/26 UEFA Champions League Player of the Match","Khelnow: 2026 World Cup every Player of the Match winner","Al Jazeera: World Cup 2026 goals and assists leaders","Wikipedia: 2025-26 Real Madrid CF season; 2025-26 FC Barcelona season; 2026 UEFA Champions League final","UEFA.com association club coefficient rankings","Yahoo Sports / Sporting News: La Liga 2025-26 top scorers","getfootballnewsspain: Yamal final 2025-26 tally","El Nacional country-by-country voting interactive (ballot source)"]},"net":{"mod":0.517,"sens":{"0.6":[35,30,22,13],"0.8":[31,26,22,21],"1.0":[25,21,18,15,13,8],"1.2":[21,17,15,15,13,8,6,5],"1.5":[17,12,12,12,11,11,8,6,6,5]}},"byage":[{"age":19,"points":982},{"age":22,"points":15},{"age":23,"points":107},{"age":24,"points":316},{"age":25,"points":543},{"age":26,"points":507},{"age":27,"points":1084},{"age":28,"points":97},{"age":29,"points":441},{"age":30,"points":927},{"age":32,"points":1067},{"age":34,"points":2},{"age":39,"points":612}],"bypos":[{"pos":"Forward","points":5303,"nominees":14,"selections":713},{"pos":"Midfielder","points":1170,"nominees":7,"selections":218},{"pos":"Defender","points":227,"nominees":9,"selections":69}]};</script>
+<script>
+(function(){
+"use strict";
+var D = window.__BDOR__;
+var P = D.players, B = D.ballots, SCALE = D.scale;
+var NAMES = P.map(function(p){return p.n;});
+var byName = {}; P.forEach(function(p,i){byName[p.n]=p; p.i=i;});
+var K="Harry Kane", M="Kylian Mbappé", Y="Lamine Yamal";
+var charts = [];
+
+function css(v){ return getComputedStyle(document.documentElement).getPropertyValue(v).trim(); }
+function T(){ return {
+  ink:css('--ink'), ink2:css('--ink-2'), ink3:css('--ink-3'),
+  rule:css('--rule'), surf:css('--surface'), sunk:css('--sunk'),
+  kane:css('--kane'), mbappe:css('--mbappe'), yamal:css('--yamal'),
+  rodri:css('--rodri'), messi:css('--messi'), kvara:css('--kvara'), other:css('--other'),
+  seq:[css('--seq-1'),css('--seq-2'),css('--seq-3'),css('--seq-4'),css('--seq-5'),css('--seq-6'),css('--seq-7')],
+  accent:css('--accent')
+};}
+function pc(n,t){ t=t||T();
+  return ({ "Harry Kane":t.kane,"Kylian Mbappé":t.mbappe,"Lamine Yamal":t.yamal,
+            "Rodri":t.rodri,"Leo Messi":t.messi,"Kvaratskhelia":t.kvara })[n] || t.other; }
+function base(t){ return {
+  backgroundColor:'transparent', animationDuration:520,
+  textStyle:{fontFamily:'Archivo, Helvetica, Arial, sans-serif', color:t.ink2, fontSize:12},
+  tooltip:{trigger:'item', backgroundColor:'rgba(13,17,23,.95)', borderWidth:0, padding:[9,12],
+           textStyle:{color:'#f3f5f8', fontSize:12.5},
+           extraCssText:'border-radius:9px;box-shadow:0 8px 26px rgba(0,0,0,.26);max-width:320px;white-space:normal'},
+  grid:{left:8,right:22,top:14,bottom:6,containLabel:true}
+};}
+function vax(t,o){ return Object.assign({type:'value',axisLine:{show:false},axisTick:{show:false},
+  splitLine:{lineStyle:{color:t.rule}}, axisLabel:{color:t.ink3,fontSize:11}}, o||{}); }
+function cax(t,data,o){ return Object.assign({type:'category',data:data,axisLine:{show:false},
+  axisTick:{show:false}, splitLine:{show:false}, axisLabel:{color:t.ink2,fontSize:11.5}}, o||{}); }
+var pending=[];
+function mk(id, fn){
+  if(!document.getElementById(id)) return;
+  pending.push({id:id, fn:fn});
+}
+function initCharts(){
+  pending.forEach(function(o){
+    var el=document.getElementById(o.id); if(!el) return;
+    try{
+      var c=echarts.init(el,null,{renderer:'canvas'});
+      c.setOption(o.fn(T()));
+      charts.push({c:c, fn:o.fn, id:o.id});
+      new ResizeObserver(function(){c.resize();}).observe(el);
+    }catch(err){
+      el.innerHTML='<p style="font-family:var(--display);font-size:13px;color:var(--ink-3);'+
+        'padding:20px 0;margin:0">This chart could not be drawn. The data for it is in the '+
+        'notebook and the PDF.</p>';
+      if(window.console) console.error('chart '+o.id, err);
+    }
+  });
+  pending=[];
+}
+var CDNS=[
+  "https://cdnjs.cloudflare.com/ajax/libs/echarts/5.5.1/echarts.min.js",
+  "https://cdn.jsdelivr.net/npm/echarts@5.5.1/dist/echarts.min.js",
+  "https://unpkg.com/echarts@5.5.1/dist/echarts.min.js"
+];
+var CDN_LOG=[];
+function loadECharts(ok, fail){
+  if(window.echarts){ CDN_LOG.push("already present"); return ok(); }
+  var i=0;
+  (function next(){
+    if(i>=CDNS.length) return fail();
+    var src=CDNS[i++], host=src.split("/")[2];
+    var sc=document.createElement("script");
+    sc.src=src; sc.async=true;
+    sc.onload=function(){
+      if(window.echarts){ CDN_LOG.push(host+": loaded"); ok(); }
+      else { CDN_LOG.push(host+": loaded but empty"); next(); } };
+    sc.onerror=function(){ CDN_LOG.push(host+": blocked"); next(); };
+    document.head.appendChild(sc);
+  })();
+}
+function chartsUnavailable(){
+  pending.forEach(function(o){
+    var el=document.getElementById(o.id); if(!el) return;
+    el.innerHTML='<div style="display:flex;align-items:center;justify-content:center;'+
+      'height:100%;padding:18px;text-align:center">'+
+      '<div style="max-width:42ch"><div style="font:600 13.5px/1.4 var(--display,system-ui);'+
+      'color:var(--ink-2)">This chart could not load</div>'+
+      '<div style="font:400 12.5px/1.5 var(--display,system-ui);color:var(--ink-3);margin-top:6px">'+
+      'The drawing library is fetched from a public CDN and your network blocked it. '+
+      'Everything else on this page still works, including the full ballot explorer below.</div></div></div>';
+  });
+  var b=document.getElementById("cdn-warn");
+  if(b) b.hidden=false;
+  var d=document.getElementById("cdn-detail");
+  if(d) d.textContent="Tried " + CDN_LOG.join("  ·  ") + ".";
+}
+function redraw(){ var t=T();
+  charts.forEach(function(o){ try{ o.c.setOption(o.fn(t), true); }catch(e){} }); }
+function esc(s){ return String(s).replace(/[&<>]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;'}[c];}); }
+function ptsOf(ball,pi){ var k=ball.b.indexOf(pi); return k<0?0:SCALE[k]; }
+function rankOf(ball,pi){ var k=ball.b.indexOf(pi); return k<0?null:k+1; }
+
+/* ============ 1. THE THREE ============ */
+var KINDS=["Domestic league","Domestic cup","Europe","International tournament","International"];
+var KSHORT={"Domestic league":"League","Domestic cup":"Domestic cups","Europe":"Champions League",
+            "International tournament":"World Cup 2026","International":"Other internationals"};
+function compAgg(name,field){
+  var out={}; KINDS.forEach(function(k){out[k]=0;});
+  D.ctx.players[name].competitions.forEach(function(c){ out[c.type]+= (c[field]||0); });
+  return KINDS.map(function(k){return out[k];});
+}
+mk('c-comp', function(t){
+  var ser=[];
+  [K,M,Y].forEach(function(n,i){
+    ser.push({name:n+' · matches', type:'bar', stack:null, barGap:'8%', barCategoryGap:'36%',
+      itemStyle:{color:pc(n,t), opacity:.28, borderRadius:[0,3,3,0]},
+      data:compAgg(n,'apps'), tooltip:{valueFormatter:function(v){return v+' matches';}}});
+    ser.push({name:n+' · goals', type:'bar',
+      itemStyle:{color:pc(n,t), borderRadius:[0,3,3,0]},
+      label:{show:true,position:'right',fontSize:11,color:t.ink2,formatter:function(p){return p.value||'';}},
+      data:compAgg(n,'goals'), tooltip:{valueFormatter:function(v){return v+' goals';}}});
+  });
+  return Object.assign(base(t),{
+    legend:{top:0,left:0,itemGap:12,icon:'roundRect',itemWidth:10,itemHeight:10,
+            textStyle:{color:t.ink2,fontSize:11.5},
+            data:[K+' · goals',M+' · goals',Y+' · goals']},
+    grid:{left:8,right:40,top:42,bottom:4,containLabel:true},
+    tooltip:Object.assign(base(t).tooltip,{trigger:'axis',axisPointer:{type:'shadow'}}),
+    xAxis:vax(t,{max:44}),
+    yAxis:cax(t,KINDS.map(function(k){return KSHORT[k];}).reverse()),
+    series:ser.map(function(s){ s.data=s.data.slice().reverse(); return s; })
+  });
+});
+mk('c-motm', function(t){
+  var comps=["Champions League","World Cup 2026"], cols=[t.seq[3],t.seq[6]];
+  var ser=comps.map(function(c,i){
+    return {name:c,type:'bar',stack:'a',barWidth:24,
+      itemStyle:{color:cols[i],borderColor:t.surf,borderWidth:2},
+      label:{show:true,color:'#fff',fontSize:11.5,fontWeight:600,
+             formatter:function(p){return p.value||'';}},
+      data:[Y,M,K].map(function(n){
+        var f=D.ctx.players[n].competitions.filter(function(x){return x.comp===c;})[0];
+        return f&&f.motm?f.motm:0; })};
+  });
+  return Object.assign(base(t),{
+    legend:{top:0,left:0,itemGap:14,icon:'roundRect',itemWidth:10,itemHeight:10,textStyle:{color:t.ink2,fontSize:11.5}},
+    grid:{left:8,right:34,top:40,bottom:4,containLabel:true},
+    tooltip:Object.assign(base(t).tooltip,{trigger:'axis',axisPointer:{type:'shadow'}}),
+    xAxis:vax(t,{max:8}), yAxis:cax(t,[Y,M,K]), series:ser});
+});
+mk('c-league', function(t){
+  var L=D.leagues.filter(function(x){return x.uefa_coef;}).sort(function(a,b){return a.uefa_coef-b.uefa_coef;});
+  var hl={"Bundesliga":t.kane,"La Liga":t.yamal};
+  var cols=L.map(function(x){return hl[x.league]||t.other;});
+  return Object.assign(base(t),{
+    grid:[{left:'2%',right:'54%',top:34,bottom:28,containLabel:true},
+          {left:'52%',right:'3%',top:34,bottom:28,containLabel:true}],
+    title:[{text:'UEFA five-year coefficient',left:'2%',top:0,
+            textStyle:{color:t.ink,fontSize:12.5,fontWeight:600,fontFamily:'Archivo'}},
+           {text:'Ballon d’Or points won',left:'52%',top:0,
+            textStyle:{color:t.ink,fontSize:12.5,fontWeight:600,fontFamily:'Archivo'}}],
+    xAxis:[vax(t,{gridIndex:0,max:125}),vax(t,{gridIndex:1,max:2600})],
+    yAxis:[cax(t,L.map(function(x){return x.league;}),{gridIndex:0}),
+           cax(t,L.map(function(x){return x.league;}),{gridIndex:1,axisLabel:{show:false}})],
+    series:[
+     {type:'bar',xAxisIndex:0,yAxisIndex:0,barWidth:15,
+      data:L.map(function(x,i){return{value:x.uefa_coef,itemStyle:{color:cols[i],borderRadius:[0,3,3,0]}};}),
+      label:{show:true,position:'right',fontSize:11,color:t.ink2,formatter:'{c}'}},
+     {type:'bar',xAxisIndex:1,yAxisIndex:1,barWidth:15,
+      data:L.map(function(x,i){return{value:x.points,itemStyle:{color:cols[i],borderRadius:[0,3,3,0]}};}),
+      label:{show:true,position:'right',fontSize:11,color:t.ink2,
+             formatter:function(p){return p.value.toLocaleString();}}}]});
+});
+
+/* ============ 2. THE MARGIN ============ */
+mk('c-tiers', function(t){
+  var tiers=D.margin.tiers, labs=['1st place','2nd and 3rd','4th to 7th','8th to 10th'];
+  return Object.assign(base(t),{
+    legend:{top:0,right:0,itemGap:14,icon:'roundRect',itemWidth:10,itemHeight:10,textStyle:{color:t.ink2,fontSize:12}},
+    grid:{left:8,right:16,top:42,bottom:28,containLabel:true},
+    tooltip:Object.assign(base(t).tooltip,{trigger:'axis',axisPointer:{type:'shadow'}}),
+    xAxis:cax(t,labs), yAxis:vax(t,{name:'points',nameTextStyle:{color:t.ink3,fontSize:11}}),
+    series:[
+     {name:'Harry Kane',type:'bar',barWidth:'30%',itemStyle:{color:t.kane,borderRadius:[3,3,0,0]},
+      label:{show:true,position:'top',fontSize:11.5,fontWeight:600,color:t.kane},
+      data:tiers.map(function(x){return x.kane;})},
+     {name:'Kylian Mbappé',type:'bar',barWidth:'30%',itemStyle:{color:t.mbappe,borderRadius:[3,3,0,0]},
+      label:{show:true,position:'top',fontSize:11.5,fontWeight:600,color:t.mbappe},
+      data:tiers.map(function(x){return x.mbappe;})},
+     {name:'net',type:'line',symbol:'none',lineStyle:{opacity:0},silent:true,
+      label:{show:true,position:'bottom',distance:14,fontSize:12,fontWeight:700},
+      data:tiers.map(function(x){var n=x.kane-x.mbappe;
+        return {value:0, label:{formatter:(n>0?'+':'')+n,
+                color:n>=0?t.kane:t.mbappe}};})}]});
+});
+mk('c-shape', function(t){
+  return Object.assign(base(t),{
+    legend:{top:0,left:0,itemGap:16,icon:'roundRect',itemWidth:10,itemHeight:10,textStyle:{color:t.ink2,fontSize:12}},
+    grid:{left:8,right:16,top:42,bottom:24,containLabel:true},
+    tooltip:Object.assign(base(t).tooltip,{trigger:'axis',axisPointer:{type:'shadow'}}),
+    xAxis:cax(t,['1st','2nd','3rd','4th','5th','6th','7th','8th','9th','10th'],
+              {name:'position on the ballot',nameLocation:'middle',nameGap:28,
+               nameTextStyle:{color:t.ink3,fontSize:11}}),
+    yAxis:vax(t,{name:'ballots',nameTextStyle:{color:t.ink3,fontSize:11}}),
+    series:[K,M,Y].map(function(n){
+      var d=D.stand.filter(function(s){return s.player===n;})[0];
+      return {name:n,type:'bar',barWidth:'26%',itemStyle:{color:pc(n,t),borderRadius:[3,3,0,0]},
+        label:{show:true,position:'top',fontSize:10,color:t.ink3,
+               formatter:function(p){return p.value||'';}},
+        data:[1,2,3,4,5,6,7,8,9,10].map(function(i){return d.dist[String(i)];})};})});
+});
+mk('c-spread', function(t){
+  var top=D.stand.slice(0,10);
+  return Object.assign(base(t),{
+    grid:{left:8,right:30,top:18,bottom:40,containLabel:true},
+    xAxis:vax(t,{min:2.3,max:7.7,name:'average position  ← better',nameLocation:'middle',
+                 nameGap:30,nameTextStyle:{color:t.ink3,fontSize:11}}),
+    yAxis:vax(t,{min:1.4,max:3.3,name:'spread of positions  ↑ more divisive',
+                 nameTextStyle:{color:t.ink3,fontSize:11}}),
+    tooltip:Object.assign(base(t).tooltip,{formatter:function(p){
+      var d=p.data.d;
+      return '<b>'+esc(d.player)+'</b><br>'+d.points.toLocaleString()+' points<br>'+
+             'average position '+d.mean_rank+'<br>spread '+d.sd_rank+
+             '<br>named on '+d.ballots+' ballots';}}),
+    series:[{type:'scatter',
+      symbolSize:function(v){return 16+v[2]/38;},
+      itemStyle:{borderColor:t.surf,borderWidth:2},
+      label:{show:true,position:'right',distance:9,fontSize:11.5,color:t.ink,
+             formatter:function(p){return p.data.d.player;}},
+      labelLayout:{hideOverlap:true},
+      data:top.map(function(d){return {value:[d.mean_rank,d.sd_rank,d.points],d:d,
+        itemStyle:{color:pc(d.player,t),borderColor:t.surf,borderWidth:2}};})}]});
+});
+
+/* ============ 3. OMISSIONS ============ */
+mk('c-omit', function(t){
+  var rows=D.stand.slice(0,10).map(function(s){return {p:s.player,n:s.omissions};})
+             .sort(function(a,b){return a.n-b.n;});
+  return Object.assign(base(t),{
+    grid:{left:8,right:46,top:10,bottom:6,containLabel:true},
+    xAxis:vax(t,{max:66}), yAxis:cax(t,rows.map(function(r){return r.p;})),
+    tooltip:Object.assign(base(t).tooltip,{formatter:function(p){
+      var list=D.omit[p.name]||[];
+      return '<b>'+esc(p.name)+'</b><br>left off '+p.value+' of 100 ballots'+
+        (list.length? '<br><br>'+list.map(function(o){return esc(o.country)+' ('+o.confed+')';}).join('<br>') : '');}}),
+    series:[{type:'bar',barWidth:14,
+      label:{show:true,position:'right',fontSize:11.5,fontWeight:600,color:t.ink2},
+      data:rows.map(function(r){return {value:r.n,name:r.p,
+        itemStyle:{color:pc(r.p,t),borderRadius:[0,3,3,0]}};})}]});
+});
+
+/* ============ 4. UK ============ */
+mk('c-uk', function(t){
+  function tot(skip){
+    var o={}; B.forEach(function(b){ if(skip&&skip.indexOf(b.c)>=0) return;
+      b.b.forEach(function(pi,k){ o[NAMES[pi]]=(o[NAMES[pi]]||0)+SCALE[k]; }); });
+    return o; }
+  var all=tot(null), no=tot(['England','Scotland','Wales','Northern Ireland']);
+  var names=[K,M,Y];
+  return Object.assign(base(t),{
+    legend:{top:0,left:0,itemGap:16,icon:'roundRect',itemWidth:10,itemHeight:10,textStyle:{color:t.ink2,fontSize:12}},
+    grid:{left:8,right:60,top:40,bottom:6,containLabel:true},
+    tooltip:Object.assign(base(t).tooltip,{trigger:'axis',axisPointer:{type:'shadow'}}),
+    xAxis:vax(t,{max:1200}), yAxis:cax(t,names.slice().reverse()),
+    series:[
+     {name:'All 100 ballots',type:'bar',barWidth:13,
+      itemStyle:{color:t.seq[5],borderRadius:[0,3,3,0]},
+      label:{show:true,position:'right',fontSize:11,color:t.ink2,formatter:function(p){return p.value.toLocaleString();}},
+      data:names.map(function(n){return all[n];}).reverse()},
+     {name:'The other 96',type:'bar',barWidth:13,
+      itemStyle:{color:t.seq[2],borderRadius:[0,3,3,0]},
+      label:{show:true,position:'right',fontSize:11,color:t.ink2,formatter:function(p){return p.value.toLocaleString();}},
+      data:names.map(function(n){return no[n];}).reverse()}]});
+});
+mk('c-swing', function(t){
+  var rows=D.swing.slice().sort(function(a,b){return b.net-a.net;});
+  var UK=['England','Scotland','Wales','Northern Ireland'];
+  return Object.assign(base(t),{
+    grid:{left:8,right:20,top:12,bottom:34,containLabel:true},
+    xAxis:cax(t,rows.map(function(r){return r.country;}),
+              {axisLabel:{show:false},name:'each of the 100 ballots',nameLocation:'middle',
+               nameGap:14,nameTextStyle:{color:t.ink3,fontSize:11}}),
+    yAxis:vax(t,{name:'points to Kane minus points to Mbappé',nameTextStyle:{color:t.ink3,fontSize:11}}),
+    tooltip:Object.assign(base(t).tooltip,{formatter:function(p){
+      var r=rows[p.dataIndex];
+      return '<b>'+esc(r.country)+'</b> ('+r.confed+')<br>Kane '+r.kane+' pts &middot; Mbappé '+r.mbappe+
+             ' pts<br>net '+(r.net>0?'+':'')+r.net+' to '+(r.net>=0?'Kane':'Mbappé');}}),
+    series:[{type:'bar',barWidth:'72%',
+      data:rows.map(function(r){return {value:r.net, itemStyle:{
+        color:r.net>0?t.kane:(r.net<0?t.mbappe:t.other),
+        borderColor:UK.indexOf(r.country)>=0?t.ink:'transparent',
+        borderWidth:UK.indexOf(r.country)>=0?1.6:0}};})}]});
+});
+
+/* ============ 5. PODIUM & ZONE ============ */
+mk('c-bands', function(t){
+  var rows=D.stand.slice(0,10);
+  var bands=[['Podium (1st–3rd)','podium',t.seq[6]],['Zone (4th–7th)','mid47',t.seq[4]],
+             ['Tail (8th–10th)','tail',t.seq[2]],['Left off','omissions',t.rule]];
+  return Object.assign(base(t),{
+    legend:{top:0,left:0,itemGap:14,icon:'roundRect',itemWidth:10,itemHeight:10,textStyle:{color:t.ink2,fontSize:12}},
+    grid:{left:8,right:22,top:42,bottom:24,containLabel:true},
+    tooltip:Object.assign(base(t).tooltip,{trigger:'axis',axisPointer:{type:'shadow'}}),
+    xAxis:vax(t,{max:100,name:'ballots',nameLocation:'middle',nameGap:26,nameTextStyle:{color:t.ink3,fontSize:11}}),
+    yAxis:cax(t,rows.map(function(r){return r.player;}).reverse()),
+    series:bands.map(function(b,i){ return {name:b[0],type:'bar',stack:'s',barWidth:18,
+      itemStyle:{color:b[2],borderColor:t.surf,borderWidth:2},
+      label:{show:true,fontSize:11,color:i<3?'#fff':t.ink3,
+             formatter:function(p){return p.value>3?p.value:'';}},
+      data:rows.map(function(r){return r[b[1]];}).reverse()};})});
+});
+mk('c-heat', function(t){
+  var H=D.podium_heat, data=[];
+  H.players.forEach(function(p,i){ H.confeds.forEach(function(c,j){
+    data.push([j, H.players.length-1-i, H.pct[i][j], H.cnt[i][j]]); });});
+  return Object.assign(base(t),{
+    grid:{left:8,right:16,top:10,bottom:56,containLabel:true},
+    xAxis:cax(t,H.confeds,{splitArea:{show:true}}),
+    yAxis:cax(t,H.players.slice().reverse(),{splitArea:{show:true}}),
+    visualMap:{min:0,max:100,orient:'horizontal',left:'center',bottom:0,itemWidth:12,itemHeight:150,
+      text:['100%','0%'],textStyle:{color:t.ink3,fontSize:11},
+      inRange:{color:[t.seq[0],t.seq[2],t.seq[4],t.seq[6]]}},
+    tooltip:Object.assign(base(t).tooltip,{position:'top',formatter:function(p){
+      var cf=H.confeds[p.data[0]], pl=H.players[H.players.length-1-p.data[1]];
+      return '<b>'+esc(pl)+'</b><br>'+p.data[3]+' of '+H.n[cf]+' '+cf+' jurors ('+p.data[2]+'%)<br>put him in their top three';}}),
+    series:[{type:'heatmap',data:data,
+      label:{show:true,fontSize:11.5,color:t.ink,formatter:function(p){return p.data[2]+'%';}},
+      itemStyle:{borderColor:t.surf,borderWidth:2}}]});
+});
+
+/* ============ 6. THE DUEL ============ */
+mk('c-duel', function(t){
+  var rnd=function(s){var x=Math.sin(s*9301+49297)*233280;return (x-Math.floor(x))-0.5;};
+  var pts=D.h2h.filter(function(h){return h.kane<90&&h.mbappe<90;}).map(function(h,i){
+    return {value:[h.kane+rnd(i+1)*0.44, h.mbappe+rnd(i+51)*0.44], h:h,
+      itemStyle:{color:h.kane<h.mbappe?t.kane:t.mbappe, opacity:.82,
+                 borderColor:t.surf, borderWidth:1.3}};});
+  return Object.assign(base(t),{
+    grid:{left:8,right:24,top:16,bottom:40,containLabel:true},
+    xAxis:vax(t,{min:0.3,max:7.8,interval:1,name:'Kane’s position  ← better',
+      nameLocation:'middle',nameGap:30,nameTextStyle:{color:t.ink3,fontSize:11}}),
+    yAxis:vax(t,{min:0.3,max:7.8,interval:1,name:'Mbappé’s position  ← better',
+      nameTextStyle:{color:t.ink3,fontSize:11}}),
+    tooltip:Object.assign(base(t).tooltip,{formatter:function(p){
+      var h=p.data.h; return '<b>'+esc(h.country)+'</b> ('+h.confed+')<br>Kane '+h.kane+
+        '<sup>th</sup> &middot; Mbappé '+h.mbappe+'<sup>th</sup><br>'+
+        (h.kane<h.mbappe?'rated Kane higher':'rated Mbappé higher');}}),
+    series:[
+      {type:'line',data:[[0.3,0.3],[7.8,7.8]],symbol:'none',silent:true,
+       lineStyle:{color:t.rule,width:1.4},z:1},
+      {type:'scatter',symbolSize:11,data:pts,z:3},
+      {type:'scatter',symbolSize:0,silent:true,z:4,
+       label:{show:true,fontSize:13,fontWeight:700,formatter:function(p){return p.data.l;}},
+       data:[{value:[1.4,6.6],l:'Kane rated higher',label:{color:t.kane,position:'right'}},
+             {value:[5.4,1.3],l:'Mbappé rated higher',label:{color:t.mbappe,position:'left'}}]}]});
+});
+mk('c-third', function(t){
+  var tn=D.podium_stats.third_name;
+  var names=Object.keys(tn.kane_podium).slice(0,5);
+  return Object.assign(base(t),{
+    legend:{top:0,left:0,itemGap:16,icon:'roundRect',itemWidth:10,itemHeight:10,textStyle:{color:t.ink2,fontSize:12}},
+    grid:{left:8,right:24,top:42,bottom:6,containLabel:true},
+    tooltip:Object.assign(base(t).tooltip,{trigger:'axis',axisPointer:{type:'shadow'}}),
+    xAxis:vax(t,{max:40,name:'ballots (out of 64 in each group)',nameLocation:'middle',
+      nameGap:26,nameTextStyle:{color:t.ink3,fontSize:11}}),
+    yAxis:cax(t,names.slice().reverse()),
+    series:[
+     {name:'Jurors with Kane on the podium',type:'bar',barWidth:12,
+      itemStyle:{color:t.kane,borderRadius:[0,3,3,0]},
+      label:{show:true,position:'right',fontSize:11,color:t.ink2},
+      data:names.map(function(n){return tn.kane_podium[n]||0;}).reverse()},
+     {name:'Jurors with Mbappé on the podium',type:'bar',barWidth:12,
+      itemStyle:{color:t.mbappe,borderRadius:[0,3,3,0]},
+      label:{show:true,position:'right',fontSize:11,color:t.ink2},
+      data:names.map(function(n){return tn.mbappe_podium[n]||0;}).reverse()}]});
+});
+
+/* ============ 7. NETWORK ============ */
+var netMode='first';
+var CFCOL={};
+function netOpt(t){
+  var cats, catOf;
+  if(netMode==='first'){
+    cats=[{n:'Put Kane first',c:t.kane},{n:'Put Mbappé first',c:t.mbappe},
+          {n:'Put Yamal first',c:t.yamal},{n:'Put someone else first',c:t.other}];
+    catOf=function(b){var f=NAMES[b.b[0]];
+      return f===K?0:f===M?1:f===Y?2:3;};
+  } else if(netMode==='group'){
+    cats=D.groups.map(function(g,i){return {n:'Group '+(i+1)+' ('+g.n+')',c:[t.seq[5],t.mbappe,t.kane,t.yamal,t.rodri,t.messi][i]};});
+    catOf=function(b){return b.g;};
+  } else {
+    var order=['UEFA','CAF','AFC','CONMEBOL','CONCACAF','OFC'];
+    var cols=[t.kane,t.mbappe,t.yamal,t.rodri,t.messi,t.kvara];
+    cats=order.map(function(o,i){return {n:o,c:cols[i]};});
+    catOf=function(b){return order.indexOf(b.cf);};
+  }
+  var idx={}; B.forEach(function(b,i){idx[b.c]=b;});
+  var nodes=B.map(function(b){
+    return {id:b.c,name:b.code,category:catOf(b),
+      x:b.x*480, y:-b.y*480, symbolSize:8+1.9*b.deg,
+      label:{show:b.deg>=8},
+      tip:'<b>'+esc(b.c)+'</b> <span style="opacity:.6">'+b.cf+'</span><br>'+
+          '<span style="opacity:.6">'+esc(b.j)+'</span><br><br>'+
+          b.b.slice(0,5).map(function(pi,k){return (k+1)+'. '+esc(NAMES[pi]);}).join('<br>')+
+          '<br><span style="opacity:.55">group '+(b.g+1)+' &middot; '+b.deg+' close neighbours</span>'};
+  });
+  var o=Object.assign(base(t),{
+    legend:{top:0,left:0,itemGap:13,icon:'circle',itemWidth:9,
+      data:cats.map(function(c){return c.n;}),textStyle:{color:t.ink2,fontSize:11.5}},
+
+    tooltip:Object.assign(base(t).tooltip,{formatter:function(p){
+      return p.dataType==='node'? p.data.tip :
+        esc(p.data.source)+' ↔ '+esc(p.data.target)+'<br>similarity '+p.data.value;}}),
+    series:[{type:'graph',layout:'none',roam:true,zoom:1.05,draggable:false,
+      categories:cats.map(function(c){return {name:c.n,itemStyle:{color:c.c}};}),
+      data:nodes,
+      links:D.links.map(function(l){return {source:l.s,target:l.t,value:l.w,
+        lineStyle:{width:0.5+(l.w-0.80)*5.5, opacity:.28}};}),
+      label:{position:'right',fontSize:10,color:t.ink3,formatter:'{b}'},
+      itemStyle:{borderColor:t.surf,borderWidth:1.5},
+      lineStyle:{color:t.rule,curveness:.08},
+      emphasis:{focus:'adjacency',scale:1.25,label:{show:true,fontWeight:700,color:t.ink},
+                lineStyle:{width:2.2,opacity:.85}}}]});
+  delete o.grid;
+  return o;
+}
+mk('c-net', netOpt);
+document.querySelectorAll('[data-net]').forEach(function(btn){
+  btn.addEventListener('click', function(){
+    document.querySelectorAll('[data-net]').forEach(function(b){b.classList.remove('on');});
+    btn.classList.add('on'); netMode=btn.dataset.net; redraw();
+  });
+});
+mk('c-matrix', function(t){
+  var rows=D.stand.slice(0,14).map(function(s){return s.player;});
+  var order=B.slice().sort(function(a,b){
+    if(a.g!==b.g) return a.g-b.g;
+    var na=ptsOf(a,byName[K].i)-ptsOf(a,byName[M].i);
+    var nb=ptsOf(b,byName[K].i)-ptsOf(b,byName[M].i);
+    return nb-na;});
+  var data=[];
+  order.forEach(function(b,j){ rows.forEach(function(p,i){
+    data.push([j, rows.length-1-i, ptsOf(b,byName[p].i)]); });});
+  return Object.assign(base(t),{
+    grid:{left:8,right:16,top:10,bottom:52,containLabel:true},
+    xAxis:cax(t,order.map(function(b){return b.code;}),
+      {axisLabel:{fontSize:7,rotate:90,color:t.ink3,interval:0}}),
+    yAxis:cax(t,rows.slice().reverse(),{axisLabel:{fontSize:11,color:t.ink2}}),
+    visualMap:{min:0,max:15,orient:'horizontal',left:'center',bottom:0,itemWidth:12,itemHeight:160,
+      text:['15 pts','0'],textStyle:{color:t.ink3,fontSize:11},
+      inRange:{color:[t.sunk,t.seq[0],t.seq[1],t.seq[2],t.seq[3],t.seq[4],t.seq[5],t.seq[6]]}},
+    tooltip:Object.assign(base(t).tooltip,{position:'top',formatter:function(p){
+      var b=order[p.data[0]], pl=rows[rows.length-1-p.data[1]];
+      var r=rankOf(b,byName[pl].i);
+      return '<b>'+esc(b.c)+'</b> &middot; group '+(b.g+1)+'<br>'+esc(pl)+': '+
+        (r? r+'th place, '+p.data[2]+' points' : 'not on this ballot');}}),
+    series:[{type:'heatmap',data:data,itemStyle:{borderColor:t.surf,borderWidth:0.6},progressive:0}]});
+});
+
+/* ============ 8. BIAS ============ */
+mk('c-home', function(t){
+  var rows=D.home.rows.slice().sort(function(a,b){return a.boost-b.boost;});
+  var cats=rows.map(function(r){return r.player+'  ·  '+r.home;});
+  return Object.assign(base(t),{
+    legend:{top:0,left:0,itemGap:16,icon:'circle',itemWidth:9,textStyle:{color:t.ink2,fontSize:11.5}},
+    grid:{left:8,right:52,top:40,bottom:30,containLabel:true},
+    xAxis:vax(t,{min:0.4,max:10.6,interval:1,name:'position on the ballot  ← better',
+      nameLocation:'middle',nameGap:28,nameTextStyle:{color:t.ink3,fontSize:11}}),
+    yAxis:cax(t,cats,{axisLabel:{fontSize:11.5,color:t.ink2}}),
+    tooltip:Object.assign(base(t).tooltip,{formatter:function(p){
+      var r=rows[p.dataIndex];
+      return '<b>'+esc(r.player)+'</b><br>'+esc(r.home)+'’s juror: '+r.home_rank+
+        '<sup>th</sup><br>median from the other '+r.n_others+': '+r.median_elsewhere+
+        '<sup>th</sup><br><b>'+(r.boost>0?'+':'')+r.boost+' places</b>';}}),
+    series:[
+     {type:'bar',stack:'g',silent:true,itemStyle:{color:'transparent'},
+      data:rows.map(function(r){return Math.min(r.home_rank,r.median_elsewhere);})},
+     {type:'bar',stack:'g',barWidth:4,silent:true,itemStyle:{color:t.rule,borderRadius:2},
+      data:rows.map(function(r){return Math.abs(r.home_rank-r.median_elsewhere);})},
+     {name:'median from the other 99 jurors',type:'scatter',symbolSize:9,
+      itemStyle:{color:t.other,borderColor:t.surf,borderWidth:1.4},
+      data:rows.map(function(r,i){return [r.median_elsewhere,i];})},
+     {name:'where his own country’s juror put him',type:'scatter',symbolSize:12,
+      label:{show:true,position:'right',distance:10,fontSize:11,fontWeight:700,
+        formatter:function(p){var r=rows[p.dataIndex];return (r.boost>0?'+':'')+r.boost;},
+        color:function(p){var r=rows[p.dataIndex];return r.boost>0?t.seq[5]:(r.boost<0?t.mbappe:t.ink3);}},
+      data:rows.map(function(r,i){return {value:[r.home_rank,i],
+        itemStyle:{color:r.boost>0?t.seq[5]:(r.boost<0?t.mbappe:t.other),
+                   borderColor:t.surf,borderWidth:1.4}};})}]});
+});
+mk('c-club', function(t){
+  var cl=D.clubs.slice(0,6).sort(function(a,b){return a.points-b.points;});
+  var psg=D.psg.players.slice().sort(function(a,b){return b.rank-a.rank;});
+  var hl={'Bayern Munich':t.kane,'Paris Saint-Germain':t.kvara};
+  return Object.assign(base(t),{
+    grid:[{left:'2%',right:'55%',top:32,bottom:10,containLabel:true},
+          {left:'53%',right:'3%',top:32,bottom:10,containLabel:true}],
+    title:[{text:'Points won by club',left:'2%',top:0,
+            textStyle:{color:t.ink,fontSize:12.5,fontWeight:600,fontFamily:'Archivo'}},
+           {text:'PSG’s nine nominees',left:'53%',top:0,
+            textStyle:{color:t.ink,fontSize:12.5,fontWeight:600,fontFamily:'Archivo'}}],
+    xAxis:[vax(t,{gridIndex:0,max:1700}),vax(t,{gridIndex:1,max:700})],
+    yAxis:[cax(t,cl.map(function(c){return c.club;}),{gridIndex:0}),
+           cax(t,psg.map(function(p){return p.player;}),{gridIndex:1})],
+    tooltip:Object.assign(base(t).tooltip,{}),
+    series:[
+     {type:'bar',xAxisIndex:0,yAxisIndex:0,barWidth:14,
+      label:{show:true,position:'right',fontSize:11,color:t.ink2,
+             formatter:function(p){return p.value.toLocaleString();}},
+      data:cl.map(function(c){return {value:c.points,name:c.club,
+        itemStyle:{color:hl[c.club]||t.other,borderRadius:[0,3,3,0]},
+        tooltip:{formatter:'<b>'+esc(c.club)+'</b><br>'+c.points.toLocaleString()+' points<br>'+
+                 c.nominees+' nominees &middot; '+c.selections+' selections'}};})},
+     {type:'bar',xAxisIndex:1,yAxisIndex:1,barWidth:12,
+      itemStyle:{color:t.kvara,borderRadius:[0,3,3,0]},
+      label:{show:true,position:'right',fontSize:11,color:t.ink2},
+      data:psg.map(function(p){return {value:p.points,
+        tooltip:{formatter:'<b>'+esc(p.player)+'</b><br>finished '+p.rank+'th with '+p.points+' points'}};})}]});
+});
+mk('c-nations', function(t){
+  var n=D.nations.slice(0,7).sort(function(a,b){return a.points-b.points;});
+  var wc={Spain:'world champions',Argentina:'runners-up',England:'third',France:'fourth'};
+  var col={Spain:t.yamal,England:t.kane,France:t.mbappe};
+  return Object.assign(base(t),{
+    grid:{left:8,right:64,top:10,bottom:6,containLabel:true},
+    xAxis:vax(t,{max:2350}),
+    yAxis:cax(t,n.map(function(x){return x.nation+'  ('+x.nominees+')';})),
+    tooltip:Object.assign(base(t).tooltip,{formatter:function(p){
+      var x=n[p.dataIndex];
+      return '<b>'+esc(x.nation)+'</b><br>'+x.points.toLocaleString()+' points from '+
+        x.nominees+' nominees<br>best finish: '+x.best_finish+'th'+
+        (wc[x.nation]? '<br>World Cup: '+wc[x.nation] : '');}}),
+    series:[{type:'bar',barWidth:15,
+      label:{show:true,position:'right',fontSize:11,color:t.ink2,
+             formatter:function(p){return p.value.toLocaleString();}},
+      data:n.map(function(x){return {value:x.points,
+        itemStyle:{color:col[x.nation]||t.other,borderRadius:[0,3,3,0]}};})}]});
+});
+mk('c-corr', function(t){
+  var C=D.corr, data=[];
+  C.players.forEach(function(a,i){ C.players.forEach(function(b,j){
+    if(i!==j) data.push([j, C.players.length-1-i, C.m[i][j]]); });});
+  return Object.assign(base(t),{
+    grid:{left:8,right:16,top:10,bottom:76,containLabel:true},
+    xAxis:cax(t,C.players,{axisLabel:{rotate:40,fontSize:10.5,color:t.ink2}}),
+    yAxis:cax(t,C.players.slice().reverse(),{axisLabel:{fontSize:10.5}}),
+    visualMap:{min:-.36,max:.36,orient:'horizontal',left:'center',bottom:0,itemWidth:12,itemHeight:170,
+      precision:2,text:['together','rivals'],textStyle:{color:t.ink3,fontSize:11},
+      inRange:{color:['#b4471f','#dd8a66','#f0e7e2','#e9e9e7','#dfe9f6','#6da7ec','#1c5cab']}},
+    tooltip:Object.assign(base(t).tooltip,{position:'top',formatter:function(p){
+      var a=C.players[C.players.length-1-p.data[1]], b=C.players[p.data[0]];
+      var r=p.data[2];
+      return '<b>'+esc(a)+'</b> and <b>'+esc(b)+'</b><br>rho = '+r.toFixed(2)+'<br>'+
+        (r>0.1?'rated highly by the same jurors':r<-0.1?'traded places on ballots':'little relationship');}}),
+    series:[{type:'heatmap',data:data,
+      label:{show:true,fontSize:9,color:t.ink2,formatter:function(p){return p.data[2].toFixed(2);}},
+      itemStyle:{borderColor:t.surf,borderWidth:1.6}}]});
+});
+
+/* ============ 9. WHAT-IFS ============ */
+var RULES=[
+ {n:'Official 15-12-10-8-7-5-4-3-2-1', s:[15,12,10,8,7,5,4,3,2,1],
+  note:'The scale actually used. Its steep top — fifteen for a first place against twelve for a second — is what converted Kane’s 40 first places into a 28-point win.'},
+ {n:'Straight line 10 down to 1', s:[10,9,8,7,6,5,4,3,2,1],
+  note:'A dead tie at 780 points each. Flatten the scale and the 2026 Ballon d’Or has no winner.'},
+ {n:'Podium only 5-3-1', s:[5,3,1,0,0,0,0,0,0,0],
+  note:'Count only the top three on each ballot and Kane’s lead widens to 17%.'},
+ {n:'First place only', s:[1,0,0,0,0,0,0,0,0,0],
+  note:'A straight popularity contest for the top slot: 40 to 23.'},
+ {n:'Approval — named anywhere', s:[1,1,1,1,1,1,1,1,1,1],
+  note:'Simply counting who was named. 98 to 97 to 96 — about as close as a hundred-person jury can get.'},
+ {n:'Steeper top 20-10-6-4-3-2-1-1-1-1', s:[20,10,6,4,3,2,1,1,1,1],
+  note:'Reward the first place even more heavily and Kane’s margin grows to 16%.'}
+];
+var ruleIdx=0;
+function scoreAll(scale, skip){
+  var o={}; NAMES.forEach(function(n){o[n]=0;});
+  B.forEach(function(b){ if(skip&&skip[b.c]) return;
+    b.b.forEach(function(pi,k){ o[NAMES[pi]]+=scale[k]; }); });
+  return NAMES.map(function(n){return {p:n,v:o[n]};}).sort(function(a,b){return b.v-a.v;});
+}
+function barOpt(t,res,title){
+  var top=res.slice(0,8).reverse();
+  return Object.assign(base(t),{
+    grid:{left:8,right:66,top:10,bottom:6,containLabel:true},
+    xAxis:vax(t,{max:Math.max.apply(null,res.map(function(r){return r.v;}))*1.2+1}),
+    yAxis:cax(t,top.map(function(r){return r.p;})),
+    tooltip:Object.assign(base(t).tooltip,{}),
+    series:[{type:'bar',barWidth:15,
+      label:{show:true,position:'right',fontSize:11.5,fontWeight:600,color:t.ink2,
+             formatter:function(p){return p.value.toLocaleString();}},
+      data:top.map(function(r){return {value:r.v,name:r.p,
+        itemStyle:{color:pc(r.p,t),borderRadius:[0,3,3,0]}};})}]});
+}
+mk('c-rule', function(t){ return barOpt(t, scoreAll(RULES[ruleIdx].s,null)); });
+(function(){
+  var box=document.getElementById('rule-btns');
+  RULES.forEach(function(r,i){
+    var b=document.createElement('button'); b.className='btn'+(i===0?' on':'');
+    b.textContent=r.n; b.addEventListener('click',function(){
+      box.querySelectorAll('.btn').forEach(function(x){x.classList.remove('on');});
+      b.classList.add('on'); ruleIdx=i; redraw(); updRuleNote(); });
+    box.appendChild(b);
+  });
+  updRuleNote();
+})();
+function updRuleNote(){
+  var r=scoreAll(RULES[ruleIdx].s,null);
+  var k=r.filter(function(x){return x.p===K;})[0].v, m=r.filter(function(x){return x.p===M;})[0].v;
+  var verdict = k===m ? 'Kane and Mbappé tie on '+k.toLocaleString()+'.' :
+    (k>m?'Kane':'Mbappé')+' leads by '+Math.abs(k-m).toLocaleString()+
+    ' ('+k.toLocaleString()+' to '+m.toLocaleString()+').';
+  document.getElementById('rule-note').innerHTML='<b>'+esc(verdict)+'</b> '+RULES[ruleIdx].note;
+}
+
+var dropped={};
+function dropOpt(t){
+  var res=scoreAll(SCALE,dropped);
+  var o=barOpt(t,res); o.grid.right=70; return o;
+}
+mk('c-drop', dropOpt);
+function updDrop(){
+  var n=Object.keys(dropped).filter(function(k){return dropped[k];}).length;
+  var res=scoreAll(SCALE,dropped);
+  var k=res.filter(function(x){return x.p===K;})[0].v, m=res.filter(function(x){return x.p===M;})[0].v;
+  var lead=(k>m?'Kane':k<m?'Mbappé':'nobody');
+  document.getElementById('drop-status').innerHTML =
+    '<b>'+(100-n)+' ballots counted</b> &middot; winner: <b style="color:'+
+    (k>m?'var(--kane)':k<m?'var(--mbappe)':'var(--ink)')+'">'+esc(res[0].p)+'</b> with '+
+    res[0].v.toLocaleString()+' &middot; Kane '+k.toLocaleString()+', Mbappé '+m.toLocaleString()+
+    (k===m?' (tie)':' ('+lead+' by '+Math.abs(k-m)+')');
+  redraw();
+}
+(function(){
+  var pick=document.getElementById('drop-picker');
+  B.slice().sort(function(a,b){return a.c.localeCompare(b.c);}).forEach(function(b){
+    var l=document.createElement('label');
+    l.style.cssText='display:inline-flex;align-items:center;gap:5px;font-family:var(--display);'+
+      'font-size:12px;margin:0 10px 7px 0;color:var(--ink-2);cursor:pointer;text-transform:none;letter-spacing:0';
+    var cb=document.createElement('input'); cb.type='checkbox'; cb.dataset.c=b.c;
+    cb.addEventListener('change',function(){ dropped[b.c]=cb.checked;
+      document.querySelectorAll('[data-preset]').forEach(function(x){x.classList.remove('on');});
+      updDrop(); });
+    l.appendChild(cb); l.appendChild(document.createTextNode(b.c));
+    pick.appendChild(l);
+  });
+  var PRESET={ none:[], uk:['England','Scotland','Wales','Northern Ireland'],
+    flip:D.swing.slice().sort(function(a,b){return b.net-a.net;}).slice(0,3).map(function(r){return r.country;}),
+    uefa:B.filter(function(b){return b.cf==='UEFA';}).map(function(b){return b.c;}),
+    caf:B.filter(function(b){return b.cf==='CAF';}).map(function(b){return b.c;}) };
+  document.querySelectorAll('[data-preset]').forEach(function(btn){
+    btn.addEventListener('click',function(){
+      document.querySelectorAll('[data-preset]').forEach(function(x){x.classList.remove('on');});
+      btn.classList.add('on');
+      dropped={}; PRESET[btn.dataset.preset].forEach(function(c){dropped[c]=true;});
+      pick.querySelectorAll('input').forEach(function(cb){cb.checked=!!dropped[cb.dataset.c];});
+      updDrop(); });
+  });
+  updDrop();
+})();
+
+/* ============ DOM WIDGETS ============ */
+function safe(label,fn){ try{ fn(); }catch(e){ if(window.console) console.error(label,e); } }
+function ballotHTML(b,hl){
+  hl=hl||{};
+  return '<ol class="ballot" style="list-style:none;padding:0;margin:0">'+
+    b.b.map(function(pi,k){
+      var n=NAMES[pi], col=hl[n]||'';
+      return '<li><span class="r">'+(k+1)+'</span><span class="p"'+
+        (col?' style="color:'+col+';font-weight:700"':'')+'>'+esc(n)+'</span>'+
+        '<span class="v">'+SCALE[k]+'</span></li>';}).join('')+'</ol>';
+}
+var HL={}; HL[K]='var(--kane)'; HL[M]='var(--mbappe)'; HL[Y]='var(--yamal)';
+var byCountry={}; B.forEach(function(b){byCountry[b.c]=b;});
+
+/* UK grid */
+safe('uk grid',function(){
+  var UK=['England','Scotland','Wales','Northern Ireland'];
+  document.getElementById('uk-grid').innerHTML='<div class="grid g4">'+
+    UK.map(function(c){ var b=byCountry[c];
+      return '<div style="min-width:0"><div style="font-family:var(--display);font-weight:700;'+
+        'font-size:14.5px;margin-bottom:2px">'+esc(c)+'</div>'+
+        '<div class="tiny" style="margin-bottom:8px;min-height:3em">'+esc(b.j)+'</div>'+
+        ballotHTML(b,HL)+'</div>';}).join('')+'</div>';
+});
+/* omission pickers */
+function fillOm(selId,boxId,player){
+  var sel=document.getElementById(selId), box=document.getElementById(boxId);
+  if(!sel||!box) return;
+  var list=D.omit[player]||[];
+  if(!list.length) return;
+  list.forEach(function(o){ var op=document.createElement('option');
+    op.value=o.country; op.textContent=o.country+'  ('+o.confed+')'; sel.appendChild(op); });
+  sel.value=list[0].country;
+  function draw(){ var b=byCountry[sel.value]||byCountry[list[0].country];
+    if(!b) return;
+    box.innerHTML='<div class="tiny" style="margin-bottom:8px">'+esc(b.j)+'</div>'+ballotHTML(b,HL); }
+  sel.addEventListener('change',draw); draw();
+}
+safe('omissions',function(){ fillOm('sel-om-m','om-m',M); fillOm('sel-om-k','om-k',K); });
+/* 2x2 */
+safe('2x2',function(){
+  var p=D.podium_stats;
+  document.getElementById('t-2x2').innerHTML=
+   '<table><thead><tr><th></th><th>Mbapp&eacute; on podium</th><th>Mbapp&eacute; not</th></tr></thead><tbody>'+
+   '<tr><td><b>Kane on podium</b></td><td class="n">'+p.both+'</td><td class="n">'+p.kane_only+'</td></tr>'+
+   '<tr><td><b>Kane not</b></td><td class="n">'+p.mbappe_only+'</td><td class="n">'+p.neither+'</td></tr>'+
+   '</tbody></table>';
+});
+/* groups */
+safe('groups',function(){
+  var cols=['var(--seq-5)','var(--mbappe)','var(--kane)','var(--yamal)','var(--rodri)','var(--messi)'];
+  document.getElementById('groups').innerHTML=D.groups.map(function(g,i){
+    var f=Object.keys(g.first).slice(0,3);
+    return '<div class="card"><div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">'+
+      '<span class="dot" style="background:'+cols[i]+'"></span>'+
+      '<b style="font-family:var(--display);font-size:14.5px">Group '+(i+1)+'</b>'+
+      '<span class="tiny">'+g.n+' jurors</span></div>'+
+      '<div class="small" style="margin-bottom:8px"><b>Most first places:</b> '+
+        f.map(function(n){return esc(n)+' '+g.first[n];}).join(', ')+'</div>'+
+      '<div class="small" style="margin-bottom:8px"><b>Confederations:</b> '+
+        Object.keys(g.cf).map(function(c){return c+' '+g.cf[c];}).join(', ')+'</div>'+
+      '<div class="tiny">'+g.members.map(esc).join(' &middot; ')+'</div></div>';
+  }).join('');
+});
+/* canada / ukraine ballots */
+safe('sample ballots',function(){
+  document.getElementById('b-canada').innerHTML=ballotHTML(byCountry['Canada'],HL);
+  document.getElementById('b-ukraine').innerHTML=ballotHTML(byCountry['Ukraine'],HL);
+});
+/* pairs table */
+safe('pairs',function(){
+  document.getElementById('t-pairs').innerHTML=
+   '<thead><tr><th>#</th><th>Pair of ballots</th><th>Similarity</th><th>Names shared</th><th>Same confederation</th></tr></thead><tbody>'+
+   D.pairs.slice(0,8).map(function(p,i){
+     return '<tr><td class="n">'+(i+1)+'</td><td><b>'+esc(p.a)+'</b> &amp; <b>'+esc(p.b)+
+       '</b></td><td class="n">'+p.sim.toFixed(3)+'</td><td class="n">'+p.shared+' of 10</td><td>'+
+       (p.same_confed?'yes':'no')+'</td></tr>';}).join('')+'</tbody>';
+});
+/* sources */
+safe('sources',function(){
+  document.getElementById('srcs').innerHTML=D.ctx.sources.map(function(s){
+    return '<li>'+esc(s)+'</li>';}).join('');
+});
+
+/* ============ 10. BALLOT EXPLORER ============ */
+safe('explorer',function(){
+  var q=document.getElementById('q'), sc=document.getElementById('sel-confed'),
+      sf=document.getElementById('sel-first'), box=document.getElementById('cards'),
+      cnt=document.getElementById('count');
+  var confeds=[]; B.forEach(function(b){ if(confeds.indexOf(b.cf)<0) confeds.push(b.cf); });
+  confeds.sort().forEach(function(c){ var o=document.createElement('option'); o.value=c; o.textContent=c; sc.appendChild(o); });
+  var firsts=[]; B.forEach(function(b){ var n=NAMES[b.b[0]]; if(firsts.indexOf(n)<0) firsts.push(n); });
+  firsts.sort(function(a,b){return byName[a].rk-byName[b].rk;}).forEach(function(n){
+    var o=document.createElement('option'); o.value=n; o.textContent='First pick: '+n; sf.appendChild(o); });
+
+  function card(b){
+    var nn=D.nn[b.c]||[];
+    return '<div class="card" style="min-width:0">'+
+      '<div style="display:flex;justify-content:space-between;gap:10px;align-items:baseline">'+
+      '<div style="min-width:0"><b style="font-family:var(--display);font-size:15.5px">'+esc(b.c)+'</b>'+
+      ' <span class="tiny">'+b.code+' &middot; '+b.cf+'</span>'+
+      '<div class="tiny" style="margin-top:1px">'+esc(b.j)+'</div></div>'+
+      '<span class="chip">group '+(b.g+1)+'</span></div>'+
+      '<div style="margin-top:10px">'+ballotHTML(b,HL)+'</div>'+
+      '<div class="tiny" style="margin-top:10px;border-top:1px solid var(--rule);padding-top:8px">'+
+      '<b>Votes most like:</b> '+nn.map(function(x){return esc(x.c)+' ('+x.s.toFixed(3)+')';}).join(', ')+
+      '</div></div>';
+  }
+  function render(){
+    var term=(q.value||'').trim().toLowerCase(), cf=sc.value||'', fp=sf.value||'';
+    var list=B.filter(function(b){
+      if(cf && b.cf!==cf) return false;
+      if(fp && NAMES[b.b[0]]!==fp) return false;
+      if(!term) return true;
+      return (b.c+' '+b.j+' '+b.code).toLowerCase().indexOf(term)>=0;
+    }).sort(function(a,b){return a.c.localeCompare(b.c);});
+    box.innerHTML=list.map(card).join('') || '<p class="small">No ballots match that search.</p>';
+    cnt.textContent='Showing '+list.length+' of 100 ballots.';
+  }
+  q.addEventListener('input',render); sc.addEventListener('change',render); sf.addEventListener('change',render);
+  render();
+});
+
+/* ============ BOOT CHARTS ============ */
+window.__SPECS__ = pending.map(function(o){ return {id:o.id, fn:o.fn, T:T}; });
+loadECharts(initCharts, chartsUnavailable);
+
+/* ============ NAV + THEME ============ */
+(function(){
+  var links=[].slice.call(document.querySelectorAll('nav.toc a'));
+  var secs=links.map(function(a){return document.getElementById(a.getAttribute('href').slice(1));});
+  var io=new IntersectionObserver(function(es){
+    es.forEach(function(e){ if(e.isIntersecting){
+      var i=secs.indexOf(e.target);
+      links.forEach(function(a,j){a.classList.toggle('on',j===i);}); }});
+  },{rootMargin:'-20% 0px -70% 0px'});
+  secs.forEach(function(s){ if(s) io.observe(s); });
+
+  var btn=document.getElementById('theme');
+  function cur(){ var a=document.documentElement.getAttribute('data-theme');
+    if(a) return a;
+    return matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'; }
+  btn.addEventListener('click',function(){
+    var next=cur()==='dark'?'light':'dark';
+    document.documentElement.setAttribute('data-theme',next);
+    try{localStorage.setItem('bdor-theme',next);}catch(e){}
+    setTimeout(redraw,30);
+  });
+  try{ var s=localStorage.getItem('bdor-theme');
+       if(s) document.documentElement.setAttribute('data-theme',s); }catch(e){}
+  matchMedia('(prefers-color-scheme: dark)').addEventListener('change',function(){
+    if(!document.documentElement.getAttribute('data-theme')) setTimeout(redraw,30); });
+})();
+})();
+
+</script>
+
+</body>
+</html>
