@@ -1,3 +1,17 @@
+---
+layout: bare
+title: "Ballon d'Or 2026: what the hundred ballots actually say"
+date: 2026-11-01
+categories:
+  - blog
+tags:
+  - football
+  - data analysis
+  - network analysis
+read_time: false
+excerpt: "Harry Kane beat Kylian Mbappe by 28 points, the fourth-smallest margin in seventy years. The football world is divided over who deserved it, so I went through all 100 public ballots to see what actually happened."
+---
+{% raw %}<!doctype html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
@@ -9,10 +23,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">
 <style>
-/* Layout: a single reading column at 72ch, widened to full-bleed for charts and
-   the ballot explorer. Identity: France Football red as the page accent, reserved
-   for chrome and never used in a chart; the chart palette carries the three
-   contenders and is validated for both surfaces. */
+
 :root{
   --bg:#f6f7f9; --surface:#ffffff; --surface-2:#eef1f5; --sunk:#f9fafb;
   --ink:#0d1117; --ink-2:#4a5260; --ink-3:#848d9c;
@@ -180,8 +191,9 @@ footer{padding-block:44px 60px;background:var(--surface)}
   <p class="eyebrow">Ballon d'Or 2026 men's vote analysis</p>
   <h1>Twenty-eight points</h1>
   <p class="sub">Harry Kane beat Kylian Mbapp&eacute; by the fourth-smallest margin in the award's
-   seventy years. Every country's ballot is public, so the margin can be taken apart.
-   This page does that, and lets you check all one hundred ballots yourself.</p>
+   seventy years. The football world is divided over who truly deserved the award, so this merits an analysis of the voting data
+   to help us understand what actually took course. I have designed this such that it is interactive and you can check 
+   and test assumptions yourself.</p>
   <div class="podium">
    <div><span class="bar" style="background:var(--kane)"></span>
     <div class="pos">Winner &middot; 40 first places</div>
@@ -222,8 +234,7 @@ footer{padding-block:44px 60px;background:var(--surface)}
  <p class="eyebrow">One</p>
  <h2>Three men, three completely different seasons</h2>
  <div class="col">
-  <p class="lede">The award covered the 2025-26 club season and the 2026 World Cup in North America.
-   The three who finished on the podium had almost nothing in common.</p>
+  <p class="lede">The award covers the 2025-26 club season plus the 2026 World Cup in North America. What strikes me about these three is how little they actually have in common. Same podium, completely different routes to it.</p>
  </div>
 
  <div class="grid g3" style="margin-top:28px">
@@ -240,43 +251,27 @@ footer{padding-block:44px 60px;background:var(--surface)}
  </div>
 
  <div class="chart"><div class="ct">Appearances and goals, competition by competition</div>
-  <div class="cs">Pale bar = matches played. Solid bar = goals. Kane outscored his own appearance
-   count in the Bundesliga: 36 goals in 31 matches. Hover any bar for the detail.</div>
+  <div class="cs">Pale bar = matches played, solid bar = goals. Look at Kane's league row for a second: 36 goals in 31 matches. He outscored his own appearance count. Hover any bar for the detail.</div>
   <div id="c-comp" class="ec" style="height:400px"></div></div>
 
  <div class="chart"><div class="ct">Official player-of-the-match awards, on neutral ground</div>
-  <div class="cs">The Champions League and the World Cup are the only two competitions all three
-   played in where the same bodies &mdash; UEFA and FIFA &mdash; hand out the award. This is the
-   like-for-like comparison. Hover a bar for the split.</div>
+  <div class="cs">These are the only two competitions all three played in where the same people &mdash; UEFA and FIFA &mdash; hand out the award, so it is the only fair comparison I can make. Hover a bar for the split.</div>
   <div id="c-motm" class="ec" style="height:250px"></div></div>
 
- <div class="note"><b>Why the leagues are left out.</b> Kane won <b>11 Bundesliga man-of-the-match
-  awards</b>, more than any player in that division. There is no figure to put beside it: La Liga
-  publishes no season man-of-the-match count, and no provider tally for 2025-26 could be sourced for
-  Mbapp&eacute; or Yamal. Therefore, I decided to have the chart show only the competitions that count all three the
-  same way.</div>
+ <div class="note"><b>Why I left the leagues out.</b> Kane won <b>11 Bundesliga man-of-the-match awards</b>, more than anyone else in that division. The problem is that I have nothing to put next to it: La Liga publishes no season count, and I could not find a trustworthy 2025-26 tally for Mbapp&eacute; or Yamal anywhere. Counting Kane's 11 while the other two sit on zero would turn a 6&ndash;6 tie into 17&ndash;6, which would be nonsense. Therefore, I decided to have the chart show only the competitions that count all three the same way.</div>
 
  <h3>How strong was each man's league?</h3>
- <div class="col"><p>UEFA ranks its associations on a rolling five-year coefficient, which is the
-  closest thing football has to an official measure of league strength. By that measure the
-  Premier League is comfortably Europe's strongest and the Bundesliga is only the fourth
-  strongest of the big five.</p></div>
+ <div class="col"><p>UEFA ranks its associations on a rolling five-year coefficient, which is about as close as football gets to an official league-strength table, so let's use it. By that measure the Premier League is comfortably Europe's strongest, and the Bundesliga is only the fourth strongest of the big five.</p></div>
  <div class="chart"><div class="ct">League strength against votes won</div>
-  <div class="cs">Left: UEFA's five-year association coefficient. Right: Ballon d'Or points won by
-   players from that league. The strongest league produced the fewest points of the three that
-   mattered.</div>
+  <div class="cs">Left: UEFA's five-year association coefficient. Right: Ballon d'Or points won by players from that league. Notice that the strongest league produced the fewest points of the three that mattered.</div>
   <div id="c-league" class="ec" style="height:290px"></div></div>
- <div class="pull">Kane won the Ballon d'Or from the fourth-ranked of Europe's big five leagues.
-  The Premier League, ranked first, put seven men on the shortlist and they collected 1,195
-  points between them &mdash; fewer than Bayern's four players managed on their own.</div>
+ <div class="pull">So Kane won the Ballon d'Or out of the fourth-ranked of Europe's big five leagues. Meanwhile the Premier League, ranked first, put seven men on the shortlist and they managed 1,195 points between them &mdash; fewer than Bayern's four players on their own.</div>
 </div></section>
 
 <section id="margin"><div class="wrap">
  <p class="eyebrow">Two</p>
  <h2>The margin came from the top of the ballot, and nowhere else</h2>
- <div class="col"><p class="lede">Kane and Mbapp&eacute; were named on almost every ballot &mdash; 98 and 97
-  of 100. They made exactly the same number of podiums: 64 each. On that measure the
-  race was a dead heat.</p></div>
+ <div class="col"><p class="lede">Kane and Mbapp&eacute; were named on almost every ballot &mdash; 98 and 97 of 100. They made exactly the same number of podiums: 64 each. On that measure the race was a dead heat, so where on earth did the 28 points come from?</p></div>
 
  <div class="grid g4" style="margin-top:26px">
   <div class="stat"><span class="k">64 &ndash; 64</span><span class="l">podium finishes.
@@ -290,44 +285,35 @@ footer{padding-block:44px 60px;background:var(--surface)}
  </div>
 
  <div class="chart"><div class="ct">Where each man's points came from</div>
-  <div class="cs">Points collected from each band of ballot positions, and the net swing between
-   them. Kane won the top band by 255; Mbapp&eacute; won every other band.</div>
+  <div class="cs">Points collected from each band of ballot positions, and the net swing between them. Kane won the top band by 255. Mbapp&eacute; won every single band below it.</div>
   <div id="c-tiers" class="ec" style="height:330px"></div></div>
 
  <div class="chart"><div class="ct">Mbapp&eacute; was never ranked below seventh by anybody</div>
-  <div class="cs">How many jurors placed each man in each position. Click a name in the legend to
-   compare two at a time.</div>
+  <div class="cs">How many jurors put each man in each position. Click a name in the legend to compare just two at a time.</div>
   <div id="c-shape" class="ec" style="height:330px"></div></div>
 
- <div class="pull">Ninety-seven jurors named Mbapp&eacute; and not one of them put him eighth, ninth or
-  tenth. He was nobody's afterthought. Kane took five votes in that bottom band and was left
+ <div class="pull">97 jurors named Mbapp&eacute; and not one of them put him eighth, ninth or tenth. He was nobody's afterthought. Kane took five votes in that bottom band and was left
   off two ballots entirely &mdash; and well, won!</div>
 
- <div class="col"><p>So Kane was the more divisive candidate and Mbapp&eacute; the more universally
-  respected one, and the scoring scale rewarded division. The spread of Kane's ballot positions
-  is 2.36 against Mbapp&eacute;'s 1.73.</p></div>
+ <div class="col"><p>So Kane was the more divisive candidate and Mbapp&eacute; the more widely respected one &mdash; and the scale rewarded being divisive. The spread of Kane's ballot positions is 2.36 against Mbapp&eacute;'s 1.73.</p></div>
 
  <div class="chart"><div class="ct">Divisive or dependable</div>
-  <div class="cs">Each bubble is one of the top ten finishers, sized by final points. Left is a
-   better average position; up is a wider spread of opinion.</div>
+  <div class="cs">Each bubble is one of the top 10 finishers, sized by final points. Further left = a better average position. Higher up = the jury disagreed more.</div>
   <div id="c-spread" class="ec" style="height:420px"></div></div>
 </div></section>
 
 <section id="omissions"><div class="wrap">
  <p class="eyebrow">Three</p>
  <h2>Five jurors left one of the top two off the ballot entirely</h2>
- <div class="col"><p class="lede">With thirty nominees and ten slots, leaving a man out is a
-  statement. Three jurors left out Mbapp&eacute;; two left out Kane.</p></div>
+ <div class="col"><p class="lede">With 30 nominees and only 10 slots, leaving someone out says something. Three jurors left out Mbapp&eacute;; two left out Kane.</p></div>
 
  <div class="chart"><div class="ct">How many of the 100 jurors left each man off their ballot</div>
-  <div class="cs">Hover a bar to see exactly who. Haaland, who scored at a World Cup and plays for
-   Manchester City, was left out by almost a quarter of the jury.</div>
+  <div class="cs">Hover a bar to see exactly who. Spare a thought for Haaland: he scored at a World Cup, plays for Manchester City, and still got left out by almost a quarter of the jury.</div>
   <div id="c-omit" class="ec" style="height:330px"></div></div>
 
  <div class="grid g2" style="margin-top:8px">
   <div class="card"><h4 style="color:var(--mbappe)">Nobody outside Europe left Mbapp&eacute; out</h4>
-   <p class="small" style="margin-bottom:12px">All three omissions came from UEFA jurors.
-    Pick one to see the ballot.</p>
+   <p class="small" style="margin-bottom:12px">All three came from UEFA jurors. Pick one and see the ballot for yourself.</p>
    <div class="ctrl"><select id="sel-om-m"></select></div>
    <div id="om-m"></div></div>
   <div class="card"><h4 style="color:var(--kane)">The two who left Kane out</h4>
@@ -336,18 +322,13 @@ footer{padding-block:44px 60px;background:var(--surface)}
    <div id="om-k"></div></div>
  </div>
 
- <div class="note"><b>The detail worth telling.</b> Scotland replaced Mbapp&eacute; with Dayot Upamecano,
-  a Bayern centre-half who appears on exactly one ballot in the world. Greece left out Mbapp&eacute;,
-  Yamal <i>and</i> Messi, and gave third place to Willian Pacho, a PSG defender named on two
-  jurors' ballots.</div>
+ <div class="note"><b>The detail I enjoyed most.</b> Scotland dropped Mbapp&eacute; and picked Dayot Upamecano instead &mdash; a Bayern centre-half who appears on exactly one ballot in the entire world. Greece went further still, leaving out Mbapp&eacute;, Yamal <i>and</i> Messi, and handing third place to Willian Pacho, a PSG defender named on two jurors' ballots.</div>
 </div></section>
 
 <section id="uk"><div class="wrap">
  <p class="eyebrow">Four</p>
  <h2>The United Kingdom question</h2>
- <div class="col"><p class="lede">Four of the hundred jurors represent the home nations. The
-  suspicion that they swung an England captain to the Ballon d'Or is worth testing properly,
-  because the arithmetic is genuinely tight &mdash; and the answer has a twist in it.</p></div>
+ <div class="col"><p class="lede">Four of the 100 jurors represent the home nations. I had a hunch they swung an England captain to the Ballon d'Or, and the arithmetic is tight enough that it deserves a proper test rather than a hot take. The answer has a twist in it.</p></div>
 
  <div class="chart"><div class="ct">The four UK ballots in full</div>
   <div class="cs">Every pick, with the points it carried. Kane in blue, Mbapp&eacute; in orange,
@@ -362,21 +343,15 @@ footer{padding-block:44px 60px;background:var(--surface)}
  </div>
 
  <div class="chart"><div class="ct">The result, with and without the home nations</div>
-  <div class="cs">Conditional arithmetic on the ballots as submitted. Nothing else changes.</div>
+  <div class="cs">This is just arithmetic on the ballots as they were actually submitted. Nothing else changes.</div>
   <div id="c-uk" class="ec" style="height:280px"></div></div>
 
  <h3>And now the twist</h3>
  <div class="col">
-  <p><b>The home nations did not vote as a bloc.</b> Wales put Lamine Yamal first and Kane second.
-   Paul Abbandonato's ballot is one of only thirteen in the world to lead with Yamal.</p>
-  <p><b>Scotland is the outlier, not England.</b> John Greechan's ballot gave Kane fifteen points
-   and Mbapp&eacute; none at all &mdash; the single most pro-Kane ballot on earth. England's juror, Henry
-   Winter, had Mbapp&eacute; fifth.</p>
+  <p><b>The home nations did not vote as a bloc.</b> Wales put Lamine Yamal first and Kane second &mdash; Paul Abbandonato's ballot is one of only 13 in the world to lead with Yamal.</p>
+  <p><b>And Scotland is the outlier here, not England.</b> John Greechan gave Kane 15 points and Mbapp&eacute; nothing at all, which makes it the single most pro-Kane ballot on earth. England's own juror, Henry Winter, had Mbapp&eacute; fifth.</p>
  </div>
- <div class="note"><b>Two things this does not show.</b> It is not evidence of bias: a journalist
-  watching a striker score 73 goals may simply rate him highest, as 40 jurors from 39 other
-  countries did. And no single ballot could have changed the result &mdash; the largest swing
-  available from one is fifteen points against a twenty-eight point lead.</div>
+ <div class="note"><b>Two things I am not saying.</b> This is not evidence of bias &mdash; a journalist watching a striker score 73 goals may simply rate him highest, as 40 jurors from 39 other countries did. And no single ballot could have changed this on its own: the biggest swing one of them can offer is 15 points against a 28-point lead.</div>
 
  <div class="chart"><div class="ct">Every ballot, ranked by how far it leaned</div>
   <div class="cs">Points given to Kane minus points given to Mbapp&eacute;, on each of the 100 ballots.
@@ -387,41 +362,29 @@ footer{padding-block:44px 60px;background:var(--surface)}
 <section id="podium"><div class="wrap">
  <p class="eyebrow">Five</p>
  <h2>The podium and the respect zone are two different competitions</h2>
- <div class="col"><p class="lede">A ballot has two halves. The podium is where a juror says who was
-  best. Places four to seven are where a juror says who deserved respect. Almost entirely
-  different players live in each.</p></div>
+ <div class="col"><p class="lede">A ballot really has two halves. The podium is where a juror says who was best. Places four to seven are where they say who deserved respect. Almost entirely different players live in each half.</p></div>
 
  <div class="chart"><div class="ct">Every ballot, split into bands</div>
   <div class="cs">Each bar is all 100 ballots. Click a band in the legend to remove it.</div>
   <div id="c-bands" class="ec" style="height:420px"></div></div>
 
- <div class="pull">Kane tops the podium list with 64 and sits ninth in the respect zone with 29.
-  Khvicha Kvaratskhelia is the mirror image: 19 podiums, but 49 appearances between fourth and
-  seventh &mdash; more than anyone. That is what sixth place in a Ballon d'Or is made of.</div>
+ <div class="pull">Kane tops the podium list with 64, then drops to ninth in the respect zone with 29. Kvaratskhelia is the exact mirror image: only 19 podiums, but 49 appearances between fourth and seventh, more than anyone else. That, it turns out, is what sixth place in a Ballon d'Or is actually made of.</div>
 
  <div class="chart"><div class="ct">Who made the podium, by confederation</div>
-  <div class="cs">The share of each confederation's jurors who put that player in their top three.
-   OFC is a single ballot, so it reads 0% or 100%. Hover for the raw count.</div>
+  <div class="cs">The share of each confederation's jurors who put that player in their top three. OFC is a single ballot, so it can only ever read 0% or 100%. Hover for the raw count.</div>
   <div id="c-heat" class="ec" style="height:420px"></div></div>
 
- <div class="col"><p>This is where the real geography of the vote shows up, and it is not the one
-  most people assumed. <b>Mbapp&eacute; was the podium pick of Africa</b> &mdash; 65% of CAF jurors put him
-  in their top three against 45% for Kane. <b>Europe was Kane's base</b> &mdash; 71% of UEFA jurors had
-  him on the podium against 56% for Mbapp&eacute;.</p></div>
+ <div class="col"><p>This is where the real geography shows up, and it is not the one most people assumed. <b>Mbapp&eacute; was the podium pick of Africa</b> &mdash; 65% of CAF jurors put him in their top three against 45% for Kane. <b>Europe was Kane's base</b> &mdash; 71% of UEFA jurors had him on the podium against 56% for Mbapp&eacute;. Two continents, pulling in opposite directions.</p></div>
 </div></section>
 
 <section id="duel"><div class="wrap">
  <p class="eyebrow">Six</p>
  <h2>Were they rivals, or running mates?</h2>
- <div class="col"><p class="lede">When a juror rated Kane highly, what did that juror do with
-  Mbapp&eacute;? Two tests give two different answers, and the combination is the finding.</p></div>
+ <div class="col"><p class="lede">When a juror rated Kane highly, what did they do with Mbapp&eacute;? I ran two tests and got two different answers. Put together, that is the finding.</p></div>
 
  <div class="grid g2" style="margin-top:26px">
   <div class="card"><h4>Test one &middot; the podium</h4>
-   <p class="small">Forty jurors found room for both men in their top three. Fisher's exact test
-    on the 2&times;2 table gives an odds ratio of 0.83 and <b>p&nbsp;=&nbsp;0.83</b>. Having Kane on
-    your podium told you nothing about whether Mbapp&eacute; was on it too. The podium was simply wide
-    enough for the pair of them.</p>
+   <p class="small">Forty jurors found room for both men in their top three. Fisher's exact test on the 2&times;2 table gives an odds ratio of 0.83 and <b>p&nbsp;=&nbsp;0.83</b>, so having Kane on your podium told you nothing at all about whether Mbapp&eacute; was on it too. The podium was simply wide enough for both of them.</p>
    <div id="t-2x2" style="margin-top:12px"></div></div>
   <div class="card"><h4>Test two &middot; the order</h4>
    <p class="small">Among the 95 jurors who named both, rating one higher went with rating the
@@ -438,25 +401,19 @@ footer{padding-block:44px 60px;background:var(--surface)}
   <div id="c-duel" class="ec" style="height:470px"></div></div>
 
  <div class="chart"><div class="ct">The third name on the podium</div>
-  <div class="cs">What else sat in the top three, split by which of the two was there. Almost
-   identical &mdash; whatever divided the jury on Kane and Mbapp&eacute; did not extend to anyone else.</div>
+  <div class="cs">What else sat in the top three, split by which of the two was there. Almost identical &mdash; so whatever divided the jury on Kane and Mbapp&eacute; did not spill over onto anyone else.</div>
   <div id="c-third" class="ec" style="height:300px"></div></div>
 </div></section>
 
 <section id="network"><div class="wrap">
  <p class="eyebrow">Seven</p>
  <h2>The voting network</h2>
- <div class="col"><p class="lede">Every chart so far has counted things. A network does something
-  different: it treats the hundred ballots as a structure and asks whether jurors cluster into
-  groups that vote alike &mdash; and whether those groups follow football's map.</p>
-  <p>Each ballot is compared with every other using cosine similarity across all thirty players'
-   point allocations. Each juror is then linked to its five nearest neighbours, and Louvain
-   community detection looks for groups in the result.</p></div>
+ <div class="col"><p class="lede">Every chart so far has simply counted things. A network does something different: it treats the 100 ballots as one structure and asks whether jurors cluster into groups that vote alike &mdash; and whether those groups follow football's map.</p>
+  <p>Here is how it works. Each ballot is compared with every other using cosine similarity across all 30 players' point allocations. Each juror is then linked to its five nearest neighbours, and Louvain community detection goes looking for groups in the result.</p></div>
 
  <div class="chart"><div class="ct">Who votes like whom</div>
   <div class="cs">100 jurors, 388 links. Scroll to zoom, drag to pan, hover a dot for the juror and
-   their top five, hover a line for the similarity score. Position comes from ballot similarity,
-   not geography, and a line is a statistical resemblance &mdash; not contact between journalists.</div>
+   their top five, hover a line for the similarity score. Position comes from ballot similarity, not geography, and a line only means two ballots look alike &mdash; not that the journalists ever spoke.</div>
   <div class="ctrl"><label>Colour by</label>
    <button class="btn on" data-net="first">Who they put first</button>
    <button class="btn" data-net="group">Voting group</button>
@@ -472,10 +429,7 @@ footer{padding-block:44px 60px;background:var(--surface)}
   <div id="c-matrix" class="ec" style="height:430px"></div></div>
 
  <h3>Does football's map explain the vote?</h3>
- <div class="col"><p>If confederation really drove voting, ballots from the same confederation
-  should look more like each other than like ballots from elsewhere. That is testable: compare the
-  average within-group similarity to the between-group average, then shuffle the confederation
-  labels 9,999 times to see how often chance produces a gap that big.</p></div>
+ <div class="col"><p>If confederation really drove the voting, then ballots from the same confederation should look more like each other than like ballots from elsewhere. That is testable, so let's test it: compare the average within-group similarity to the between-group average, then shuffle the confederation labels 9,999 times and see how often chance alone produces a gap that big.</p></div>
 
  <div class="grid g2" style="margin-top:20px">
   <div class="stat"><span class="k">0.728 <span style="color:var(--ink-3);font-size:.6em">vs</span> 0.721</span>
@@ -492,8 +446,7 @@ footer{padding-block:44px 60px;background:var(--surface)}
 
  <div class="grid g2" style="margin-top:22px">
   <div class="card"><h4>The most ordinary ballot in the world</h4>
-   <p class="small">Neil Davidson of The Globe and Mail in <b>Canada</b> voted most like everyone
-    else, and his ten names line up with the final standings at 0.977.</p>
+   <p class="small">Neil Davidson of The Globe and Mail in <b>Canada</b> voted more like everyone else than anyone else did. His ten names line up with the final standings at 0.977.</p>
    <div id="b-canada" style="margin-top:10px"></div></div>
   <div class="card"><h4>The least ordinary</h4>
    <p class="small">Igor Linnyk of FootClub in <b>Ukraine</b> put Fabi&aacute;n Ruiz first, Pau Cubars&iacute;
@@ -503,10 +456,7 @@ footer{padding-block:44px 60px;background:var(--surface)}
  </div>
 
  <h3>Voting twins</h3>
- <div class="col"><p>Across all 4,950 pairs of ballots, the two most alike in the world belong to
-  <b>Poland and New Zealand</b> &mdash; Maciej Iwa&#324;ski in Warsaw and Michael Burgess in Auckland, who
-  matched on the top three, shared eight of their ten names and have never met. None of the five
-  closest pairs share a confederation.</p></div>
+ <div class="col"><p>Across all 4,950 pairs of ballots, the two most alike in the world belong to <b>Poland and New Zealand</b>. Maciej Iwa&#324;ski in Warsaw and Michael Burgess in Auckland matched on the top three, shared eight of their ten names, and have almost certainly never met. None of the five closest pairs share a confederation.</p></div>
  <div class="tscroll"><table id="t-pairs"></table></div>
 </div></section>
 
@@ -537,10 +487,7 @@ footer{padding-block:44px 60px;background:var(--surface)}
  </div>
 
  <h3>The PSG paradox</h3>
- <div class="col"><p>PSG retained the Champions League, beating Arsenal on penalties in Budapest,
-  and won Ligue 1. They placed <b>nine of the thirty nominees</b> &mdash; almost a third of the
-  shortlist. Their players were selected 256 times, more than any other club's. Ninety-one of
-  the hundred ballots named at least two PSG men.</p>
+ <div class="col"><p>PSG retained the Champions League, beating Arsenal on penalties in Budapest, and won Ligue 1 as well. They placed <b>nine of the 30 nominees</b>, almost a third of the shortlist. Their players were picked 256 times, more than any other club's, and 91 of the 100 ballots named at least two PSG men.</p>
   <p>Their best finisher was sixth.</p></div>
 
  <div class="chart"><div class="ct">Points won by club, and where PSG's nine finished</div>
@@ -548,9 +495,7 @@ footer{padding-block:44px 60px;background:var(--surface)}
    1,364 from four.</div>
   <div id="c-club" class="ec" style="height:360px"></div></div>
 
- <div class="pull">PSG split their own vote nine ways while Bayern concentrated theirs on a striker
-  who scored 73 goals. It is the strongest argument in the data for why a team award and an
-  individual award measure different things.</div>
+ <div class="pull">PSG split their own vote nine ways while Bayern concentrated theirs on a striker who scored 73 goals. For me this is the strongest argument in the whole dataset for why a team award and an individual award measure completely different things.</div>
 
  <div class="chart"><div class="ct">Spain won the World Cup, had the most nominees and the most points &mdash; and no winner</div>
   <div class="cs">Points won by the nationality of the nominee, with each nation's World Cup finish.
@@ -572,33 +517,24 @@ footer{padding-block:44px 60px;background:var(--surface)}
    negative pair is <b>Kvaratskhelia and Demb&eacute;l&eacute;</b> &mdash; also teammates, at PSG. Jurors picked one
    PSG forward or the other, rarely both highly.</span></div>
  </div>
- <div class="note">These are the extremes of 66 pairs, chosen after looking at the data. They are a
-  good description of this vote; about what the jurors think, I have no idea &smile;.</div>
+ <div class="note">These are the extremes of 66 pairs, chosen after looking at the data. They are a good description of this vote; about what the jurors were actually thinking, I have no idea 🙂</div>
 </div></section>
 
 <section id="rules"><div class="wrap">
  <p class="eyebrow">Nine</p>
  <h2>What-ifs you can run yourself</h2>
- <div class="col"><p class="lede">Two fair questions. Would a different scoring rule have changed
-  the winner? And how few ballots would have had to change? Well, a different rule would probably have produced different
-  ballots as can be seen in the chart below.</p></div>
+ <div class="col"><p class="lede">Two fair questions. Would a different scoring rule have changed the winner? And how few ballots would have had to change? Let's find out below &mdash; though do keep in mind that a different rule would probably have produced different ballots in the first place.</p></div>
 
  <div class="chart"><div class="ct">Change the scoring rule</div>
-  <div class="cs">The submitted rankings never change; only what each position is worth.</div>
+  <div class="cs">The rankings people submitted never change here. Only what each position is worth.</div>
   <div class="ctrl" id="rule-btns"><label>Rule</label></div>
   <div id="c-rule" class="ec" style="height:380px"></div>
   <div id="rule-note" class="tiny" style="margin:4px 0 10px"></div></div>
 
- <div class="pull">Kane wins on first places alone, on podium-weighted scoring, under the official
-  scale, and by more if the top is steeper. On approval &mdash; simply counting who was named &mdash; it is
-  98 to 97. The one rule that changes the answer is the plainest of all: a straight line from ten
-  down to one produces a dead tie at 780 points each.</div>
+ <div class="pull">Kane wins on first places alone, on podium-weighted scoring, under the official scale, and by even more if you make the top steeper. On approval &mdash; just counting who got named at all &mdash; it is 98 to 97. The one rule that changes the answer is the plainest of the lot: a straight line from 10 down to 1 gives a dead tie at 780 points each.</div>
 
  <div class="chart"><div class="ct">Remove ballots and watch the result move</div>
-  <div class="cs">Switch jurors off to recount the award without them. Start with a preset, or pick
-   countries yourself. Three ballots removed &mdash; Scotland, Austria and Denmark &mdash; is enough
-   to flip the award. This measures how close the race was; it is not a suggestion that anything
-   was wrong.</div>
+  <div class="cs">Switch jurors off and the award recounts without them. Start with a preset, or pick countries yourself. Removing just three ballots &mdash; Scotland, Austria and Denmark &mdash; is enough to flip it. That tells you how close this was. It does not mean anything was wrong.</div>
   <div class="ctrl" id="drop-presets"><label>Preset</label>
    <button class="btn on" data-preset="none">All 100 ballots</button>
    <button class="btn" data-preset="uk">Without the UK's four</button>
@@ -614,8 +550,7 @@ footer{padding-block:44px 60px;background:var(--surface)}
 <section id="explorer"><div class="wrap">
  <p class="eyebrow">Ten</p>
  <h2>All one hundred ballots</h2>
- <div class="col"><p class="lede">Every juror, every pick, and who else voted like them. Search by
-  country, journalist or outlet.</p></div>
+ <div class="col"><p class="lede">Every juror, every pick, and who else voted like them. Search by country, journalist or outlet and go digging.</p></div>
 
  <div class="ctrl" style="margin-top:22px">
   <input type="search" id="q" placeholder="Search country, journalist or outlet&hellip;" style="flex:1;min-width:180px">
@@ -631,17 +566,14 @@ footer{padding-block:44px 60px;background:var(--surface)}
  <h2>Method</h2>
  <div class="col">
   <h3 style="margin-top:14px">What the data is</h3>
-  <p>One hundred ballots, one journalist per country, ten ranked names each, scored
-   15-12-10-8-7-5-4-3-2-1. Ballots were taken from the El Nacional country-by-country interactive,
-   which attributes them to France Football; snapshot of 1 November 2026.</p>
+  <p>One hundred ballots, one journalist per country, 10 ranked names each, scored 15-12-10-8-7-5-4-3-2-1. I took them from the El Nacional country-by-country interactive, which attributes them to France Football; snapshot of 1 November 2026.</p>
+  <p>Before anything else, I rebuilt all 30 published point totals from the 1,000 individual selections to make sure the data was sound. They match exactly &mdash; 6,700 points both ways. If they had not, none of the rest would have been worth writing.</p>
+  <p>One oddity I ran into: the El Nacional article's prose gives Yamal 888 points, while its own interactive and its ballots give 881. I went with 881, because that is what the ballots actually add up to.</p>
 
   <h3>Methods used</h3>
-  <p>Cosine similarity over each ballot's thirty-player point vector; a five-nearest-neighbour graph
-   built from it; Louvain community detection; betweenness centrality on the bipartite juror-player
-   graph; a permutation test with 9,999 label shuffles; Fisher's exact test on podium co-occurrence;
-   Spearman rank correlation; and the Wilcoxon signed-rank test for home bias. The community count
-   depends on the Louvain resolution setting, which yields between four and ten groups across the
-   range tested, so the groups are a lens rather than fixed factions.</p>
+  <p>Cosine similarity over each ballot's 30-player point vector; a five-nearest-neighbour graph built from it; Louvain community detection; betweenness centrality on the bipartite juror-player graph; a permutation test with 9,999 label shuffles; Fisher's exact test on podium co-occurrence; Spearman rank correlation; and the Wilcoxon signed-rank test for home bias.</p>
+  <p>One honest caveat on the groups: how many you get depends on the Louvain resolution setting, and across the range I tested it gives anywhere between four and ten. Treat them as a useful lens, not as fixed factions.</p>
+  <p>And two things worth saying plainly, since this post names real journalists. None of this shows coordination or pressure between them &mdash; two ballots looking alike is a statistical resemblance and nothing more. And a country label here means one journalist, not that country's supporters.</p>
  </div>
 </div></section>
 
@@ -1472,3 +1404,4 @@ loadECharts(initCharts, chartsUnavailable);
 
 </body>
 </html>
+{% endraw %}
